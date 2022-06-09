@@ -4,8 +4,8 @@ namespace App\Controller\Api\V1;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
-use LDAP\Result;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,7 +53,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users", name="users_add", methods={"POST"})
      */
-    public function usersPost(
+    public function usersAdd(
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
@@ -164,7 +164,8 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}", name="users_update", methods={"PUT"})
      */
-    public function usersPut(
+    public function usersUpdate(
+        User $user = null,
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
@@ -173,36 +174,13 @@ class UserController extends AbstractController
         // On doit récupérer le contenu JSON qui se trouve dans la Request
         $jsonContent = $request->getContent();
 
-        // Graĉe au Denormalizer ajouté dans src/Serializer
-        // et en transmettant des ids sur les relations depius le JSON d'entrée
-        // Par ex.
-        // "genres": [
-        //     1384,
-        //     1402
-        // ]
-        // le denormalizer ira chercher les entités liées existantes dans la base
-        // et fera le lien automatiquement avec $movie
-
         // @link https://symfony.com/doc/current/components/serializer.html#deserializing-an-object
         // On "désérialise" le contenu JSON en entité de type Movie
-        $user = $serializer->deserialize($jsonContent, User::class, 'json');
-
+        $userRequest = $serializer->deserialize($jsonContent, User::class, 'json');
+        
         // On valide l'entité
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
         $errors = $validator->validate($user);
-
-        // 0 => Symfony\Component\Validator\ConstraintViolation {#979 ▼
-        //     -message: "This value is already used."
-        //     -messageTemplate: "This value is already used."
-        //     -parameters: array:1 [▶]
-        //     -plural: null
-        //     -root: App\Entity\Movie {#891 ▶}
-        //     -propertyPath: "title"
-        //     -invalidValue: ""
-        //     -constraint: Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity {#784 ▶}
-        //     -code: "23bd9dbf-6b9b-41cd-a99e-4844bcf3077f"
-        //     -cause: array:1 [▶]
-        // }
 
         if (count($errors) > 0) {
 
@@ -245,16 +223,15 @@ class UserController extends AbstractController
             }
 
             return $this->json($cleanErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
-            // On peut aussi retourner $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY)
-            // Si on ne souhaite pas reformater la sortie
         }
 
         // On la sauvegarde en base
         $em = $doctrine->getManager();
-        // $userElement = $em->getRepository(User::class)->find($request->get('id'));
-        // dd($userElement);
-        $em->getRepository(User::class)->find($request->get('id'));
-        // $em->persist($userElement);
+        $user->setEmail($userRequest->getEmail());
+        $user->setRole($userRequest->getRole());
+        $user->setPassword($userRequest->getPassword());
+        $user->setUpdatedAt(new DateTime());
+        // $em->persist($user);
         $em->flush();
 
         // On retourne une réponse qui contient (REST !)
@@ -262,7 +239,7 @@ class UserController extends AbstractController
         // - un en-tête (header) Location: URL_DE_LA_RESSOURCE_CREEE
         // - option perso : le JSON de l'entité créée
         return $this->json(
-            // Le film créé
+            // L'utilisateur modifié'
             $user,
             // Le status code : 201 CREATED
             // utilisons les constantes de classe !
