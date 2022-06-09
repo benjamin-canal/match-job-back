@@ -20,12 +20,12 @@ class Candidate
     /**
      * @ORM\Column(type="string", length=64)
      */
-    private $lastname;
+    private $lastName;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
      */
-    private $firstname;
+    private $firstName;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -40,7 +40,7 @@ class Candidate
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private $phone_number;
+    private $phoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -60,7 +60,7 @@ class Candidate
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      */
-    private $position_held;
+    private $positionHeld;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -70,12 +70,12 @@ class Candidate
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updated_at;
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -84,24 +84,24 @@ class Candidate
 
     public function getLastname(): ?string
     {
-        return $this->lastname;
+        return $this->lastName;
     }
 
-    public function setLastname(string $lastname): self
+    public function setLastname(string $lastName): self
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
     public function getFirstname(): ?string
     {
-        return $this->firstname;
+        return $this->firstName;
     }
 
-    public function setFirstname(?string $firstname): self
+    public function setFirstname(?string $firstName): self
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
 
         return $this;
     }
@@ -132,12 +132,12 @@ class Candidate
 
     public function getPhoneNumber(): ?string
     {
-        return $this->phone_number;
+        return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(?string $phone_number): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
-        $this->phone_number = $phone_number;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -180,12 +180,12 @@ class Candidate
 
     public function getPositionHeld(): ?string
     {
-        return $this->position_held;
+        return $this->positionHeld;
     }
 
-    public function setPositionHeld(?string $position_held): self
+    public function setPositionHeld(?string $positionHeld): self
     {
-        $this->position_held = $position_held;
+        $this->positionHeld = $positionHeld;
 
         return $this;
     }
@@ -204,24 +204,24 @@ class Candidate
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

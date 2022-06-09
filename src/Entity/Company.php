@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\JobRepository;
+use App\Repository\CompanyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=JobRepository::class)
+ * @ORM\Entity(repositoryClass=CompanyRepository::class)
  */
-class Job
+class Company
 {
     /**
      * @ORM\Id
@@ -18,19 +18,9 @@ class Job
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=128)
+     * @ORM\Column(type="string", length=64)
      */
-    private $jobName;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
-
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $status;
+    private $companyName;
 
     /**
      * @ORM\Column(type="datetime")
@@ -47,38 +37,14 @@ class Job
         return $this->id;
     }
 
-    public function getJobName(): ?string
+    public function getCompanyName(): ?string
     {
-        return $this->jobName;
+        return $this->companyName;
     }
 
-    public function setJobName(string $jobName): self
+    public function setCompanyName(string $companyName): self
     {
-        $this->jobName = $jobName;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
+        $this->companyName = $companyName;
 
         return $this;
     }
