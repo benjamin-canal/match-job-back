@@ -29,7 +29,7 @@
 |id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|L'identifiant de l'utilisateur|
 |email|VARCHAR(180)|NOT NULL|L'adresse mail de l'utilisateur|
 |password|VARCHAR(255)|NOT NULL|le mot de passe de l'utilisateur|
-|roles|ENUM("candidat","recruiter", "admin")|NOT NULL|le role de l'utilisateur|
+|role|ENUM("candidate","recruiter", "admin")|NOT NULL|le role de l'utilisateur|
 |created_at|TIMESTAMP|DEFAULT CURRENT_TIMESTAMP|La date de création de l'utilisateur|
 |updated_at|TIMESTAMP|NULL|La date de la dernière mise à jour de l'utilisateur|
 
