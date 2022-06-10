@@ -48,6 +48,12 @@ class Recruiter
      */
     private $company;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recruiters")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +127,18 @@ class Recruiter
     public function setCompany(?Company $company): self
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
