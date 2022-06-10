@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SalaryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,22 @@ class Salary
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Candidate::class, mappedBy="salary")
+     */
+    private $candidate;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="salary")
+     */
+    private $job;
+
+    public function __construct()
+    {
+        $this->candidate = new ArrayCollection();
+        $this->job = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +87,66 @@ class Salary
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidate>
+     */
+    public function getCandidate(): Collection
+    {
+        return $this->candidate;
+    }
+
+    public function addCandidate(Candidate $candidate): self
+    {
+        if (!$this->candidate->contains($candidate)) {
+            $this->candidate[] = $candidate;
+            $candidate->setSalary($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidate(Candidate $candidate): self
+    {
+        if ($this->candidate->removeElement($candidate)) {
+            // set the owning side to null (unless already changed)
+            if ($candidate->getSalary() === $this) {
+                $candidate->setSalary(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Job>
+     */
+    public function getJob(): Collection
+    {
+        return $this->job;
+    }
+
+    public function addJob(Job $job): self
+    {
+        if (!$this->job->contains($job)) {
+            $this->job[] = $job;
+            $job->setSalary($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): self
+    {
+        if ($this->job->removeElement($job)) {
+            // set the owning side to null (unless already changed)
+            if ($job->getSalary() === $this) {
+                $job->setSalary(null);
+            }
+        }
 
         return $this;
     }

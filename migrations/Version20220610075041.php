@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220609134833 extends AbstractMigration
+final class Version20220610075041 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,16 @@ final class Version20220609134833 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE recruiter (id INT AUTO_INCREMENT NOT NULL, lastname VARCHAR(64) NOT NULL, firstname VARCHAR(64) DEFAULT NULL, phone_number VARCHAR(10) DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE company ADD adress_id INT NOT NULL');
+        $this->addSql('ALTER TABLE company ADD CONSTRAINT FK_4FBF094F8486F9AC FOREIGN KEY (adress_id) REFERENCES adress (id)');
+        $this->addSql('CREATE INDEX IDX_4FBF094F8486F9AC ON company (adress_id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE recruiter');
+        $this->addSql('ALTER TABLE company DROP FOREIGN KEY FK_4FBF094F8486F9AC');
+        $this->addSql('DROP INDEX IDX_4FBF094F8486F9AC ON company');
+        $this->addSql('ALTER TABLE company DROP adress_id');
     }
 }

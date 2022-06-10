@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -76,6 +78,58 @@ class Candidate
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="candidates")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $adress;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="candidates")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Matchup::class, mappedBy="candidate")
+     */
+    private $matchups;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="candidate")
+     */
+    private $technologies;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="candidate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $contract;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Experience::class, inversedBy="candidate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $experience;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Jobtitle::class, inversedBy="candidate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $jobtitle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Salary::class, inversedBy="candidate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $salary;
+
+    public function __construct()
+    {
+        $this->matchups = new ArrayCollection();
+        $this->technologies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -222,6 +276,135 @@ class Candidate
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?Adress $adress): self
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Matchup>
+     */
+    public function getMatchups(): Collection
+    {
+        return $this->matchups;
+    }
+
+    public function addMatchup(Matchup $matchup): self
+    {
+        if (!$this->matchups->contains($matchup)) {
+            $this->matchups[] = $matchup;
+            $matchup->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatchup(Matchup $matchup): self
+    {
+        if ($this->matchups->removeElement($matchup)) {
+            // set the owning side to null (unless already changed)
+            if ($matchup->getCandidate() === $this) {
+                $matchup->setCandidate(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Technology>
+     */
+    public function getTechnologies(): Collection
+    {
+        return $this->technologies;
+    }
+
+    public function addTechnology(Technology $technology): self
+    {
+        if (!$this->technologies->contains($technology)) {
+            $this->technologies[] = $technology;
+            $technology->addCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnology(Technology $technology): self
+    {
+        if ($this->technologies->removeElement($technology)) {
+            $technology->removeCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function getContract(): ?Contract
+    {
+        return $this->contract;
+    }
+
+    public function setContract(?Contract $contract): self
+    {
+        $this->contract = $contract;
+
+        return $this;
+    }
+
+    public function getExperience(): ?Experience
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?Experience $experience): self
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getJobtitle(): ?Jobtitle
+    {
+        return $this->jobtitle;
+    }
+
+    public function setJobtitle(?Jobtitle $jobtitle): self
+    {
+        $this->jobtitle = $jobtitle;
+
+        return $this;
+    }
+
+    public function getSalary(): ?Salary
+    {
+        return $this->salary;
+    }
+
+    public function setSalary(?Salary $salary): self
+    {
+        $this->salary = $salary;
 
         return $this;
     }

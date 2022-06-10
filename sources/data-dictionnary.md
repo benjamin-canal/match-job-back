@@ -124,7 +124,7 @@
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date du secteur d'activité|
 |updated_at|DATETIME|NULL|La date de la dernière mise à jour du secteur d'activité|
 
-## Match (`match`)
+## Match (`matchup`)
 
 |Champ|Type|Spécificités|Description|
 |-|-|-|-|
@@ -136,4 +136,15 @@
 |updated_at|DATETIME|NULL|La date de la dernière mise à jour du secteur d'activité|
 |job_id|entity|NULL, FOREIGN KEY|L'id du job (autre entité) pour le match|
 |candidate_id|entity|NULL, FOREIGN KEY|L'id du candidat (autre entité) pour le match|
-|recruiter_id|entity|NULL, FOREIGN KEY|L'id du recruteur (autre entité) pour le match|
+
+## Adresse (`address`)
+
+|Champ|Type|Spécificités|Description|
+|-|-|-|-|
+|id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|L'identifiant de match|
+|street_number|TINYINT|NOT NULL, UNSIGNED|Le numero de rue|
+|stree_name|VARCHAR 128 |NULL, UNSIGNED|Le nom de la rue|
+|city|VARCHAR 128|NOT NULL, UNSIGNED|Le nom de la ville|
+|department|VARCHAR 128|NULL, UNSIGNED|Le département|
+|created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date du secteur d'activité|
+|updated_at|DATETIME|NULL|La date de la dernière mise à jour du secteur d'activité|
