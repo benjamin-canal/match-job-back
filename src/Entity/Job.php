@@ -42,6 +42,12 @@ class Job
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Recruiter::class, inversedBy="jobs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $recruiter;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +109,18 @@ class Job
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getRecruiters(): ?Recruiter
+    {
+        return $this->recruiter;
+    }
+
+    public function setRecruiters(?Recruiter $recruiter): self
+    {
+        $this->recruiter = $recruiter;
 
         return $this;
     }
