@@ -38,6 +38,12 @@ class Company
      */
     private $sector;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="companies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $adress;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +93,18 @@ class Company
     public function setSector(?Sector $sector): self
     {
         $this->sector = $sector;
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?Adress $adress): self
+    {
+        $this->adress = $adress;
 
         return $this;
     }
