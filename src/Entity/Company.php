@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +45,16 @@ class Company
      * @ORM\JoinColumn(nullable=false)
      */
     private $adress;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Recruiter::class, mappedBy="company")
+     */
+    private $recruiters;
+
+    public function __construct()
+    {
+        $this->recruiters = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +117,36 @@ class Company
     public function setAdress(?Adress $adress): self
     {
         $this->adress = $adress;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recruiter>
+     */
+    public function getRecruiters(): Collection
+    {
+        return $this->recruiters;
+    }
+
+    public function addRecruiter(Recruiter $recruiter): self
+    {
+        if (!$this->recruiters->contains($recruiter)) {
+            $this->recruiters[] = $recruiter;
+            $recruiter->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecruiter(Recruiter $recruiter): self
+    {
+        if ($this->recruiters->removeElement($recruiter)) {
+            // set the owning side to null (unless already changed)
+            if ($recruiter->getCompany() === $this) {
+                $recruiter->setCompany(null);
+            }
+        }
 
         return $this;
     }
