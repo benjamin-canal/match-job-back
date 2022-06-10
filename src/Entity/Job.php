@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JobRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +49,16 @@ class Job
      * @ORM\JoinColumn(nullable=false)
      */
     private $recruiter;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Matchup::class, mappedBy="job")
+     */
+    private $matchups;
+
+    public function __construct()
+    {
+        $this->matchups = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +133,36 @@ class Job
     public function setRecruiters(?Recruiter $recruiter): self
     {
         $this->recruiter = $recruiter;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Matchup>
+     */
+    public function getMatchups(): Collection
+    {
+        return $this->matchups;
+    }
+
+    public function addMatchup(Matchup $matchup): self
+    {
+        if (!$this->matchups->contains($matchup)) {
+            $this->matchups[] = $matchup;
+            $matchup->setJob($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatchup(Matchup $matchup): self
+    {
+        if ($this->matchups->removeElement($matchup)) {
+            // set the owning side to null (unless already changed)
+            if ($matchup->getJob() === $this) {
+                $matchup->setJob(null);
+            }
+        }
 
         return $this;
     }

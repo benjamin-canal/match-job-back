@@ -42,6 +42,16 @@ class Matchup
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Candidate::class, inversedBy="matchups")
+     */
+    private $candidate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="matchups")
+     */
+    private $job;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +113,30 @@ class Matchup
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCandidate(): ?Candidate
+    {
+        return $this->candidate;
+    }
+
+    public function setCandidate(?Candidate $candidate): self
+    {
+        $this->candidate = $candidate;
+
+        return $this;
+    }
+
+    public function getJob(): ?Job
+    {
+        return $this->job;
+    }
+
+    public function setJob(?Job $job): self
+    {
+        $this->job = $job;
 
         return $this;
     }

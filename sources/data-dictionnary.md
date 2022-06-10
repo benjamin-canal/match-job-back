@@ -124,7 +124,7 @@
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date du secteur d'activité|
 |updated_at|DATETIME|NULL|La date de la dernière mise à jour du secteur d'activité|
 
-## Match (`match`)
+## Match (`matchup`)
 
 |Champ|Type|Spécificités|Description|
 |-|-|-|-|
@@ -136,7 +136,6 @@
 |updated_at|DATETIME|NULL|La date de la dernière mise à jour du secteur d'activité|
 |job_id|entity|NULL, FOREIGN KEY|L'id du job (autre entité) pour le match|
 |candidate_id|entity|NULL, FOREIGN KEY|L'id du candidat (autre entité) pour le match|
-|recruiter_id|entity|NULL, FOREIGN KEY|L'id du recruteur (autre entité) pour le match|
 
 ## Adresse (`address`)
 

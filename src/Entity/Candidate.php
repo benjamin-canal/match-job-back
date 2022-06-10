@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -88,6 +90,16 @@ class Candidate
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Matchup::class, mappedBy="candidate", nullable=true)
+     */
+    private $matchups;
+
+    public function __construct()
+    {
+        $this->matchups = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -258,6 +270,36 @@ class Candidate
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Matchup>
+     */
+    public function getMatchups(): Collection
+    {
+        return $this->matchups;
+    }
+
+    public function addMatchup(Matchup $matchup): self
+    {
+        if (!$this->matchups->contains($matchup)) {
+            $this->matchups[] = $matchup;
+            $matchup->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatchup(Matchup $matchup): self
+    {
+        if ($this->matchups->removeElement($matchup)) {
+            // set the owning side to null (unless already changed)
+            if ($matchup->getCandidate() === $this) {
+                $matchup->setCandidate(null);
+            }
+        }
 
         return $this;
     }
