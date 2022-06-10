@@ -52,9 +52,15 @@ class User
      */
     private $recruiters;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Candidate::class, mappedBy="user")
+     */
+    private $candidates;
+
     public function __construct()
     {
         $this->recruiters = new ArrayCollection();
+        $this->candidates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,6 +152,36 @@ class User
             // set the owning side to null (unless already changed)
             if ($recruiter->getUser() === $this) {
                 $recruiter->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidate>
+     */
+    public function getCandidates(): Collection
+    {
+        return $this->candidates;
+    }
+
+    public function addCandidate(Candidate $candidate): self
+    {
+        if (!$this->candidates->contains($candidate)) {
+            $this->candidates[] = $candidate;
+            $candidate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidate(Candidate $candidate): self
+    {
+        if ($this->candidates->removeElement($candidate)) {
+            // set the owning side to null (unless already changed)
+            if ($candidate->getUser() === $this) {
+                $candidate->setUser(null);
             }
         }
 

@@ -83,6 +83,12 @@ class Candidate
      */
     private $adress;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="candidates")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -240,6 +246,18 @@ class Candidate
     public function setAdress(?Adress $adress): self
     {
         $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
