@@ -66,6 +66,12 @@ class Job
      */
     private $contract;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Experience::class, inversedBy="job")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $experience;
+
     public function __construct()
     {
         $this->matchups = new ArrayCollection();
@@ -214,6 +220,18 @@ class Job
     public function setContract(?Contract $contract): self
     {
         $this->contract = $contract;
+
+        return $this;
+    }
+
+    public function getExperience(): ?Experience
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?Experience $experience): self
+    {
+        $this->experience = $experience;
 
         return $this;
     }
