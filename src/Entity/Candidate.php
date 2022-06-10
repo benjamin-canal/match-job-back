@@ -92,13 +92,19 @@ class Candidate
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Matchup::class, mappedBy="candidate", nullable=true)
+     * @ORM\OneToMany(targetEntity=Matchup::class, mappedBy="candidate")
      */
     private $matchups;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="candidate")
+     */
+    private $technologies;
 
     public function __construct()
     {
         $this->matchups = new ArrayCollection();
+        $this->technologies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -299,6 +305,33 @@ class Candidate
             if ($matchup->getCandidate() === $this) {
                 $matchup->setCandidate(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Technology>
+     */
+    public function getTechnologies(): Collection
+    {
+        return $this->technologies;
+    }
+
+    public function addTechnology(Technology $technology): self
+    {
+        if (!$this->technologies->contains($technology)) {
+            $this->technologies[] = $technology;
+            $technology->addCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnology(Technology $technology): self
+    {
+        if ($this->technologies->removeElement($technology)) {
+            $technology->removeCandidate($this);
         }
 
         return $this;

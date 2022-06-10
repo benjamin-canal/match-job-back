@@ -55,9 +55,15 @@ class Job
      */
     private $matchups;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="job")
+     */
+    private $technologies;
+
     public function __construct()
     {
         $this->matchups = new ArrayCollection();
+        $this->technologies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,6 +168,33 @@ class Job
             if ($matchup->getJob() === $this) {
                 $matchup->setJob(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Technology>
+     */
+    public function getTechnologies(): Collection
+    {
+        return $this->technologies;
+    }
+
+    public function addTechnology(Technology $technology): self
+    {
+        if (!$this->technologies->contains($technology)) {
+            $this->technologies[] = $technology;
+            $technology->addJob($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnology(Technology $technology): self
+    {
+        if ($this->technologies->removeElement($technology)) {
+            $technology->removeJob($this);
         }
 
         return $this;
