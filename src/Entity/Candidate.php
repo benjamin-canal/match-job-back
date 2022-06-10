@@ -119,6 +119,12 @@ class Candidate
      */
     private $jobtitle;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Salary::class, inversedBy="candidate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $salary;
+
     public function __construct()
     {
         $this->matchups = new ArrayCollection();
@@ -387,6 +393,18 @@ class Candidate
     public function setJobtitle(?Jobtitle $jobtitle): self
     {
         $this->jobtitle = $jobtitle;
+
+        return $this;
+    }
+
+    public function getSalary(): ?Salary
+    {
+        return $this->salary;
+    }
+
+    public function setSalary(?Salary $salary): self
+    {
+        $this->salary = $salary;
 
         return $this;
     }
