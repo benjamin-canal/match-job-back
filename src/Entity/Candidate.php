@@ -101,6 +101,12 @@ class Candidate
      */
     private $technologies;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="candidate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $contract;
+
     public function __construct()
     {
         $this->matchups = new ArrayCollection();
@@ -333,6 +339,18 @@ class Candidate
         if ($this->technologies->removeElement($technology)) {
             $technology->removeCandidate($this);
         }
+
+        return $this;
+    }
+
+    public function getContract(): ?Contract
+    {
+        return $this->contract;
+    }
+
+    public function setContract(?Contract $contract): self
+    {
+        $this->contract = $contract;
 
         return $this;
     }
