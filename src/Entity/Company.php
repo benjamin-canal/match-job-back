@@ -32,6 +32,12 @@ class Company
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Sector::class, inversedBy="companies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sector;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +75,18 @@ class Company
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getSector(): ?Sector
+    {
+        return $this->sector;
+    }
+
+    public function setSector(?Sector $sector): self
+    {
+        $this->sector = $sector;
 
         return $this;
     }
