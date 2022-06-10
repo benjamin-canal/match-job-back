@@ -49,9 +49,15 @@ class Adress
      */
     private $companies;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Candidate::class, mappedBy="adress")
+     */
+    private $candidates;
+
     public function __construct()
     {
         $this->companies = new ArrayCollection();
+        $this->candidates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +149,36 @@ class Adress
             // set the owning side to null (unless already changed)
             if ($company->getAdress() === $this) {
                 $company->setAdress(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidate>
+     */
+    public function getCandidates(): Collection
+    {
+        return $this->candidates;
+    }
+
+    public function addCandidate(Candidate $candidate): self
+    {
+        if (!$this->candidates->contains($candidate)) {
+            $this->candidates[] = $candidate;
+            $candidate->setAdress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidate(Candidate $candidate): self
+    {
+        if ($this->candidates->removeElement($candidate)) {
+            // set the owning side to null (unless already changed)
+            if ($candidate->getAdress() === $this) {
+                $candidate->setAdress(null);
             }
         }
 

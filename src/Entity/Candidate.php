@@ -77,6 +77,12 @@ class Candidate
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="candidates")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $adress;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -222,6 +228,18 @@ class Candidate
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?Adress $adress): self
+    {
+        $this->adress = $adress;
 
         return $this;
     }
