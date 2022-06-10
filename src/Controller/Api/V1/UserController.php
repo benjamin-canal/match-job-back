@@ -252,5 +252,23 @@ class UserController extends AbstractController
         );
     }
 
+    /**
+     * @Route("/users/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     */
+    public function usersDelete(User $user = null, ManagerRegistry $doctrine)
+    {
+        // 404 ?
+        if ($user === null) {
+            // Voir si meilleure solution ici : https://symfony.com/doc/current/controller/error_pages.html#overriding-error-output-for-non-html-formats
+            return $this->json(['error' => 'Utilisateur non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $em = $doctrine->getManager();
+        $em->remove($user);
+        $em->flush();
+
+        return $this->json($user, Response::HTTP_OK, [], []);
+    }
+
    
 }
