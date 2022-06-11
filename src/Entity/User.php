@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -36,7 +37,9 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=50, columnDefinition="ENUM('candidate', 'recruiter', 'admin')")
+     * @ORM\Column(type="enumuserrole")
+     * @Assert\Choice({"candidate", "recruiter", "admin"},
+     *  message = "The role {{ value }} is not valid")
      */
     private $role;
 
