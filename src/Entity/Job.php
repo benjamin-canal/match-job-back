@@ -31,6 +31,11 @@ class Job
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 1,
+     *      notInRangeMessage = "This value is not valide",
+     * )
      */
     private $status;
 

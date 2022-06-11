@@ -19,16 +19,31 @@ class Matchup
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 1,
+     *      notInRangeMessage = "This value is not valide",
+     * )
      */
     private $candidateStatus;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 1,
+     *      notInRangeMessage = "This value is not valide",
+     * )
      */
     private $recruiterStatus;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 1,
+     *      notInRangeMessage = "This value is not valide",
+     * )
      */
     private $matchStatus;
 
