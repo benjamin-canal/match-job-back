@@ -63,7 +63,7 @@ class UserController extends AbstractController
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
     ) {
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
@@ -93,6 +93,7 @@ class UserController extends AbstractController
 
             return $this->json($cleanErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
 
         // On la sauvegarde en base
         $em = $doctrine->getManager();
