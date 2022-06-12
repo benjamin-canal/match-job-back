@@ -82,12 +82,12 @@ class UserController extends AbstractController
             /** @var ConstraintViolation $error */
             foreach ($errors as $error) {
 
-                // On récupère les infos
+                // retrieving information
                 $property = $error->getPropertyPath();
                 $message = $error->getMessage();
 
-                // On ajoute le message dans un tableau à la clé $property
-                // PHP gère lui-même l'existence du second tableau
+                // We add the message in an array to the key $property
+                // PHP itself manages the existence of the second array
                 $cleanErrors[$property][] = $message;
             }
 
@@ -95,19 +95,20 @@ class UserController extends AbstractController
         }
 
 
-        // On la sauvegarde en base
+        // backup in database
         $em = $doctrine->getManager();
+        // add a created date
         $user->setCreatedAt(new DateTime());
         $em->persist($user);
         $em->flush();
 
-        // On retourne une réponse qui contient (REST !)
+        // We return a response that contains (REST !)
         return $this->json(
-            // L'utilisateur ajouté
+            // user added
             $user,
-            // Le status code : 201 CREATED
+            // status code : 201 CREATED
             Response::HTTP_CREATED,
-            // REST demande un header Location + l'URL de la ressource créée
+            // REST require locatiion header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_user_get_profil', ['id' => $user->getId()])
             ],
@@ -117,7 +118,7 @@ class UserController extends AbstractController
     /**
      * Method to update a user whose {id} is given
      * 
-     * @Route("/users/{id}", name="users_update", methods={"PUT"})
+     * @Route("/users/{id}", name="users_update", methods={"PUT"}, requirements={"id"="\d+"})
      */
     public function usersUpdate(
         User $user = null,
@@ -126,14 +127,13 @@ class UserController extends AbstractController
         ManagerRegistry $doctrine,
         ValidatorInterface $validator
     ) {
-        // On doit récupérer le contenu JSON qui se trouve dans la Request
+        // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
 
-        // @link https://symfony.com/doc/current/components/serializer.html#deserializing-an-object
-        // On "désérialise" le contenu JSON en entité de type Movie
-        $userRequest = $serializer->deserialize($jsonContent, User::class, 'json');
-        
-        // On valide l'entité
+        // Deserialize the JSON content into a User entity
+        $userReceived = $serializer->deserialize($jsonContent, User::class, 'json');
+
+        // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
         $errors = $validator->validate($user);
 
@@ -144,32 +144,36 @@ class UserController extends AbstractController
             /** @var ConstraintViolation $error */
             foreach ($errors as $error) {
 
-                // On récupère les infos
-                $property = $error->getPropertyPath(); // 'title'
-                $message = $error->getMessage(); // 'This value is already used.'
+                // retrieving information
+                $property = $error->getPropertyPath();
+                $message = $error->getMessage();
 
+                // We add the message in an array to the key $property
+                // PHP itself manages the existence of the second array
                 $cleanErrors[$property][] = $message;
             }
 
             return $this->json($cleanErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        // On la sauvegarde en base
+        // backup in database
         $em = $doctrine->getManager();
-        $user->setEmail($userRequest->getEmail());
-        $user->setRole($userRequest->getRole());
-        $user->setPassword($userRequest->getPassword());
+
+        // update of information between the current entity and the received entity
+        $user->setEmail($userReceived->getEmail());
+        $user->setRole($userReceived->getRole());
+        $user->setPassword($userReceived->getPassword());
         $user->setUpdatedAt(new DateTime());
         $em->flush();
 
-        // On retourne une réponse qui contient (REST !)
+        // We return a response that contains (REST !)
         
         return $this->json(
-            // L'utilisateur modifié'
+            // user updated
             $user,
-            // Le status code : 201 CREATED
+            // status code : 201 CREATED
             Response::HTTP_OK,
-            // REST demande un header Location + l'URL de la ressource créée
+            // REST require locatiion header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_user_get_profil', ['id' => $user->getId()])
             ],
