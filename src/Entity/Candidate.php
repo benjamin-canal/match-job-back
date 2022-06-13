@@ -46,7 +46,7 @@ class Candidate
     private $genre;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=12, nullable=true)
      */
     private $phoneNumber;
 
