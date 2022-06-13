@@ -22,18 +22,24 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180)
-     * @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
+     * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
     /**
+     * @var string The hashed password
      * @ORM\Column(type="string", length=255)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="enumuserrole")
+     * @Assert\Choice({"candidate", "recruiter", "admin"},
+     *  message = "The role {{ value }} is not valid")
      */
     private $role;
 

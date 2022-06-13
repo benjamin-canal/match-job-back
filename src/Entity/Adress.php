@@ -6,6 +6,7 @@ use App\Repository\AdressRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AdressRepository::class)
@@ -30,7 +31,9 @@ class Adress
     private $streetName;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="integer")
+     * @Assert\LessThan(100000)
+     * @Assert\GreaterThan(0)
      */
     private $zip;
 
