@@ -6,6 +6,7 @@ use App\Repository\CandidateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CandidateRepository::class)
@@ -36,6 +37,11 @@ class Candidate
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 2,
+     *      notInRangeMessage = "This value is not valide",
+     * )
      */
     private $genre;
 
@@ -46,11 +52,13 @@ class Candidate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url
      */
     private $resume;
 
@@ -66,6 +74,7 @@ class Candidate
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url
      */
     private $portfolio;
 

@@ -13,6 +13,7 @@
         "doctrine/orm": "^2.12",
         "fzaninotto/faker": "^1.9",
         "gedmo/doctrine-extensions": "^3.7",
+        "nelmio/cors-bundle": "^2.2",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.5",
         "sensio/framework-extra-bundle": "^6.1",

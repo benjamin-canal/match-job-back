@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MatchupRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MatchupRepository::class)
@@ -19,16 +20,31 @@ class Matchup
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 1,
+     *      notInRangeMessage = "This value is not valide",
+     * )
      */
     private $candidateStatus;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 1,
+     *      notInRangeMessage = "This value is not valide",
+     * )
      */
     private $recruiterStatus;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 1,
+     *      notInRangeMessage = "This value is not valide",
+     * )
      */
     private $matchStatus;
 
