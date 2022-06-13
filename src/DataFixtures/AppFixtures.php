@@ -28,7 +28,34 @@ class AppFixtures extends Fixture
      * Les propriétés qui vont accueillir les services nécessaires à la classe de Fixtures
      */
     private $connection;
-
+    
+    // 23 technology
+     private $technologies = [
+        'PHP',
+        'C#',
+        'JavaScript',
+        'HTML5',
+        'CSS3',
+        'API',
+        'Ruby',
+        'Python',
+        'Go',
+        'Wordpress',
+        'React JS',
+        'Symfony',
+        'Angular',
+        'Sass',
+        'Node JS',
+        'Vue JS',
+        'GitHub',
+        'Laravel',
+        'Visual Studio Code',
+        'TypeScript',
+        'Npm',
+        'Yarn',
+        'Bootstrap',
+        'Stack Overflow',
+    ];
     private $salaries = [
         'Selon expérience',
         '19 237 - 22 000',
@@ -214,7 +241,8 @@ class AppFixtures extends Fixture
         
         for ($e = 0; $e <= 20 ; $e++) {
             $experience = new Experience();
-            $experience->setYearsNumber($faker->unique()->experienceType());
+            //$experience->setYearsNumber($faker->unique()->experienceType());
+            $experience->setYearsNumber($this->experiences[$e]);
             $experience->setCreatedAt(new DateTime);
         
         $experienceList[] = $experience;
