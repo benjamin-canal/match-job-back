@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,6 +19,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"users_get_item"})
      */
     private $id;
 
@@ -27,6 +29,7 @@ class User
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email."
      * )
+     * @Groups({"users_get_item"})
      */
     private $email;
 
@@ -40,6 +43,7 @@ class User
      * @ORM\Column(type="enumuserrole")
      * @Assert\Choice({"candidate", "recruiter", "admin"},
      *  message = "The role {{ value }} is not valid")
+     * @Groups({"users_get_item"})
      */
     private $role;
 
@@ -57,11 +61,13 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity=Recruiter::class, mappedBy="user")
+     * @Groups({"users_get_item"})
      */
     private $recruiters;
 
     /**
      * @ORM\OneToMany(targetEntity=Candidate::class, mappedBy="user")
+     * @Groups({"users_get_item"})
      */
     private $candidates;
 

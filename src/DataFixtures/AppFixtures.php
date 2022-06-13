@@ -19,7 +19,7 @@ use App\Entity\Technology;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use App\DataFixtures\Provider\MatchJobProvider;
+use App\DataFixtures\Provider\MatchJobFirstProvider;
 
 
 class AppFixtures extends Fixture
@@ -154,8 +154,8 @@ class AppFixtures extends Fixture
         $faker->seed(2022);
 
         // On instancie notre provider custom MatchJob
-        $matchJobProvider = new MatchJobProvider();
-        // On ajoute MatchJobProvider à faker
+        $matchJobProvider = new MatchJobFirstProvider();
+        // On ajoute MatchJobFirstProvider à faker
         $faker->addProvider($matchJobProvider);
 
 

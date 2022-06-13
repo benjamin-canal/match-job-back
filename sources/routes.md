@@ -21,7 +21,7 @@
 | `/back`                        | `GET`        | `Backoffice Match Job`                  | `Backoffice dashboard`                   |
 | `/back/users`                  | `GET`        | `Liste des utilisateurs`                | `Users list`                             |
 | `/back/users/add`              | `POST`       | `Ajout d'un utilisateur`                | `Form to add a user`                     |
-| `/back/users/update`           | `PUT`       | `Modification d'un utilisateur`         | `Form to update a user`                  |
+| `/back/users/{id}/update`           | `PUT`       | `Modification d'un utilisateur`         | `Form to update a user`                  |
 | `/back/users/delete`           | `DELETE`     | `Suppression d'un utilisateur`          | `message before remove a user`           |
 | `/back/contracts`              | `GET`        | `Liste des types de contrats`           | `Contracts list`                         |
 | `/back/contracts/add`          | `POST`       | `Ajout d'un type de contrat`            | `Form to add a contract`                 |

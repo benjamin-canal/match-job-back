@@ -51,7 +51,7 @@ class UserController extends AbstractController
             return $this->json(['error' => 'Utilisateur non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($user, Response::HTTP_OK, [], []);
+        return $this->json($user, Response::HTTP_OK, [], ['groups' => 'users_get_item']);
     }
 
     /**

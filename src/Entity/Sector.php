@@ -6,6 +6,7 @@ use App\Repository\SectorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SectorRepository::class)
@@ -21,6 +22,7 @@ class Sector
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"users_get_item"})
      */
     private $sectorName;
 
