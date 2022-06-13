@@ -63,7 +63,7 @@ class UserController extends AbstractController
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
-        ValidatorInterface $validator,
+        ValidatorInterface $validator
     ) {
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();

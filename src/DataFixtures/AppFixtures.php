@@ -327,7 +327,7 @@ class AppFixtures extends Fixture
 
         for ($c = 1; $c <= 5; $c++) {
             // Nouveau candidate
-            
+           
             $user = $usercandList[mt_rand(0, count($usercandList) -1)];
             $salary = $salaryList[mt_rand(0, count($salaryList) -1)];
             $adress = $addressList[mt_rand(0, count($addressList) -1)];
