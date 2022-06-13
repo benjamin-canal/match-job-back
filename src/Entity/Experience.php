@@ -20,7 +20,7 @@ class Experience
     private $id;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="string", length=20)
      */
     private $yearsNumber;
 
@@ -55,12 +55,12 @@ class Experience
         return $this->id;
     }
 
-    public function getYearsNumber(): ?int
+    public function getYearsNumber(): ?string
     {
         return $this->yearsNumber;
     }
 
-    public function setYearsNumber(int $yearsNumber): self
+    public function setYearsNumber(string $yearsNumber): self
     {
         $this->yearsNumber = $yearsNumber;
 

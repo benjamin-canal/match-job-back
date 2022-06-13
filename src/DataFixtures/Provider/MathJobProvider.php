@@ -80,6 +80,31 @@ class MatchJobProvider
         'Développeur web Backend',
     ];
 
+    private $experiences = [
+        'inférieur à 1 ',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        '11',
+        '12',
+        '13',
+        '14',
+        '15',
+        '16',
+        '17',
+        '18',
+        '19',
+        '20',
+        'supérieur à 20 ',
+    ];
+
 
     /**
      * Retourne une technology au hasard
@@ -119,6 +144,14 @@ class MatchJobProvider
     public function jobTitleType()
     {
         return $this->jobTitles[array_rand($this->jobTitles)];
+    }
+
+    /**
+     * Retourne un jobTitle au hasard
+     */
+    public function experienceType()
+    {
+        return $this->experiences[array_rand($this->experiences)];
     }
 
 }
