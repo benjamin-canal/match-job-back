@@ -19,7 +19,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "users_get_collection"})
      */
     private $id;
 
@@ -29,7 +29,7 @@ class User
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email."
      * )
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "users_get_collection"})
      */
     private $email;
 
@@ -43,7 +43,7 @@ class User
      * @ORM\Column(type="enumuserrole")
      * @Assert\Choice({"candidate", "recruiter", "admin"},
      *  message = "The role {{ value }} is not valid")
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "users_get_collection"})
      */
     private $role;
 

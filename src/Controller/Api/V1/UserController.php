@@ -4,7 +4,6 @@ namespace App\Controller\Api\V1;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +34,8 @@ class UserController extends AbstractController
             'users' => $usersList,
         ],
         Response::HTTP_OK,
+        [],
+        ['groups' => 'users_get_collection']
         );
     }
 
@@ -174,6 +175,7 @@ class UserController extends AbstractController
             [
                 'Location' => $this->generateUrl('api_v1_user_get_profil', ['id' => $user->getId()])
             ],
+            ['groups' => 'users_get_item']
         );
     }
 
