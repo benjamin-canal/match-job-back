@@ -47,15 +47,15 @@ class User
      */
     private $role;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
+    /** 
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
-     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -123,23 +123,9 @@ class User
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTime $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**

@@ -97,8 +97,6 @@ class UserController extends AbstractController
 
         // backup in database
         $em = $doctrine->getManager();
-        // add a created date
-        $user->setCreatedAt(new DateTime());
         $em->persist($user);
         $em->flush();
 
@@ -163,7 +161,6 @@ class UserController extends AbstractController
         $user->setEmail($userReceived->getEmail());
         $user->setRole($userReceived->getRole());
         $user->setPassword($userReceived->getPassword());
-        $user->setUpdatedAt(new DateTime());
         $em->flush();
 
         // We return a response that contains (REST !)

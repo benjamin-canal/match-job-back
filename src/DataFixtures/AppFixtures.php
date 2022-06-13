@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
         for ($s = 1; $s <= 3 ; $s++) {
             $sector = new Sector();
             $sector->setSectorName($faker->unique()->sectorType());
-            $sector->setCreatedAt(new DateTime);
+            // $sector->setCreatedAt(new DateTime);
         
         $sectorList[] = $sector;
 
@@ -103,7 +103,7 @@ class AppFixtures extends Fixture
             $technology = new Technology();
             $technology->setTechnologyName($faker->unique()->technologyType());
             //$technology->setTechnologyName($this->technologies[$t]);
-            $technology->setCreatedAt(new DateTime);
+            // $technology->setCreatedAt(new DateTime);
         
         $technologyList[] = $technology;
 
@@ -116,7 +116,7 @@ class AppFixtures extends Fixture
         for ($s = 1; $s <= 22 ; $s++) {
             $salary = new Salary();
             $salary->setName($faker->unique()->salaryType());
-            $salary->setCreatedAt(new DateTime);
+            // $salary->setCreatedAt(new DateTime);
         
         $salaryList[] = $salary;
 
@@ -131,7 +131,7 @@ class AppFixtures extends Fixture
             $experience = new Experience();
             $experience->setYearsNumber($faker->unique()->experienceType());
             //$experience->setYearsNumber($this->experiences[$e]);
-            $experience->setCreatedAt(new DateTime);
+            // $experience->setCreatedAt(new DateTime);
         
         $experienceList[] = $experience;
 
@@ -145,7 +145,7 @@ class AppFixtures extends Fixture
         for ($c = 1; $c <= 7 ; $c++) {
             $contract = new Contract();
             $contract->setName($faker->unique()->contractType());
-            $contract->setCreatedAt(new DateTime);
+            // $contract->setCreatedAt(new DateTime);
         
         $contractList[] = $contract;
 
@@ -159,7 +159,7 @@ class AppFixtures extends Fixture
         for ($j = 1; $j <= 3 ; $j++) {
             $jobTitle = new Jobtitle();
             $jobTitle->setTitle($faker->unique()->jobTitleType());
-            $jobTitle->setCreatedAt(new DateTime);
+            // $jobTitle->setCreatedAt(new DateTime);
         
         $jobTitleList[] = $jobTitle;
 
@@ -172,7 +172,7 @@ class AppFixtures extends Fixture
         $user->setEmail('admin@admin.com');
         $user->setRole('admin');
         $user->setPassword('admin');
-        $user->setCreatedAt(new DateTime);
+        // $user->setCreatedAt(new DateTime);
 
         $manager->persist($user);
       
@@ -189,7 +189,7 @@ class AppFixtures extends Fixture
             $user->setEmail($faker->unique()->safeEmail());
             $user->setRole('candidate');
             $user->setPassword('candidate');
-            $user->setCreatedAt(new DateTime);
+            // $user->setCreatedAt(new DateTime);
 
             $manager->persist($user);
 
@@ -203,7 +203,7 @@ class AppFixtures extends Fixture
    
             $candidate = new Candidate();
             $candidate->setUser($user);
-            $candidate->setCreatedAt(new DateTime);
+            // $candidate->setCreatedAt(new DateTime);
             $candidate->setFirstname($faker->firstName());
             $candidate->setLastname($faker->lastName());
             $candidate->setGenre($faker->numberBetween($min = 1, $max = 2));
@@ -235,7 +235,7 @@ class AppFixtures extends Fixture
             $user->setEmail($faker->safeEmail());
             $user->setRole('recruiter');
             $user->setPassword('recruiter');
-            $user->setCreatedAt(new DateTime);
+            // $user->setCreatedAt(new DateTime);
 
             $manager->persist($user);
 
@@ -251,13 +251,13 @@ class AppFixtures extends Fixture
             $company = new Company();
             $company->setAdress($adress);
             $company->setCompanyName($faker->unique()->company());
-            $company->setCreatedAt(new DateTime());
+            // $company->setCreatedAt(new DateTime());
             $company->setSector($sector);
 
             $manager->persist($company);
 
             $recruiter = new Recruiter();
-            $recruiter->setCreatedAt(new DateTime);
+            // $recruiter->setCreatedAt(new DateTime);
             $recruiter->setUser($user);
             $recruiter->setFirstname($faker->unique()->firstName());
             $recruiter->setLastname($faker->unique()->lastName());
