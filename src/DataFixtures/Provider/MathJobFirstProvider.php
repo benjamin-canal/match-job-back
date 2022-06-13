@@ -2,6 +2,9 @@
 
 namespace App\DataFixtures\Provider;
 
+/**
+ * Undocumented class
+ */
 class MatchJobFirstProvider
 {
    
