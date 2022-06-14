@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api\V1;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,13 +11,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 /**
  * Class that manages resources of type User
  * 
- * @Route("/api", name="api_")
+ * @Route("/api/v1", name="api_")
  */
 class SecurityController extends AbstractController
 {
 
     /**
-     * @Route("/login_check", name="api_login")
+     * @Route("/api/v1/login_check", name="api_v1_api_login")
      * @return JsonResponse
      */
     public function api_login(): JsonResponse
@@ -31,7 +31,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/api/v1/login", name="api_v1_app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
