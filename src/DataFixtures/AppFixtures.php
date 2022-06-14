@@ -170,7 +170,7 @@ class AppFixtures extends Fixture
         // User role admin
         $user = new User();
         $user->setEmail('admin@admin.com');
-        $user->setRole('admin');
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword('admin');
         // $user->setCreatedAt(new DateTime);
 
@@ -187,7 +187,7 @@ class AppFixtures extends Fixture
             
             $user = new User();
             $user->setEmail($faker->unique()->safeEmail());
-            $user->setRole('candidate');
+            $user->setRoles(['ROLE_CANDIDATE']);
             $user->setPassword('candidate');
             // $user->setCreatedAt(new DateTime);
 
@@ -233,7 +233,7 @@ class AppFixtures extends Fixture
 
             $user = new User();
             $user->setEmail($faker->safeEmail());
-            $user->setRole('recruiter');
+            $user->setRoles(['ROLE_RECRUITER']);
             $user->setPassword('recruiter');
             // $user->setCreatedAt(new DateTime);
 

@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class that manages resources of type User
@@ -55,6 +57,7 @@ class UserController extends AbstractController
         return $this->json($user, Response::HTTP_OK, [], ['groups' => 'users_get_item']);
     }
 
+
     /**
      * Method to add a user
      * 
@@ -94,7 +97,6 @@ class UserController extends AbstractController
 
             return $this->json($cleanErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
 
         // backup in database
         $em = $doctrine->getManager();
@@ -160,7 +162,7 @@ class UserController extends AbstractController
 
         // update of information between the current entity and the received entity
         $user->setEmail($userReceived->getEmail());
-        $user->setRole($userReceived->getRole());
+        $user->setRoles($userReceived->getRoles());
         $user->setPassword($userReceived->getPassword());
         $em->flush();
 
