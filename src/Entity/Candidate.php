@@ -128,7 +128,7 @@ class Candidate
     private $technologies;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="candidate")
+     * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="candidate", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"users_get_item", "candidates_get_item"})
      */

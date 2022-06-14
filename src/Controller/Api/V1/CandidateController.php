@@ -104,7 +104,7 @@ class CandidateController extends AbstractController
 
         // We return a response that contains (REST !)
         return $this->json(
-            // user added
+            // candidate added
             $candidate,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
@@ -112,6 +112,7 @@ class CandidateController extends AbstractController
             [
                 'Location' => $this->generateUrl('api_v1_candidate_get_profil', ['id' => $candidate->getId()])
             ],
+            ['groups' => 'candidates_get_item']
         );
     }
 }
