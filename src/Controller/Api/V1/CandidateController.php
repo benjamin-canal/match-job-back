@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -108,6 +109,76 @@ class CandidateController extends AbstractController
             $candidate,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
+            // REST require locatiion header+ the URL of the created resource
+            [
+                'Location' => $this->generateUrl('api_v1_candidate_get_profil', ['id' => $candidate->getId()])
+            ],
+            ['groups' => 'candidates_get_item']
+        );
+    }
+
+    /**
+     * Method to update a candidate whose {id} is given
+     * 
+     * @Route("/candidates/{id}", name="candidates_update", methods={"PUT"}, requirements={"id"="\d+"})
+     */
+    public function candidatesUpdate(
+        Candidate $candidate = null,
+        CandidateRepository $candidateRepository,
+        Request $request,
+        SerializerInterface $serializer,
+        ManagerRegistry $doctrine,
+        ValidatorInterface $validator
+    ) {
+        
+        // 404 ?
+        if ($candidateRepository === null) {
+            // Returns an error if the candidate is unknown
+            return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+        
+        // We need to retrieve the JSON content from the Request
+        $jsonContent = $request->getContent();
+
+        // Deserialize the JSON content into a Candidate entity
+        $userReceived = $serializer->deserialize($jsonContent, Candidate::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $candidate]);
+
+        // Validation of the entity
+        // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
+        $errors = $validator->validate($userReceived);
+
+        if (count($errors) > 0) {
+
+            $cleanErrors = [];
+
+            /** @var ConstraintViolation $error */
+            foreach ($errors as $error) {
+
+                // retrieving information
+                $property = $error->getPropertyPath();
+                $message = $error->getMessage();
+
+                // We add the message in an array to the key $property
+                // PHP itself manages the existence of the second array
+                $cleanErrors[$property][] = $message;
+            }
+
+            return $this->json($cleanErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        // backup in database
+        $em = $doctrine->getManager();
+
+        // update of information between the current entity and the received entity
+        $em->flush();
+
+        // We return a response that contains (REST !)
+        
+        return $this->json(
+            // candidate updated
+            $candidate,
+            // status code : 201 CREATED
+            Response::HTTP_OK,
             // REST require locatiion header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_candidate_get_profil', ['id' => $candidate->getId()])
