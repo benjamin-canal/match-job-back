@@ -186,4 +186,23 @@ class CandidateController extends AbstractController
             ['groups' => 'candidates_get_item']
         );
     }
+
+    /**
+     * Method to remove a candidate whose {id} is given
+     * 
+     * @Route("/candidates/{id}", name="candidate_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     */
+    public function candidatesDelete(Candidate $candidate = null, ManagerRegistry $doctrine)
+    {
+        // 404 ?
+        if ($candidate === null) {
+            return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $em = $doctrine->getManager();
+        $em->remove($candidate);
+        $em->flush();
+
+        return $this->json($candidate, Response::HTTP_OK, [], ['groups' => 'candidates_get_item']);
+    }
 }
