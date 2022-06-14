@@ -24,13 +24,13 @@ class Adress
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $streetNumber;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $streetName;
 
@@ -38,19 +38,19 @@ class Adress
      * @ORM\Column(type="integer")
      * @Assert\LessThan(100000)
      * @Assert\GreaterThan(0)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $zip;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $department;
 

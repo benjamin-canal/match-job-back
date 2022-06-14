@@ -19,25 +19,25 @@ class Candidate
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $birthday;
 
@@ -48,46 +48,46 @@ class Candidate
      *      max = 2,
      *      notInRangeMessage = "This value is not valide",
      * )
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $genre;
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $resume;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $positionHeld;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
-     * @Groups({"users_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $portfolio;
 
@@ -104,14 +104,14 @@ class Candidate
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="candidates")
+     * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="candidates", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $adress;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="candidates")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="candidates", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -123,35 +123,35 @@ class Candidate
 
     /**
      * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="candidate")
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $technologies;
 
     /**
      * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $contract;
 
     /**
      * @ORM\ManyToOne(targetEntity=Experience::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $experience;
 
     /**
      * @ORM\ManyToOne(targetEntity=Jobtitle::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $jobtitle;
 
     /**
      * @ORM\ManyToOne(targetEntity=Salary::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $salary;
 
