@@ -60,7 +60,7 @@ class Recruiter
     private $company;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recruiters")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recruiters", unique=true)
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
