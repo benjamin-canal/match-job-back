@@ -6,7 +6,9 @@ use App\Repository\AdressRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AdressRepository::class)
@@ -22,11 +24,13 @@ class Adress
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"users_get_item"})
      */
     private $streetNumber;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups({"users_get_item"})
      */
     private $streetName;
 
@@ -34,16 +38,19 @@ class Adress
      * @ORM\Column(type="integer")
      * @Assert\LessThan(100000)
      * @Assert\GreaterThan(0)
+     * @Groups({"users_get_item"})
      */
     private $zip;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups({"users_get_item"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Groups({"users_get_item"})
      */
     private $department;
 
@@ -56,6 +63,18 @@ class Adress
      * @ORM\OneToMany(targetEntity=Candidate::class, mappedBy="adress")
      */
     private $candidates;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -186,5 +205,15 @@ class Adress
         }
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 }

@@ -9,10 +9,10 @@
 | `/`                 | `Post`       | `subscribe`            | ------------------------- |
 | `/mentions-legales` | `GET`        | `Mentions-legals`      | legal mention             |
 | `/a-propos`         | `GET`        | `A propos`             | read-more                 |
-| `/avis`          | `feedback`   | `Retour d'expériences` | share your feedback       |
+| `/avis`             | `feedback`   | `Retour d'expériences` | share your feedback       |
 | `/fil`              | `GET`        | `feed`                 |                           |
 | `/profil`           | `GET`        | `profile`              | personal area             |
-| `/profil/edition`   | `PATCH`       | `edit`                 | change your profile       |
+| `/profil/edition`   | `PATCH`      | `edit`                 | change your profile       |
 
 ## Routes BackOffice
 
@@ -21,23 +21,23 @@
 | `/back`                        | `GET`        | `Backoffice Match Job`                  | `Backoffice dashboard`                   |
 | `/back/users`                  | `GET`        | `Liste des utilisateurs`                | `Users list`                             |
 | `/back/users/add`              | `POST`       | `Ajout d'un utilisateur`                | `Form to add a user`                     |
-| `/back/users/update`           | `PUT`       | `Modification d'un utilisateur`         | `Form to update a user`                  |
+| `/back/users/{id}/update`      | `PUT`        | `Modification d'un utilisateur`         | `Form to update a user`                  |
 | `/back/users/delete`           | `DELETE`     | `Suppression d'un utilisateur`          | `message before remove a user`           |
 | `/back/contracts`              | `GET`        | `Liste des types de contrats`           | `Contracts list`                         |
 | `/back/contracts/add`          | `POST`       | `Ajout d'un type de contrat`            | `Form to add a contract`                 |
-| `/back/contracts/update`       | `PUT`       | `Modification d'un type de contrat`     | `Form to update a contract`              |
+| `/back/contracts/update`       | `PUT`        | `Modification d'un type de contrat`     | `Form to update a contract`              |
 | `/back/contracts/delete`       | `DELETE`     | `Suppression d'un type de contrat`      | `message before remove a contract`       |
 | `/back/technologies`           | `GET`        | `Liste des technologies`                | `Technologies list`                      |
 | `/back/technologies/add`       | `POST`       | `Ajout d'une technologie`               | `Form to add a technology`               |
-| `/back/technologies/update`    | `PUT`       | `Modification d'une technologie`        | `Form to update a technology`            |
+| `/back/technologies/update`    | `PUT`        | `Modification d'une technologie`        | `Form to update a technology`            |
 | `/back/technologies/delete`    | `DELETE`     | `Suppression d'une technologie`         | `message before remove a technology`     |
 | `/back/salary-brackets`        | `GET`        | `Liste des tranches de salaires`        | `Salary-brackets list`                   |
 | `/back/salary-brackets/add`    | `POST`       | `Ajout d'une tranche de salaire`        | `Form to add a salary-bracket`           |
-| `/back/salary-brackets/update` | `PUT`       | `Modification d'une tranche de salaire` | `Form to update a salary-bracket`        |
+| `/back/salary-brackets/update` | `PUT`        | `Modification d'une tranche de salaire` | `Form to update a salary-bracket`        |
 | `/back/salary-brackets/delete` | `DELETE`     | `Suppression d'une tranche de salaire`  | `message before remove a salary-bracket` |
 | `/back/sectors`                | `GET`        | `liste des secteurs d'activités`        | `Sectors list`                           |
 | `/back/sectors/add`            | `POST`       | `Ajout d'un secteur d'activité`         | `Form to add a sector`                   |
-| `/back/sectors/update`         | `PUT`       | `Modification d'un secteur d'activité`  | `Form to update a sector`                |
+| `/back/sectors/update`         | `PUT`        | `Modification d'un secteur d'activité`  | `Form to update a sector`                |
 | `/back/sectors/delete`         | `DELETE`     | `Suppression d'un secteur d'activité`   | `message before remove a sector`         |
 
 ## Endpoints API
@@ -47,8 +47,8 @@
 | `/api/v1/feedbacks`                  | `GET`        | get all the feedbacks                | 200                  |
 | `/api/v1/feedbacks`                  | `POST`       | add a feedback                       | 201 + created object |
 | `/api/v1/subscribe`                  | `POST`       | add new user                         | 201 + created object |
-| `/api/v1/connexion`                  | `POST`       | connect user                         | 200 or 401           |
-| `/api/v1/connection`                 | `GET`        | get user to connect and all card     | 200                  |
+| `/api/v1/login`                      | `POST`       | connect user                         | 200 or 401           |
+| `/api/v1/login_check`                | `GET`        | get user to connect and all card     | 200                  |
 | `/api/v1/users/{id}/profil`          | `GET`        | get user profil                      | 200 or 404           |
 | `/api/v1/users`                      | `POST`       | add a user                           | 201 + created object |
 | `/api/v1/users/{id}`                 | `PUT`        | update a user                        | 200, 204 or 404      |

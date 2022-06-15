@@ -4,7 +4,6 @@ namespace App\Controller\Api\V1;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Class that manages resources of type User
@@ -35,6 +35,8 @@ class UserController extends AbstractController
             'users' => $usersList,
         ],
         Response::HTTP_OK,
+        [],
+        ['groups' => 'users_get_collection']
         );
     }
 
@@ -51,19 +53,21 @@ class UserController extends AbstractController
             return $this->json(['error' => 'Utilisateur non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($user, Response::HTTP_OK, [], []);
+        return $this->json($user, Response::HTTP_OK, [], ['groups' => 'users_get_item']);
     }
+
 
     /**
      * Method to add a user
      * 
-     * @Route("/users", name="users_add", methods={"POST"})
+     * @Route("/subscribe", name="users_add", methods={"POST"})
      */
     public function usersAdd(
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        UserPasswordHasherInterface $passwordHasher
     ) {
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
@@ -94,11 +98,12 @@ class UserController extends AbstractController
             return $this->json($cleanErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-
+        // Hash user password
+        $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());     
+        $user->setPassword($hashedPassword);
+    
         // backup in database
         $em = $doctrine->getManager();
-        // add a created date
-        $user->setCreatedAt(new DateTime());
         $em->persist($user);
         $em->flush();
 
@@ -161,9 +166,8 @@ class UserController extends AbstractController
 
         // update of information between the current entity and the received entity
         $user->setEmail($userReceived->getEmail());
-        $user->setRole($userReceived->getRole());
+        $user->setRoles($userReceived->getRoles());
         $user->setPassword($userReceived->getPassword());
-        $user->setUpdatedAt(new DateTime());
         $em->flush();
 
         // We return a response that contains (REST !)
@@ -177,6 +181,7 @@ class UserController extends AbstractController
             [
                 'Location' => $this->generateUrl('api_v1_user_get_profil', ['id' => $user->getId()])
             ],
+            ['groups' => 'users_get_item']
         );
     }
 

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220613091024 extends AbstractMigration
+final class Version20220613190940 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20220613091024 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE adress (id INT AUTO_INCREMENT NOT NULL, street_number SMALLINT DEFAULT NULL, street_name VARCHAR(128) NOT NULL, zip INT NOT NULL, city VARCHAR(128) NOT NULL, department VARCHAR(128) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE adress (id INT AUTO_INCREMENT NOT NULL, street_number SMALLINT DEFAULT NULL, street_name VARCHAR(128) NOT NULL, zip INT NOT NULL, city VARCHAR(128) NOT NULL, department VARCHAR(128) DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE candidate (id INT AUTO_INCREMENT NOT NULL, adress_id INT NOT NULL, user_id INT NOT NULL, contract_id INT NOT NULL, experience_id INT NOT NULL, jobtitle_id INT NOT NULL, salary_id INT NOT NULL, last_name VARCHAR(64) NOT NULL, first_name VARCHAR(64) DEFAULT NULL, birthday DATE DEFAULT NULL, genre SMALLINT NOT NULL, phone_number VARCHAR(25) DEFAULT NULL, picture VARCHAR(255) DEFAULT NULL, resume VARCHAR(255) DEFAULT NULL, description LONGTEXT DEFAULT NULL, position_held VARCHAR(128) DEFAULT NULL, portfolio VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_C8B28E448486F9AC (adress_id), INDEX IDX_C8B28E44A76ED395 (user_id), INDEX IDX_C8B28E442576E0FD (contract_id), INDEX IDX_C8B28E4446E90E27 (experience_id), INDEX IDX_C8B28E44E438D15B (jobtitle_id), INDEX IDX_C8B28E44B0FDF16E (salary_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE company (id INT AUTO_INCREMENT NOT NULL, sector_id INT NOT NULL, adress_id INT NOT NULL, company_name VARCHAR(64) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_4FBF094FDE95C867 (sector_id), INDEX IDX_4FBF094F8486F9AC (adress_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE contract (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(64) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

@@ -6,7 +6,9 @@ use App\Repository\CandidateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CandidateRepository::class)
@@ -17,21 +19,25 @@ class Candidate
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $birthday;
 
@@ -42,55 +48,65 @@ class Candidate
      *      max = 2,
      *      notInRangeMessage = "This value is not valide",
      * )
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $genre;
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $resume;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $positionHeld;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
+     * @Groups({"users_get_item", "candidates_get_collection"})
      */
     private $portfolio;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="candidates")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"users_get_item"})
      */
     private $adress;
 
@@ -107,30 +123,35 @@ class Candidate
 
     /**
      * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="candidate")
+     * @Groups({"users_get_item"})
      */
     private $technologies;
 
     /**
      * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"users_get_item"})
      */
     private $contract;
 
     /**
      * @ORM\ManyToOne(targetEntity=Experience::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"users_get_item"})
      */
     private $experience;
 
     /**
      * @ORM\ManyToOne(targetEntity=Jobtitle::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"users_get_item"})
      */
     private $jobtitle;
 
     /**
      * @ORM\ManyToOne(targetEntity=Salary::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"users_get_item"})
      */
     private $salary;
 
@@ -270,23 +291,9 @@ class Candidate
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     public function getAdress(): ?Adress

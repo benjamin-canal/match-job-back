@@ -19,113 +19,36 @@ use App\Entity\Technology;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use App\DataFixtures\Provider\MatchJobProvider;
+use App\DataFixtures\Provider\MatchJobFirstProvider;
 
 
 class AppFixtures extends Fixture
 {   
     /**
-     * Les propriétés qui vont accueillir les services nécessaires à la classe de Fixtures
+     * The proprieties who get needed services to the Fixtures class
      */
     private $connection;
     
-    // 23 technology
-     private $technologies = [
-        'PHP',
-        'C#',
-        'JavaScript',
-        'HTML5',
-        'CSS3',
-        'API',
-        'Ruby',
-        'Python',
-        'Go',
-        'Wordpress',
-        'React JS',
-        'Symfony',
-        'Angular',
-        'Sass',
-        'Node JS',
-        'Vue JS',
-        'GitHub',
-        'Laravel',
-        'Visual Studio Code',
-        'TypeScript',
-        'Npm',
-        'Yarn',
-        'Bootstrap',
-        'Stack Overflow',
-    ];
-    private $salaries = [
-        'Selon expérience',
-        '19 237 - 22 000',
-        '22 000 - 24 000',
-        '24 000 - 26 000',
-        '26 000 - 28 000',
-        '28 000 - 30 000',
-        '30 000 - 32 000',
-        '32 000 - 34 000',
-        '34 000 - 36 000',
-        '36 000 - 38 000',
-        '38 000 - 40 000',
-        '40 000 - 42 000',
-        '42 000 - 44 000',
-        '44 000 - 48 000',
-        '48 000 - 50 000',
-        '50 000 - 52 000',
-        '52 000 - 54 000',
-        '54 000 - 56 000',
-        '56 000 - 58 000',
-        '58 000 - 60 000',
-        '60 000 - 62 000',
-        'plus de 62 000',
-    ];
-
-    private $experiences = [
-        'inférieur à 1 ',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12',
-        '13',
-        '14',
-        '15',
-        '16',
-        '17',
-        '18',
-        '19',
-        '20',
-        'supérieur à 20 ',
-    ];
-
     
     /**
-     * On récupère les services utiles via le constructeur
+     * We get services with construct
      */
     public function __construct(Connection $connection)
     {
-        // On récupère la connexion à la BDD (DBAL ~= PDO)
-        // pour exécuter des requêtes manuelles en SQL pur
+        // We get the connection to BDD (DBAL)
+        // for manually execute the SQl querries
         $this->connection = $connection;
     }
 
 
     /**
-     * Permet de TRUNCATE les tables et de remettre les AI à 1
+     * TRUNCATE the tables and get the AI to 1
      */
     private function truncate()
     {
-        // Désactivation la vérification des contraintes FK
+        // Disable check FK
         $this->connection->executeQuery('SET foreign_key_checks = 0');
-        // On tronque
+        // Truncate
         $this->connection->executeQuery('TRUNCATE TABLE adress');
         $this->connection->executeQuery('TRUNCATE TABLE candidate');
         $this->connection->executeQuery('TRUNCATE TABLE company');
@@ -143,38 +66,20 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {   
-        // On TRUNCATE manuellement
+        // We manually TRUNCATE
         $this->truncate();
 
         // @link https://fakerphp.github.io/
         // use the factory to create a Faker\Generator instance
         $faker = Faker\Factory::create('fr_FR');
 
-        // On peut fixer le "seed" du générateur (pour avoir toujours les mêmes données dans la BDD)
+        // We can fix the "seed" to the generator (to always get the sames data in the BDD)
         $faker->seed(2022);
 
         // On instancie notre provider custom MatchJob
-        $matchJobProvider = new MatchJobProvider();
-        // On ajoute MatchJobProvider à faker
+        $matchJobProvider = new MatchJobFirstProvider();
+        // We add MatchJobProvider to faker
         $faker->addProvider($matchJobProvider);
-
-
-        // Adress
-        $addressList = [];
-
-        for ($a = 1; $a <= 20; $a++) {
-        $adress = new Adress();
-        $adress->setStreetNumber($faker->numberBetween($min = 1, $max = 200));
-        $adress->setStreetName($faker->unique()->streetName());
-        $adress->setCity($faker->unique()->city());
-        $adress->setZip($faker->unique()->numberBetween($min = 1, $max = 32700));
-        
-        // On l'ajoute à la liste pour usage ultérieur
-        // Patch pour éviter les doublons
-        $addressList[] = $adress;
-            // On persiste
-            $manager->persist($adress);
-        }
 
 
         // Sector
@@ -183,27 +88,11 @@ class AppFixtures extends Fixture
         for ($s = 1; $s <= 3 ; $s++) {
             $sector = new Sector();
             $sector->setSectorName($faker->unique()->sectorType());
-            $sector->setCreatedAt(new DateTime);
+            // $sector->setCreatedAt(new DateTime);
         
         $sectorList[] = $sector;
 
             $manager->persist($sector);
-        }
-
-
-        // Company
-        $companyList = [];
-
-        for ($c = 1; $c <= 20; $c++) {
-            $company = new Company();
-            $company->setAdress($adress);
-            $company->setCompanyName($faker->unique()->company());
-            $company->setCreatedAt(new DateTime());
-            $company->setSector($sector);
-        
-            $companyList[] = $company;
-
-            $manager->persist($company);
         }
 
         
@@ -212,9 +101,9 @@ class AppFixtures extends Fixture
 
         for ($t = 0; $t <= 22 ; $t++) {
             $technology = new Technology();
-           //$technology->setTechnologyName($faker->unique()->technologyType());
-            $technology->setTechnologyName($this->technologies[$t]);
-            $technology->setCreatedAt(new DateTime);
+            $technology->setTechnologyName($faker->unique()->technologyType());
+            // $technology->setTechnologyName($this->technologies[$t]);
+            // $technology->setCreatedAt(new DateTime);
         
         $technologyList[] = $technology;
 
@@ -224,11 +113,10 @@ class AppFixtures extends Fixture
         // Salary
         $salaryList = [];
         
-        for ($s = 0; $s <= 21 ; $s++) {
+        for ($s = 1; $s <= 22 ; $s++) {
             $salary = new Salary();
-            // $salary->setName($faker->unique()->salaryType());
-            $salary->setName($this->salaries[$s]);
-            $salary->setCreatedAt(new DateTime);
+            $salary->setName($faker->unique()->salaryType());
+            // $salary->setCreatedAt(new DateTime);
         
         $salaryList[] = $salary;
 
@@ -239,11 +127,11 @@ class AppFixtures extends Fixture
         // Experience
         $experienceList = [];
         
-        for ($e = 0; $e <= 20 ; $e++) {
+        for ($e = 0; $e <= 21 ; $e++) {
             $experience = new Experience();
-            //$experience->setYearsNumber($faker->unique()->experienceType());
-            $experience->setYearsNumber($this->experiences[$e]);
-            $experience->setCreatedAt(new DateTime);
+            $experience->setYearsNumber($faker->unique()->experienceType());
+            // $experience->setYearsNumber($this->experiences[$e]);
+            // $experience->setCreatedAt(new DateTime);
         
         $experienceList[] = $experience;
 
@@ -257,7 +145,7 @@ class AppFixtures extends Fixture
         for ($c = 1; $c <= 7 ; $c++) {
             $contract = new Contract();
             $contract->setName($faker->unique()->contractType());
-            $contract->setCreatedAt(new DateTime);
+            // $contract->setCreatedAt(new DateTime);
         
         $contractList[] = $contract;
 
@@ -271,7 +159,7 @@ class AppFixtures extends Fixture
         for ($j = 1; $j <= 3 ; $j++) {
             $jobTitle = new Jobtitle();
             $jobTitle->setTitle($faker->unique()->jobTitleType());
-            $jobTitle->setCreatedAt(new DateTime);
+            // $jobTitle->setCreatedAt(new DateTime);
         
         $jobTitleList[] = $jobTitle;
 
@@ -282,62 +170,40 @@ class AppFixtures extends Fixture
         // User role admin
         $user = new User();
         $user->setEmail('admin@admin.com');
-        $user->setRole('admin');
-        $user->setPassword('admin');
-        $user->setCreatedAt(new DateTime);
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPassword('$2y$13$IinN9.qrMCderIVe/PmRkOFnqi7D0rPLmBFBGMoLpuh3gj5V6X/dK');
+        // $user->setCreatedAt(new DateTime);
 
         $manager->persist($user);
-
-
-        // Users role recruiter
-        $userrecList = [];
-
-        for ($u = 1; $u <= 5; $u++) {
-            // Nouveau user role recruiter
-            $recruiter = new User();
-            $recruiter->setEmail($faker->safeEmail());
-            $recruiter->setRole('recruiter');
-            $recruiter->setPassword('recruiter');
-            $recruiter->setCreatedAt(new DateTime);
-
-            $userrecList[] = $recruiter;
-
-            $manager->persist($recruiter);
-        }
-
-
-        // Users role candidate
-        $usercandList = [];
-
-        for ($u = 1; $u <= 5; $u++) {
-            // Nouveau user role candidate
-            $candidate = new User();
-            $candidate->setEmail($faker->unique()->safeEmail());
-            $candidate->setRole('candidate');
-            $candidate->setPassword('candidate');
-            $candidate->setCreatedAt(new DateTime);
-           
-            $usercandList[] = $candidate;
-
-            $manager->persist($candidate);
-        }
-
-        // Candidate
       
-
+        // Candidate
         for ($c = 1; $c <= 5; $c++) {
-            // Nouveau candidate
+            // New candidate
            
-            $user = $usercandList[mt_rand(0, count($usercandList) -1)];
             $salary = $salaryList[mt_rand(0, count($salaryList) -1)];
-            $adress = $addressList[mt_rand(0, count($addressList) -1)];
             $experience = $experienceList[mt_rand(0, count($experienceList) -1)];
             $contract = $contractList[mt_rand(0, count($contractList) -1)];
             $jobTitle = $jobTitleList[mt_rand(0, count($jobTitleList) -1)];
-                
+            
+            $user = new User();
+            $user->setEmail($faker->unique()->safeEmail());
+            $user->setRoles(['ROLE_CANDIDATE']);
+            $user->setPassword('$2y$13$G6NFqBU48lrsW0Av4BXyI.sLURLHW1t4aVxYdpQhEeaOQD2rrRsZG');
+            // $user->setCreatedAt(new DateTime);
+
+            $manager->persist($user);
+
+            $adress = new Adress();
+            $adress->setStreetNumber($faker->numberBetween($min = 1, $max = 200));
+            $adress->setStreetName($faker->unique()->streetName());
+            $adress->setCity($faker->unique()->city());
+            $adress->setZip($faker->unique()->numberBetween($min = 1, $max = 32700));
+        
+            $manager->persist($adress);
+   
             $candidate = new Candidate();
             $candidate->setUser($user);
-            $candidate->setCreatedAt(new DateTime);
+            // $candidate->setCreatedAt(new DateTime);
             $candidate->setFirstname($faker->firstName());
             $candidate->setLastname($faker->lastName());
             $candidate->setGenre($faker->numberBetween($min = 1, $max = 2));
@@ -348,27 +214,50 @@ class AppFixtures extends Fixture
             $candidate->setDescription($faker->text(100));
             $candidate->setPositionHeld($faker->jobTitle());
             $candidate->setBirthday($faker->unique()->dateTime($max = '-18 years'));
+            $candidate->addTechnology($faker->randomElement($technologyList));
             $candidate->setExperience($experience);
             $candidate->setSalary($salary);
             $candidate->setAdress($adress);
             $candidate->setContract($contract);
             $candidate->setJobtitle($jobTitle);
             
-
-
             $manager->persist($candidate);
         }
 
         // Recruiter
 
         for ($r = 1; $r <= 5; $r++) {
-            // Nouveau recruiter
+            // New recruiter
 
-            $user = $userrecList[mt_rand(0, count($userrecList) -1)];
-            $company = $companyList[mt_rand(0, count($companyList) -1)];
+            $sector = $sectorList[mt_rand(0, count($sectorList) -1)];
+
+            $user = new User();
+            $user->setEmail($faker->safeEmail());
+            $user->setRoles(['ROLE_RECRUITER']);
+            $user->setPassword('$2y$13$TNx2BnStrSyR0K4/H8ldRusOoTgWZY.aXqAzz1SxK9bbKhEuuagZa');
+            // $user->setCreatedAt(new DateTime);
+
+            $manager->persist($user);
+
+            $adress = new Adress();
+            $adress->setStreetNumber($faker->numberBetween($min = 1, $max = 200));
+            $adress->setStreetName($faker->unique()->streetName());
+            $adress->setCity($faker->unique()->city());
+            $adress->setZip($faker->unique()->numberBetween($min = 1, $max = 32700));
+        
+            $manager->persist($adress);
+
+            
+            $company = new Company();
+            $company->setAdress($adress);
+            $company->setCompanyName($faker->unique()->company());
+            // $company->setCreatedAt(new DateTime());
+            $company->setSector($sector);
+
+            $manager->persist($company);
 
             $recruiter = new Recruiter();
-            $recruiter->setCreatedAt(new DateTime);
+            // $recruiter->setCreatedAt(new DateTime);
             $recruiter->setUser($user);
             $recruiter->setFirstname($faker->unique()->firstName());
             $recruiter->setLastname($faker->unique()->lastName());
@@ -382,4 +271,5 @@ class AppFixtures extends Fixture
 
         $manager->flush();
     }
+    
 }
