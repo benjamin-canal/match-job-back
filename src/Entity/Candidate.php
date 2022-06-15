@@ -111,7 +111,7 @@ class Candidate
     private $adress;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="candidates", unique=true)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="candidates")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

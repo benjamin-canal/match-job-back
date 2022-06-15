@@ -40,12 +40,8 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="json")
-     * @Assert\Choice(
-     *   {"ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"},
-     *   multiple=true,
-     *  message = "The role {{ value }} is not valid")
-     * @Groups({"users_get_item", "users_get_collection"})     * 
+     * @ORM\Column(type="string")
+     * @Groups({"users_get_item", "users_get_collection"}) 
      */
     private $role;
 
@@ -108,7 +104,7 @@ class User
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRole(): string
     {
         return $this->role;
     }
