@@ -24,7 +24,7 @@ class Experience
 
     /**
      * @ORM\Column(type="string", length=20)
-     * @Groups({"users_get_item", "candidates_get_item", "experiences_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "experiences_get_item", "jobs_get_item"})
      */
     private $yearsNumber;
 
