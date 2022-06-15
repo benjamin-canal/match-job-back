@@ -2,8 +2,8 @@
 
 namespace App\Controller\Api\V1;
 
-use App\Entity\Contract;
-use App\Repository\ContractRepository;
+use App\Entity\Jobtitle;
+use App\Repository\JobtitleRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,53 +15,53 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * Class that manages ressources of type Contract
+ * Class that manages ressources of type Jobtitle
  * 
  * @Route("/api/v1", name="api_v1_")
  */
-class ContractController extends AbstractController
+class JobtitleController extends AbstractController
 {
     /**
-     * Method to have all contracts
+     * Method to have all jobtitles
      * 
-     * @Route("/contracts", name="contracts", methods={"GET"})
+     * @Route("/jobtitles", name="jobtitles", methods={"GET"})
      */
-    public function contractsGetCollection(ContractRepository $contractRepository): JsonResponse
+    public function jobtitlesGetCollection(JobtitleRepository $jobtitleRepository): JsonResponse
     {
         
-        $contractsList = $contractRepository->findAll();
+        $jobtitlesList = $jobtitleRepository->findAll();
 
         return $this->json([
-            'contracts' => $contractsList,
+            'jobtitles' => $jobtitlesList,
         ],
         Response::HTTP_OK,
         [],
-        ['groups' => 'contracts_get_item']
+        ['groups' => 'jobtitles_get_item']
         );
     }
 
     /**
-     * Method to have a contract whose {id} is given
+     * Method to have a jobtitle whose {id} is given
      * 
-     * @Route("/contracts/{id}", name="contract_get_details", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/jobtitles/{id}", name="jobtitle_get_details", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function contractsGetProfil(Contract $contract = null)
+    public function jobtitlesGetProfil(Jobtitle $jobtitle = null)
     {
         // 404 ?
-        if ($contract === null) {
-            // Returns an error if the contract is unknown
-            return $this->json(['error' => 'Contrat non trouvé.'], Response::HTTP_NOT_FOUND);
+        if ($jobtitle === null) {
+            // Returns an error if the jobtitle is unknown
+            return $this->json(['error' => 'Titre de l\'emploi souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($contract, Response::HTTP_OK, [], ['groups' => 'contracts_get_item']);
+        return $this->json($jobtitle, Response::HTTP_OK, [], ['groups' => 'jobtitles_get_item']);
     }
 
     /**
-     * Method to add a contract
+     * Method to add a jobtitle
      * 
-     * @Route("/contracts", name="contracts_add", methods={"POST"})
+     * @Route("/jobtitles", name="jobtitles_add", methods={"POST"})
      */
-    public function contractsAdd(
+    public function jobtitlesAdd(
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
@@ -70,12 +70,12 @@ class ContractController extends AbstractController
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
 
-        // Deserialize the JSON content into a Contract entity
-        $contract = $serializer->deserialize($jsonContent, Contract::class, 'json');
+        // Deserialize the JSON content into a Jobtitle entity
+        $jobtitle = $serializer->deserialize($jsonContent, Jobtitle::class, 'json');
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($contract);
+        $errors = $validator->validate($jobtitle);
 
         if (count($errors) > 0) {
 
@@ -98,31 +98,31 @@ class ContractController extends AbstractController
 
         // backup in database
         $em = $doctrine->getManager();
-        $em->persist($contract);
+        $em->persist($jobtitle);
         $em->flush();
 
         // We return a response that contains (REST !)
         return $this->json(
-            // contract added
-            $contract,
+            // jobtitle added
+            $jobtitle,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
             // REST require locatiion header+ the URL of the created resource
             [
-                'Location' => $this->generateUrl('api_v1_contract_get_details', ['id' => $contract->getId()])
+                'Location' => $this->generateUrl('api_v1_jobtitle_get_details', ['id' => $jobtitle->getId()])
             ],
-            ['groups' => 'contracts_get_item']
+            ['groups' => 'jobtitles_get_item']
         );
     }
 
     /**
-     * Method to update a contract whose {id} is given
+     * Method to update a jobtitle whose {id} is given
      * 
-     * @Route("/contracts/{id}", name="contracts_update", methods={"PUT"}, requirements={"id"="\d+"})
+     * @Route("/jobtitles/{id}", name="jobtitles_update", methods={"PUT"}, requirements={"id"="\d+"})
      */
-    public function contractsUpdate(
-        Contract $contract = null,
-        ContractRepository $contractRepository,
+    public function jobtitlesUpdate(
+        Jobtitle $jobtitle = null,
+        JobtitleRepository $jobtitleRepository,
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
@@ -130,16 +130,16 @@ class ContractController extends AbstractController
     ) {
         
         // 404 ?
-        if ($contractRepository === null) {
-            // Returns an error if the contract is unknown
-            return $this->json(['error' => 'Contrat non trouvé.'], Response::HTTP_NOT_FOUND);
+        if ($jobtitleRepository === null) {
+            // Returns an error if the jobtitle is unknown
+            return $this->json(['error' => 'Titre de l\'emploi souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
         
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
 
-        // Deserialize the JSON content into a Contract entity
-        $userReceived = $serializer->deserialize($jsonContent, Contract::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $contract]);
+        // Deserialize the JSON content into a Jobtitle entity
+        $userReceived = $serializer->deserialize($jsonContent, Jobtitle::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $jobtitle]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
@@ -173,35 +173,35 @@ class ContractController extends AbstractController
         // We return a response that contains (REST !)
         
         return $this->json(
-            // contract updated
-            $contract,
+            // jobtitle updated
+            $jobtitle,
             // status code : 201 CREATED
             Response::HTTP_OK,
             // REST require locatiion header+ the URL of the created resource
             [
-                'Location' => $this->generateUrl('api_v1_contract_get_details', ['id' => $contract->getId()])
+                'Location' => $this->generateUrl('api_v1_jobtitle_get_details', ['id' => $jobtitle->getId()])
             ],
-            ['groups' => 'contracts_get_item']
+            ['groups' => 'jobtitles_get_item']
         );
     }
 
     /**
-     * Method to remove a contract whose {id} is given
+     * Method to remove a jobtitle whose {id} is given
      * 
-     * @Route("/contracts/{id}", name="contract_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @Route("/jobtitles/{id}", name="jobtitle_delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function contractsDelete(Contract $contract = null, ManagerRegistry $doctrine)
+    public function jobtitlesDelete(Jobtitle $jobtitle = null, ManagerRegistry $doctrine)
     {
         // 404 ?
-        if ($contract === null) {
-            return $this->json(['error' => 'Contrat non trouvé.'], Response::HTTP_NOT_FOUND);
+        if ($jobtitle === null) {
+            return $this->json(['error' => 'Titre de l\'emploi souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
         $em = $doctrine->getManager();
-        $em->remove($contract);
+        $em->remove($jobtitle);
         $em->flush();
 
-        return $this->json($contract, Response::HTTP_OK, [], ['groups' => 'contracts_get_item']);
+        return $this->json($jobtitle, Response::HTTP_OK, [], ['groups' => 'jobtitles_get_item']);
     }
 }
 
