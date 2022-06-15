@@ -4,4 +4,4 @@
 
 # Route who is used by LexikJWT for get JSON auth
 api_login_check:
-    path: /api/v1/login_check
+    path: /api/v1/login

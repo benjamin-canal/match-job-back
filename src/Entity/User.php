@@ -45,9 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * 
      * @Assert\Choice(
-     *   {"ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"},
-     *   multiple=true,
-     *  message = "The role {{ value }} is not valid")
+     * {"ROLE_RECRUITER", "ROLE_CANDIDATE", "ROLE_ADMIN"},
+     * multiple=true,
+     * message = "The role {{ value }} is not valid")
      * @Groups({"users_get_item", "users_get_collection"})
      * @ORM\Column(type="json")
      */
@@ -139,8 +139,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has ROLE_CANDIDATE
+        $roles[] = 'ROLE_CANDIDATE';
 
         return array_unique($roles);
     }

@@ -25,30 +25,30 @@ use App\DataFixtures\Provider\MatchJobFirstProvider;
 class AppFixtures extends Fixture
 {   
     /**
-     * Les propriétés qui vont accueillir les services nécessaires à la classe de Fixtures
+     * The proprieties who get needed services to the Fixtures class
      */
     private $connection;
     
     
     /**
-     * On récupère les services utiles via le constructeur
+     * We get services with construct
      */
     public function __construct(Connection $connection)
     {
-        // On récupère la connexion à la BDD (DBAL ~= PDO)
-        // pour exécuter des requêtes manuelles en SQL pur
+        // We get the connection to BDD (DBAL)
+        // for manually execute the SQl querries
         $this->connection = $connection;
     }
 
 
     /**
-     * Permet de TRUNCATE les tables et de remettre les AI à 1
+     * TRUNCATE the tables and get the AI to 1
      */
     private function truncate()
     {
-        // Désactivation la vérification des contraintes FK
+        // Disable check FK
         $this->connection->executeQuery('SET foreign_key_checks = 0');
-        // On tronque
+        // Truncate
         $this->connection->executeQuery('TRUNCATE TABLE adress');
         $this->connection->executeQuery('TRUNCATE TABLE candidate');
         $this->connection->executeQuery('TRUNCATE TABLE company');
@@ -66,19 +66,19 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {   
-        // On TRUNCATE manuellement
+        // We manually TRUNCATE
         $this->truncate();
 
         // @link https://fakerphp.github.io/
         // use the factory to create a Faker\Generator instance
         $faker = Faker\Factory::create('fr_FR');
 
-        // On peut fixer le "seed" du générateur (pour avoir toujours les mêmes données dans la BDD)
+        // We can fix the "seed" to the generator (to always get the sames data in the BDD)
         $faker->seed(2022);
 
         // On instancie notre provider custom MatchJob
         $matchJobProvider = new MatchJobFirstProvider();
-        // On ajoute MatchJobProvider à faker
+        // We add MatchJobProvider to faker
         $faker->addProvider($matchJobProvider);
 
 
@@ -102,7 +102,7 @@ class AppFixtures extends Fixture
         for ($t = 0; $t <= 22 ; $t++) {
             $technology = new Technology();
             $technology->setTechnologyName($faker->unique()->technologyType());
-            //$technology->setTechnologyName($this->technologies[$t]);
+            // $technology->setTechnologyName($this->technologies[$t]);
             // $technology->setCreatedAt(new DateTime);
         
         $technologyList[] = $technology;
@@ -130,7 +130,7 @@ class AppFixtures extends Fixture
         for ($e = 0; $e <= 21 ; $e++) {
             $experience = new Experience();
             $experience->setYearsNumber($faker->unique()->experienceType());
-            //$experience->setYearsNumber($this->experiences[$e]);
+            // $experience->setYearsNumber($this->experiences[$e]);
             // $experience->setCreatedAt(new DateTime);
         
         $experienceList[] = $experience;
@@ -171,14 +171,14 @@ class AppFixtures extends Fixture
         $user = new User();
         $user->setEmail('admin@admin.com');
         $user->setRoles(['ROLE_ADMIN']);
-        $user->setPassword('admin');
+        $user->setPassword('$2y$13$IinN9.qrMCderIVe/PmRkOFnqi7D0rPLmBFBGMoLpuh3gj5V6X/dK');
         // $user->setCreatedAt(new DateTime);
 
         $manager->persist($user);
       
         // Candidate
         for ($c = 1; $c <= 5; $c++) {
-            // Nouveau candidate
+            // New candidate
            
             $salary = $salaryList[mt_rand(0, count($salaryList) -1)];
             $experience = $experienceList[mt_rand(0, count($experienceList) -1)];
@@ -188,7 +188,7 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setEmail($faker->unique()->safeEmail());
             $user->setRoles(['ROLE_CANDIDATE']);
-            $user->setPassword('candidate');
+            $user->setPassword('$2y$13$G6NFqBU48lrsW0Av4BXyI.sLURLHW1t4aVxYdpQhEeaOQD2rrRsZG');
             // $user->setCreatedAt(new DateTime);
 
             $manager->persist($user);
@@ -227,14 +227,14 @@ class AppFixtures extends Fixture
         // Recruiter
 
         for ($r = 1; $r <= 5; $r++) {
-            // Nouveau recruiter
+            // New recruiter
 
             $sector = $sectorList[mt_rand(0, count($sectorList) -1)];
 
             $user = new User();
             $user->setEmail($faker->safeEmail());
             $user->setRoles(['ROLE_RECRUITER']);
-            $user->setPassword('recruiter');
+            $user->setPassword('$2y$13$TNx2BnStrSyR0K4/H8ldRusOoTgWZY.aXqAzz1SxK9bbKhEuuagZa');
             // $user->setCreatedAt(new DateTime);
 
             $manager->persist($user);
