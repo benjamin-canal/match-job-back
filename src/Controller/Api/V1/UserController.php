@@ -13,6 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Class that manages resources of type User
@@ -56,16 +57,18 @@ class UserController extends AbstractController
         return $this->json($user, Response::HTTP_OK, [], ['groups' => 'users_get_item']);
     }
 
+
     /**
      * Method to add a user
      * 
-     * @Route("/users", name="users_add", methods={"POST"})
+     * @Route("/subscribe", name="users_add", methods={"POST"})
      */
     public function usersAdd(
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        UserPasswordHasherInterface $passwordHasher
     ) {
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
@@ -96,7 +99,10 @@ class UserController extends AbstractController
             return $this->json($cleanErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-
+        // Hash user password
+        $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());     
+        $user->setPassword($hashedPassword);
+    
         // backup in database
         $em = $doctrine->getManager();
         $em->persist($user);
@@ -169,7 +175,7 @@ class UserController extends AbstractController
 
         // update of information between the current entity and the received entity
         // $user->setEmail($userReceived->getEmail());
-        // $user->setRole($userReceived->getRole());
+        // $user->setRoles($userReceived->getRoles());
         // $user->setPassword($userReceived->getPassword());
         $em->flush();
 
