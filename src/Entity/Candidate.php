@@ -123,6 +123,11 @@ class Candidate
 
     /**
      * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="candidate")
+     * @Assert\Count(
+     *  min=1,
+     *  max=5,
+     *  minMessage="Vous devez sélectionner au moins une technologie.",
+     *  maxMessage="Vous devez avoir au maximum {{ limit }} technologies")
      * @Groups({"users_get_item", "candidates_get_item"})
      */
     private $technologies;
