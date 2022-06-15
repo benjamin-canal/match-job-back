@@ -18,12 +18,13 @@ class Sector
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"sectors_get_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "sectors_get_item"})
      */
     private $sectorName;
 
