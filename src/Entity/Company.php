@@ -18,12 +18,13 @@ class Company
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"compagnies_get_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "compagnies_get_item"})
      */
     private $companyName;
 
