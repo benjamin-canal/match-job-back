@@ -42,8 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
-    /**
-     * 
+    /** 
      * @Assert\Choice(
      * {"ROLE_RECRUITER", "ROLE_CANDIDATE", "ROLE_ADMIN"},
      * multiple=true,

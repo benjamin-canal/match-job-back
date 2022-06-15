@@ -3,8 +3,6 @@
 namespace App\DataFixtures;
 
 use Faker;
-use DateTime;
-use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Adress;
 use App\Entity\Salary;
@@ -19,7 +17,7 @@ use App\Entity\Technology;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use App\DataFixtures\Provider\MatchJobFirstProvider;
+use App\DataFixtures\Provider\ProviderMatchJob;
 
 
 class AppFixtures extends Fixture
@@ -76,8 +74,9 @@ class AppFixtures extends Fixture
         // We can fix the "seed" to the generator (to always get the sames data in the BDD)
         $faker->seed(2022);
 
-        // On instancie notre provider custom MatchJob
-        $matchJobProvider = new MatchJobFirstProvider();
+        // We instantiate our custom MatchJobProvider
+        $matchJobProvider = new ProviderMatchJob();
+        
         // We add MatchJobProvider to faker
         $faker->addProvider($matchJobProvider);
 

@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -127,20 +128,28 @@ class UserController extends AbstractController
      */
     public function usersUpdate(
         User $user = null,
+        UserRepository $userRepository,
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
         ValidatorInterface $validator
     ) {
+        
+        // 404 ?
+        if ($userRepository === null) {
+            // Returns an error if the user is unknown
+            return $this->json(['error' => 'Utilisateur non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+        
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a User entity
-        $userReceived = $serializer->deserialize($jsonContent, User::class, 'json');
+        $userReceived = $serializer->deserialize($jsonContent, User::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $user]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($user);
+        $errors = $validator->validate($userReceived);
 
         if (count($errors) > 0) {
 
@@ -165,9 +174,9 @@ class UserController extends AbstractController
         $em = $doctrine->getManager();
 
         // update of information between the current entity and the received entity
-        $user->setEmail($userReceived->getEmail());
-        $user->setRoles($userReceived->getRoles());
-        $user->setPassword($userReceived->getPassword());
+        // $user->setEmail($userReceived->getEmail());
+        // $user->setRoles($userReceived->getRoles());
+        // $user->setPassword($userReceived->getPassword());
         $em->flush();
 
         // We return a response that contains (REST !)
