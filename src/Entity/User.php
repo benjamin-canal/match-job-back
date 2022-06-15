@@ -40,10 +40,12 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="enumuserrole")
-     * @Assert\Choice({"candidate", "recruiter", "admin"},
+     * @ORM\Column(type="json")
+     * @Assert\Choice(
+     *   {"ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"},
+     *   multiple=true,
      *  message = "The role {{ value }} is not valid")
-     * @Groups({"users_get_item", "users_get_collection"})
+     * @Groups({"users_get_item", "users_get_collection"})     * 
      */
     private $role;
 
