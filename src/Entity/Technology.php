@@ -18,13 +18,13 @@ class Technology
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"technologies_get_item"})
+     * @Groups({"technologies_get_item", "users_get_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "candidates_get_item", "technologies_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "technologies_get_item", "jobs_get_item"})
      */
     private $technologyName;
 

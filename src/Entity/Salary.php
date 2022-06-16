@@ -24,7 +24,7 @@ class Salary
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "candidates_get_item", "salaries_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "salaries_get_item", "jobs_get_item"})
      */
     private $name;
 

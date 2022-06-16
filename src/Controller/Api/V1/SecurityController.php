@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("login", name="api_v1_login", methods={"GET", "POST"})
+     * @Route("login", name="api_v1_login", methods={"POST"})
      * @return JsonResponse
      */
     public function apiLoginCheck(): JsonResponse

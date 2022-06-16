@@ -24,7 +24,7 @@ class Contract
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "candidates_get_item", "contracts_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "contracts_get_item", "jobs_get_item"})
      */
     private $name;
 

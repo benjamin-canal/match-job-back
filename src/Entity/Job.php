@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\JobRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\JobRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,16 +19,19 @@ class Job
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $jobName;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $description;
 
@@ -38,24 +42,28 @@ class Job
      *      max = 1,
      *      notInRangeMessage = "This value is not valide",
      * )
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="update")
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recruiter::class, inversedBy="jobs")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $recruiter;
 
@@ -66,30 +74,35 @@ class Job
 
     /**
      * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="job")
+     * @Groups({"jobs_get_item"})
      */
     private $technologies;
 
     /**
      * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"jobs_get_item"})
      */
     private $contract;
 
     /**
      * @ORM\ManyToOne(targetEntity=Experience::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"jobs_get_item"})
      */
     private $experience;
 
     /**
      * @ORM\ManyToOne(targetEntity=Jobtitle::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"jobs_get_item"})
      */
     private $jobtitle;
 
     /**
      * @ORM\ManyToOne(targetEntity=Salary::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"jobs_get_item"})
      */
     private $salary;
 
@@ -150,12 +163,12 @@ class Job
         return $this->updatedAt;
     }
 
-    public function getRecruiters(): ?Recruiter
+    public function getRecruiter(): ?Recruiter
     {
         return $this->recruiter;
     }
 
-    public function setRecruiters(?Recruiter $recruiter): self
+    public function setRecruiter(?Recruiter $recruiter): self
     {
         $this->recruiter = $recruiter;
 
