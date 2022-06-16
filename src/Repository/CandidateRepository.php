@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Candidate;
+use App\Entity\Matchup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,6 +40,20 @@ class CandidateRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllMatchedJobs($id)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT *
+            FROM App\Entity\Candidate c
+            INNER JOIN matchup m
+            WHERE m.candidate_id = :idCandidate
+            AND m.match_status = 1'
+        )->setParameter('idCandidate', $id);
+
+        return $query->getResult();
+    }
 //    /**
 //     * @return Candidate[] Returns an array of Candidate objects
 //     */
