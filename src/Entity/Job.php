@@ -63,6 +63,7 @@ class Job
     /**
      * @ORM\ManyToOne(targetEntity=Recruiter::class, inversedBy="jobs")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $recruiter;
 
@@ -162,12 +163,12 @@ class Job
         return $this->updatedAt;
     }
 
-    public function getRecruiters(): ?Recruiter
+    public function getRecruiter(): ?Recruiter
     {
         return $this->recruiter;
     }
 
-    public function setRecruiters(?Recruiter $recruiter): self
+    public function setRecruiter(?Recruiter $recruiter): self
     {
         $this->recruiter = $recruiter;
 

@@ -2,8 +2,8 @@
 
 namespace App\Controller\Api\V1;
 
-use App\Entity\Jobtitle;
-use App\Repository\JobtitleRepository;
+use App\Entity\Recruiter;
+use App\Repository\RecruiterRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,53 +15,53 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * Class that manages ressources of type Jobtitle
+ * Class that manages ressources of type Recruiter
  * 
  * @Route("/api/v1", name="api_v1_")
  */
-class JobtitleController extends AbstractController
+class RecruiterController extends AbstractController
 {
     /**
-     * Method to have all jobtitles
+     * Method to have all recruiters
      * 
-     * @Route("/jobtitles", name="jobtitles", methods={"GET"})
+     * @Route("/recruiters", name="recruiters", methods={"GET"} )
      */
-    public function jobtitlesGetCollection(JobtitleRepository $jobtitleRepository): JsonResponse
+    public function recruitersGetCollection(RecruiterRepository $recruiterRepository): JsonResponse
     {
-        
-        $jobtitlesList = $jobtitleRepository->findAll();
+        $recruitersList = $recruiterRepository->findAll();
 
         return $this->json([
-            'jobtitles' => $jobtitlesList,
+            'recruiters' => $recruitersList,
         ],
         Response::HTTP_OK,
         [],
-        ['groups' => 'jobtitles_get_item']
+        ['groups' => 'recruiters_get_collection']
         );
     }
 
     /**
-     * Method to have a jobtitle whose {id} is given
+     * Method to have a recruiter whose {id} is given
      * 
-     * @Route("/jobtitles/{id}", name="jobtitle_get_details", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/recruiters/{id}", name="recruiter_get_details", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function jobtitlesGetProfil(Jobtitle $jobtitle = null)
+    public function recruitersGetDetails(Recruiter $recruiter = null)
     {
         // 404 ?
-        if ($jobtitle === null) {
-            // Returns an error if the jobtitle is unknown
-            return $this->json(['error' => 'Titre de l\'emploi souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
+        if ($recruiter === null) {
+            // Returns an error if the Recruiter is unknown
+            return $this->json(['error' => 'Recruiter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($jobtitle, Response::HTTP_OK, [], ['groups' => 'jobtitles_get_item']);
+        return $this->json($recruiter, Response::HTTP_OK, [], ['groups' => 'recruiters_get_item']);
     }
 
+
     /**
-     * Method to add a jobtitle
+     * Method to add a recruiter
      * 
-     * @Route("/jobtitles", name="jobtitles_add", methods={"POST"})
+     * @Route("/recruiters", name="recruiters_add", methods={"POST"})
      */
-    public function jobtitlesAdd(
+    public function recruitersAdd(
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
@@ -70,12 +70,12 @@ class JobtitleController extends AbstractController
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
 
-        // Deserialize the JSON content into a Jobtitle entity
-        $jobtitle = $serializer->deserialize($jsonContent, Jobtitle::class, 'json');
+        // Deserialize the JSON content into a Recruiter entity
+        $recruiter = $serializer->deserialize($jsonContent, Recruiter::class, 'json');
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($jobtitle);
+        $errors = $validator->validate($recruiter);
 
         if (count($errors) > 0) {
 
@@ -98,31 +98,32 @@ class JobtitleController extends AbstractController
 
         // backup in database
         $em = $doctrine->getManager();
-        $em->persist($jobtitle);
+        $em->persist($recruiter);
         $em->flush();
 
         // We return a response that contains (REST !)
         return $this->json(
-            // jobtitle added
-            $jobtitle,
+            // Recruiter added
+            $recruiter,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
             // REST require locatiion header+ the URL of the created resource
             [
-                'Location' => $this->generateUrl('api_v1_jobtitle_get_details', ['id' => $jobtitle->getId()])
+                'Location' => $this->generateUrl('api_v1_recruiter_get_details', ['id' => $recruiter->getId()])
             ],
-            ['groups' => 'jobtitles_get_item']
+            ['groups' => 'recruiters_get_item']
         );
     }
 
+
     /**
-     * Method to update a jobtitle whose {id} is given
+     * Method to update a Recruiter whose {id} is given
      * 
-     * @Route("/jobtitles/{id}", name="jobtitles_update", methods={"PUT"}, requirements={"id"="\d+"})
+     * @Route("/recruiters/{id}", name="recruiters_update", methods={"PUT"}, requirements={"id"="\d+"})
      */
-    public function jobtitlesUpdate(
-        Jobtitle $jobtitle = null,
-        JobtitleRepository $jobtitleRepository,
+    public function recruitersUpdate(
+        Recruiter $recruiter = null,
+        RecruiterRepository $recruiterRepository,
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
@@ -130,20 +131,20 @@ class JobtitleController extends AbstractController
     ) {
         
         // 404 ?
-        if ($jobtitleRepository === null) {
-            // Returns an error if the jobtitle is unknown
-            return $this->json(['error' => 'Titre de l\'emploi souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
+        if ($recruiterRepository === null) {
+            // Returns an error if the Recruiter is unknown
+            return $this->json(['error' => 'Recruiter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
         
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
 
-        // Deserialize the JSON content into a Jobtitle entity
-        $jobtitleReceived = $serializer->deserialize($jsonContent, Jobtitle::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $jobtitle]);
+        // Deserialize the JSON content into a Recruiter entity
+        $recruiterReceived = $serializer->deserialize($jsonContent, Recruiter::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $recruiter]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($jobtitleReceived);
+        $errors = $validator->validate($recruiterReceived);
 
         if (count($errors) > 0) {
 
@@ -173,35 +174,35 @@ class JobtitleController extends AbstractController
         // We return a response that contains (REST !)
         
         return $this->json(
-            // jobtitle updated
-            $jobtitle,
+            // Recruiter updated
+            $recruiter,
             // status code : 201 CREATED
             Response::HTTP_OK,
             // REST require locatiion header+ the URL of the created resource
             [
-                'Location' => $this->generateUrl('api_v1_jobtitle_get_details', ['id' => $jobtitle->getId()])
+                'Location' => $this->generateUrl('api_v1_recruiter_get_details', ['id' => $recruiter->getId()])
             ],
-            ['groups' => 'jobtitles_get_item']
+            ['groups' => 'recruiters_get_item']
         );
     }
 
+
     /**
-     * Method to remove a jobtitle whose {id} is given
+     * Method to remove a Recruiter whose {id} is given
      * 
-     * @Route("/jobtitles/{id}", name="jobtitle_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @Route("/recruiters/{id}", name="recruiter_delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function jobtitlesDelete(Jobtitle $jobtitle = null, ManagerRegistry $doctrine)
+    public function recruitersDelete(Recruiter $recruiter = null, ManagerRegistry $doctrine)
     {
         // 404 ?
-        if ($jobtitle === null) {
+        if ($recruiter === null) {
             return $this->json(['error' => 'Titre de l\'emploi souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
         $em = $doctrine->getManager();
-        $em->remove($jobtitle);
+        $em->remove($recruiter);
         $em->flush();
 
-        return $this->json($jobtitle, Response::HTTP_OK, [], ['groups' => 'jobtitles_get_item']);
+        return $this->json($recruiter, Response::HTTP_OK, [], ['groups' => 'recruiters_get_item']);
     }
 }
-

@@ -18,25 +18,25 @@ class Recruiter
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item"})
      */
     private $phoneNumber;
 
@@ -55,18 +55,19 @@ class Recruiter
     /**
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="recruiters")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item"})
      */
     private $company;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recruiters"))
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"recruiters_get_collection", "recruiters_get_item"})
      */
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="recruiters")
+     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="recruiter")
      */
     private $jobs;
 
@@ -162,7 +163,7 @@ class Recruiter
     {
         if (!$this->jobs->contains($job)) {
             $this->jobs[] = $job;
-            $job->setRecruiters($this);
+            $job->setRecruiter($this);
         }
 
         return $this;
@@ -172,8 +173,8 @@ class Recruiter
     {
         if ($this->jobs->removeElement($job)) {
             // set the owning side to null (unless already changed)
-            if ($job->getRecruiters() === $this) {
-                $job->setRecruiters(null);
+            if ($job->getRecruiter() === $this) {
+                $job->setRecruiter(null);
             }
         }
 

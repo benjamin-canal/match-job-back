@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email."
      * )
-     * @Groups({"users_get_item", "users_get_collection"})
+     * @Groups({"users_get_item", "users_get_collection", "recruiters_get_collection", "recruiters_get_item"})})
      */
     private $email;
 

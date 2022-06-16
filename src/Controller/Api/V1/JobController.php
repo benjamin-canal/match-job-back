@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -45,7 +46,7 @@ class JobController extends AbstractController
      * 
      * @Route("/jobs/{id}", name="job_get_details", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function jobsGetProfil(Job $job = null)
+    public function jobsGetDetails(Job $job = null)
     {
         // 404 ?
         if ($job === null) {
@@ -123,7 +124,7 @@ class JobController extends AbstractController
      * @Route("/jobs/{id}", name="jobs_update", methods={"PUT"}, requirements={"id"="\d+"})
      */
     public function jobsUpdate(
-        Jobtitle $jobtitle = null,
+        Jobtitle $job = null,
         JobtitleRepository $jobtitleRepository,
         Request $request,
         SerializerInterface $serializer,
@@ -141,11 +142,11 @@ class JobController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Jobtitle entity
-        $userReceived = $serializer->deserialize($jsonContent, Job::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $job]);
+        $jobReceived = $serializer->deserialize($jsonContent, Job::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $job]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
+        $errors = $validator->validate($jobReceived);
 
         if (count($errors) > 0) {
 
