@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker;
+use App\Entity\Job;
 use App\Entity\User;
 use App\Entity\Adress;
 use App\Entity\Salary;
@@ -58,6 +59,7 @@ class AppFixtures extends Fixture
         $this->connection->executeQuery('TRUNCATE TABLE sector');
         $this->connection->executeQuery('TRUNCATE TABLE technology');
         $this->connection->executeQuery('TRUNCATE TABLE user');
+        $this->connection->executeQuery('TRUNCATE TABLE job');
         
     }
 
@@ -197,6 +199,7 @@ class AppFixtures extends Fixture
             $adress->setStreetName($faker->unique()->streetName());
             $adress->setCity($faker->unique()->city());
             $adress->setZip($faker->unique()->numberBetween($min = 1, $max = 32700));
+            $adress->setDepartment($faker->unique()->countryCode());
         
             $manager->persist($adress);
    
@@ -243,6 +246,7 @@ class AppFixtures extends Fixture
             $adress->setStreetName($faker->unique()->streetName());
             $adress->setCity($faker->unique()->city());
             $adress->setZip($faker->unique()->numberBetween($min = 1, $max = 32700));
+            $adress->setDepartment($faker->unique()->countryCode());
         
             $manager->persist($adress);
 
@@ -263,8 +267,28 @@ class AppFixtures extends Fixture
             $recruiter->setPhoneNumber($faker->numberBetween($min = 10, $max = 2000));
             $recruiter->setCompany($company);
             $recruiter->setPhoneNumber($faker->unique()->e164PhoneNumber());
+            $recruiterList[] = $recruiter;
 
             $manager->persist($recruiter);
+        }
+
+
+        // Job
+
+        for ($j = 1; $j <= 10; $j++) {
+            // New job
+
+            $job = new Job();
+            $job->setJobName($faker->unique()->jobTitle());
+            $job->setJobtitle($faker->randomElement($jobTitleList));
+            $job->setDescription($faker->text(50));
+            $job->setRecruiter($faker->randomElement($recruiterList));
+            $job->setContract($faker->randomElement($contractList));
+            $job->setExperience($faker->randomElement($experienceList));
+            $job->setSalary($faker->randomElement($salaryList));
+            $job->setStatus($faker->numberBetween($min = 1, $max = 2));
+            
+            $manager->persist($job);
         }
 
 
