@@ -19,7 +19,7 @@ class Job
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"jobs_get_collection", "jobs_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item", "matchups_get_item"})
      */
     private $id;
 

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MatchupRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MatchupRepository::class)
@@ -16,6 +17,7 @@ class Matchup
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"matchups_get_item"})
      */
     private $id;
 
@@ -26,6 +28,7 @@ class Matchup
      *      max = 1,
      *      notInRangeMessage = "This value is not valide",
      * )
+     * @Groups({"matchups_get_item"})
      */
     private $candidateStatus;
 
@@ -36,6 +39,7 @@ class Matchup
      *      max = 1,
      *      notInRangeMessage = "This value is not valide",
      * )
+     * @Groups({"matchups_get_item"})
      */
     private $recruiterStatus;
 
@@ -46,6 +50,7 @@ class Matchup
      *      max = 1,
      *      notInRangeMessage = "This value is not valide",
      * )
+     * @Groups({"matchups_get_item"})
      */
     private $matchStatus;
 
@@ -63,11 +68,13 @@ class Matchup
 
     /**
      * @ORM\ManyToOne(targetEntity=Candidate::class, inversedBy="matchups")
+     * @Groups({"matchups_get_item"})
      */
     private $candidate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="matchups")
+     * @Groups({"matchups_get_item"})
      */
     private $job;
 

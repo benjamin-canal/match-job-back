@@ -19,7 +19,7 @@ class Candidate
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item", "matchups_get_item"})
      */
     private $id;
 
