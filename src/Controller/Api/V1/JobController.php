@@ -43,7 +43,7 @@ class JobController extends AbstractController
     /**
      * Method to have a jobtitle whose {id} is given
      * 
-     * @Route("/jobs/{id}/profil", name="job_get_details", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/jobs/{id}", name="job_get_details", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function jobsGetProfil(Job $job = null)
     {

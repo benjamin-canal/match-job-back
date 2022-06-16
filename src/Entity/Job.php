@@ -73,6 +73,7 @@ class Job
 
     /**
      * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="job")
+     * @Groups({"jobs_get_item"})
      */
     private $technologies;
 
