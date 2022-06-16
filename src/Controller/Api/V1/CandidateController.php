@@ -4,6 +4,8 @@ namespace App\Controller\Api\V1;
 
 use App\Entity\Candidate;
 use App\Repository\CandidateRepository;
+use App\Repository\JobRepository;
+use App\Repository\MatchupRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -211,7 +213,7 @@ class CandidateController extends AbstractController
      * 
      * @Route("/candidates/{id}/jobs/match", name="candidate_get_jobs_matched", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function candidatesGetAllJobsMatched(Candidate $candidate = null, CandidateRepository $candidateRepository)
+    public function candidatesGetAllJobsMatched(Candidate $candidate = null, MatchupRepository $matchupRepository, JobRepository $jobRepository)
     {
         // 404 ?
         if ($candidate === null) {
@@ -219,9 +221,13 @@ class CandidateController extends AbstractController
             return $this->json(['error' => 'Pas de match trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        dd($candidateRepository->findAllMatchedJobs($candidate->getId()));
+        // dd($matchupRepository->findAllMatchedJobs($candidate));
 
-        return $this->json($candidate, Response::HTTP_OK, [], ['groups' => 'candidates_get_item']);
+        // dd($jobRepository->findAllJobsMatched($candidate));
+
+        $jobs = $matchupRepository->findAllMatchedJobs($candidate);
+
+        return $this->json($jobs, Response::HTTP_OK, [], ['groups' => 'matchups_get_item']);
     }
 
     /**

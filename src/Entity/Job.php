@@ -25,13 +25,13 @@ class Job
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups({"jobs_get_collection", "jobs_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item", "matchups_get_item"})
      */
     private $jobName;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"jobs_get_collection", "jobs_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item", "matchups_get_item"})
      */
     private $description;
 
@@ -74,14 +74,14 @@ class Job
 
     /**
      * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="job")
-     * @Groups({"jobs_get_item"})
+     * @Groups({"jobs_get_item", "matchups_get_item"})
      */
     private $technologies;
 
     /**
      * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"jobs_get_item"})
+     * @Groups({"jobs_get_item", "matchups_get_item"})
      */
     private $contract;
 

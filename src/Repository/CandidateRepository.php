@@ -39,21 +39,7 @@ class CandidateRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-    public function findAllMatchedJobs($id)
-    {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT *
-            FROM App\Entity\Candidate c
-            INNER JOIN matchup m
-            WHERE m.candidate_id = :idCandidate
-            AND m.match_status = 1'
-        )->setParameter('idCandidate', $id);
-
-        return $query->getResult();
-    }
+    
 //    /**
 //     * @return Candidate[] Returns an array of Candidate objects
 //     */
