@@ -107,3 +107,6 @@
 | `/api/v1/candidates/{id}`                 | `DELETE`     | delete a candidate                   | 201 + created object |
 | `/api/v1/candidates/{id}/jobs/match`      | `GET`        | get all jobs matched for a candidate | 200 or 404           |
 | `/api/v1/candidates/{id}/jobs/interested` | `GET`        | get all jobs liked for a candidate   | 200 or 404           |
+| `/api/v1/recruiters/{id}/jobs/match`      | `GET`        | get all jobs matched for a recruiter | 200 or 404           |
+| `/api/v1/recruiters/{id}/jobs/interested` | `GET`        | get all jobs liked for a recruiter   | 200 or 404           |
+| `/api/v1/jobs/{id}/interrested`           | `POST`       | add an interest for a job            | 201 + created object |

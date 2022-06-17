@@ -7,9 +7,14 @@ use App\Repository\MatchupRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=MatchupRepository::class)
+ * @UniqueEntity(
+ *  fields={"candidate", "job"},
+ *  message="Le candidat est déjà intéressé par cette offre d'emploi."
+ * )
  */
 class Matchup
 {
@@ -22,34 +27,19 @@ class Matchup
     private $id;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
-     * @Assert\Range(
-     *      min = 0,
-     *      max = 1,
-     *      notInRangeMessage = "This value is not valide",
-     * )
+     * @ORM\Column(type="boolean", options={"default":false})
      * @Groups({"matchups_get_item"})
      */
     private $candidateStatus;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
-     * @Assert\Range(
-     *      min = 0,
-     *      max = 1,
-     *      notInRangeMessage = "This value is not valide",
-     * )
+     * @ORM\Column(type="boolean", options={"default":false})
      * @Groups({"matchups_get_item"})
      */
     private $recruiterStatus;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
-     * @Assert\Range(
-     *      min = 0,
-     *      max = 1,
-     *      notInRangeMessage = "This value is not valide",
-     * )
+     * @ORM\Column(type="boolean", options={"default":false})
      * @Groups({"matchups_get_item"})
      */
     private $matchStatus;
@@ -83,36 +73,36 @@ class Matchup
         return $this->id;
     }
 
-    public function getCandidateStatus(): ?int
+    public function getCandidateStatus(): ?bool
     {
         return $this->candidateStatus;
     }
 
-    public function setCandidateStatus(?int $candidateStatus): self
+    public function setCandidateStatus(?bool $candidateStatus): self
     {
         $this->candidateStatus = $candidateStatus;
 
         return $this;
     }
 
-    public function getRecruiterStatus(): ?int
+    public function getRecruiterStatus(): ?bool
     {
         return $this->recruiterStatus;
     }
 
-    public function setRecruiterStatus(?int $recruiterStatus): self
+    public function setRecruiterStatus(?bool $recruiterStatus): self
     {
         $this->recruiterStatus = $recruiterStatus;
 
         return $this;
     }
 
-    public function getMatchStatus(): ?int
+    public function getMatchStatus(): ?bool
     {
         return $this->matchStatus;
     }
 
-    public function setMatchStatus(?int $matchStatus): self
+    public function setMatchStatus(?bool $matchStatus): self
     {
         $this->matchStatus = $matchStatus;
 
