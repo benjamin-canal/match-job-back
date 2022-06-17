@@ -51,8 +51,27 @@ class JobRepository extends ServiceEntityRepository
                 SELECT m
                 FROM App\Entity\Matchup m
                 WHERE(m.candidate = :candidate)
-                AND (m.matchStatus = 1)
-            ) )'
+                AND (m.matchStatus = 1))
+            )'
+        )->setParameter('candidate', $candidate);
+        ;
+
+        return $query->getResult();
+    }
+
+    public function findAllJobsInterested(Candidate $candidate)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT j
+            FROM App\Entity\Job j
+            WHERE (j.id IN (
+                SELECT m
+                FROM App\Entity\Matchup m
+                WHERE(m.candidate = :candidate)
+                AND (m.candidateStatus = 1))
+            )'
         )->setParameter('candidate', $candidate);
         ;
 

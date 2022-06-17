@@ -225,9 +225,9 @@ class CandidateController extends AbstractController
         // dd($jobRepository->findAllJobsMatched($candidate));
 
         $matchups = $matchupRepository->findAllMatchedJobs($candidate);
-        $jobs = $jobRepository->findAllJobsMatched($candidate);
+        $jobsList = $jobRepository->findAllJobsMatched($candidate);
 
-        return $this->json($jobs, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+        return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
     }
 
     /**
@@ -235,14 +235,16 @@ class CandidateController extends AbstractController
      * 
      * @Route("/candidates/{id}/jobs/interested", name="candidate_get_jobs!interested", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function candidatesGetAllJobsInterested(Candidate $candidate = null)
+    public function candidatesGetAllJobsInterested(Candidate $candidate = null, JobRepository $jobRepository)
     {
         // 404 ?
         if ($candidate === null) {
             // Returns an error if the candidate is unknown
-            return $this->json(['error' => 'Pas de job trouvé.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Pas de candidat trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($candidate, Response::HTTP_OK, [], ['groups' => 'candidates_get_item']);
+        $jobsList = $jobRepository->findAllJobsInterested($candidate);
+
+        return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
     }
 }
