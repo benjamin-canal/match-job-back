@@ -209,7 +209,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * Method to retrieve all jobs matched
+     * Method to find all jobs that have matched for a candidate whose {id} is given
      * 
      * @Route("/candidates/{id}/jobs/match", name="candidate_get_jobs_matched", methods={"GET"}, requirements={"id"="\d+"})
      */
@@ -218,16 +218,16 @@ class CandidateController extends AbstractController
         // 404 ?
         if ($candidate === null) {
             // Returns an error if the candidate is unknown
-            return $this->json(['error' => 'Pas de match trouvé.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
         // dd($matchupRepository->findAllMatchedJobs($candidate));
-
         // dd($jobRepository->findAllJobsMatched($candidate));
 
-        $jobs = $matchupRepository->findAllMatchedJobs($candidate);
+        $matchups = $matchupRepository->findAllMatchedJobs($candidate);
+        $jobs = $jobRepository->findAllJobsMatched($candidate);
 
-        return $this->json($jobs, Response::HTTP_OK, [], ['groups' => 'matchups_get_item']);
+        return $this->json($jobs, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
     }
 
     /**
