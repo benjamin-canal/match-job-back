@@ -225,7 +225,7 @@ class CandidateController extends AbstractController
         // dd($jobRepository->findAllJobsMatched($candidate));
 
         $matchups = $matchupRepository->findAllMatchedJobs($candidate);
-        $jobsList = $jobRepository->findAllJobsMatched($candidate);
+        $jobsList = $jobRepository->findAllJobsForCandidateMatched($candidate);
 
         return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
     }
@@ -243,7 +243,7 @@ class CandidateController extends AbstractController
             return $this->json(['error' => 'Pas de candidat trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        $jobsList = $jobRepository->findAllJobsInterested($candidate);
+        $jobsList = $jobRepository->findAllJobsForCandidateInterested($candidate);
 
         return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
     }

@@ -94,6 +94,8 @@
 |-|-|-|-|
 |id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|L'identifiant de la technologie|
 |technology_name|VARCHAR(64)|NOT NULL|Le nom de la technologie|
+|background_color|VARCHAR(7)|NULL|La couleur de fond de la technologie|
+|text_color|VARCHAR(7)|NULL|La couleur du texte de la technologie|
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création de la technologie|
 |updated_at|DATETIME|NULL|La date de la dernière mise à jour de la technologie|
 

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Job;
 use App\Entity\Candidate;
+use App\Entity\Recruiter;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -40,7 +41,7 @@ class JobRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllJobsMatched(Candidate $candidate)
+    public function findAllJobsForCandidateMatched(Candidate $candidate)
     {
         $entityManager = $this->getEntityManager();
 
@@ -54,12 +55,12 @@ class JobRepository extends ServiceEntityRepository
                 AND (m.matchStatus = 1))
             )'
         )->setParameter('candidate', $candidate);
-        ;
+        
 
         return $query->getResult();
     }
 
-    public function findAllJobsInterested(Candidate $candidate)
+    public function findAllJobsForCandidateInterested(Candidate $candidate)
     {
         $entityManager = $this->getEntityManager();
 
@@ -73,8 +74,42 @@ class JobRepository extends ServiceEntityRepository
                 AND (m.candidateStatus = 1))
             )'
         )->setParameter('candidate', $candidate);
-        ;
+        
 
+        return $query->getResult();
+    }
+
+    public function findAllJobsForRecruiterMatched(Recruiter $recruiter)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT j
+            FROM App\Entity\Job j
+            WHERE (j.recruiter = :recruiter)
+             AND j.id IN (
+                 SELECT IDENTITY(m.job)
+                 FROM App\Entity\Matchup m
+                 WHERE(m.matchStatus = 1))'
+        )->setParameter('recruiter', $recruiter);
+        
+        return $query->getResult();
+    }
+
+    public function findAllJobsForRecruiterInterrested(Recruiter $recruiter)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT j
+            FROM App\Entity\Job j
+            WHERE (j.recruiter = :recruiter)
+             AND j.id IN (
+                 SELECT IDENTITY(m.job)
+                 FROM App\Entity\Matchup m
+                 WHERE(m.candidateStatus = 1))'
+        )->setParameter('recruiter', $recruiter);
+        
         return $query->getResult();
     }
 
