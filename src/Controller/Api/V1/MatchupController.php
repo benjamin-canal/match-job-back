@@ -60,7 +60,7 @@ class MatchupController extends AbstractController
     /**
      * Method to add a matchup
      * 
-     * @Route("/jobs/interrested", name="matchups_add", methods={"POST"})
+     * @Route("/jobs/candidate-interrested", name="matchups_add", methods={"POST"})
      */
     public function matchupsAdd(
         Request $request,
@@ -101,7 +101,9 @@ class MatchupController extends AbstractController
 
         // backup in database
         $em = $doctrine->getManager();
-        $matchup->setCandidateStatus(1);
+        $matchup->setCandidateStatus(true);
+
+        dd($matchup);
         $em->persist($matchup);
         $em->flush();
 
@@ -122,7 +124,7 @@ class MatchupController extends AbstractController
     /**
      * Method to update a matchup whose {id} is given
      * 
-     * @Route("/matchups/{id}", name="matchups_update", methods={"PUT"}, requirements={"id"="\d+"})
+     * @Route("/jobs/recruiter-interrested", name="matchups_update", methods={"PUT"}, requirements={"id"="\d+"})
      */
     public function matchupsUpdate(
         Matchup $matchup = null,
@@ -141,6 +143,8 @@ class MatchupController extends AbstractController
         
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
+
+        dd($matchupRepository ,$jsonContent);
 
         // Deserialize the JSON content into a Matchup entity
         $userReceived = $serializer->deserialize($jsonContent, Matchup::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $matchup]);

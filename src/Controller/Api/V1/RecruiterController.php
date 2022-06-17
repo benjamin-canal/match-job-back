@@ -2,7 +2,9 @@
 
 namespace App\Controller\Api\V1;
 
+use App\Entity\Job;
 use App\Entity\Recruiter;
+use App\Repository\CandidateRepository;
 use App\Repository\JobRepository;
 use App\Repository\RecruiterRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -228,7 +230,7 @@ class RecruiterController extends AbstractController
     /**
      * Method to retrieve all jobs interested
      * 
-     * @Route("/recruiters/{id}/jobs/interested", name="candidate_get_jobs!interested", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/recruiters/{id}/jobs/interested", name="recruiter_get_jobs_interested", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function recruitersGetAllJobsInterested(Recruiter $recruiter = null, JobRepository $jobRepository)
     {
@@ -241,5 +243,23 @@ class RecruiterController extends AbstractController
         $jobsList = $jobRepository->findAllJobsForRecruiterInterrested($recruiter);
 
         return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+    }
+
+    /**
+     * Method to retrieve all jobs interested
+     * 
+     * @Route("/recruiters/jobs/{id}/candidates-interested", name="get_candidates_interested_by_job", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function recruitersGetAllCandidatesInterestedByJob(Job $job = null, CandidateRepository $candidateRepository)
+    {
+        // 404 ?
+        if ($job === null) {
+            // Returns an error if the job is unknown
+            return $this->json(['error' => 'Pas d\'offre d\'emploi trouvée.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $candidatesList = $candidateRepository->findAllCandidatesInterrestedByJob($job);
+
+        return $this->json($candidatesList, Response::HTTP_OK, [], ['groups' => 'candidates_get_item']);
     }
 }

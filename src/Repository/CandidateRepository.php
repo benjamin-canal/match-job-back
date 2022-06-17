@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Candidate;
+use App\Entity\Job;
 use App\Entity\Matchup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,6 +41,22 @@ class CandidateRepository extends ServiceEntityRepository
         }
     }
     
+    public function findAllCandidatesInterrestedByJob(Job $job)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT c
+            FROM App\Entity\Candidate c
+            WHERE c.id IN (
+                 SELECT IDENTITY(m.candidate)
+                 FROM App\Entity\Matchup m
+                 WHERE(IDENTITY(m.job) = :job))'
+        )->setParameter('job', $job);
+        
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Candidate[] Returns an array of Candidate objects
 //     */
