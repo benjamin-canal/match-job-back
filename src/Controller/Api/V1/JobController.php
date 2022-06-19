@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api\V1;
 
+use App\Entity\Candidate;
 use App\Entity\Job;
 use App\Entity\Jobtitle;
 use App\Repository\JobRepository;
@@ -206,6 +207,36 @@ class JobController extends AbstractController
         $em->flush();
 
         return $this->json($job, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+    }
+
+    /**
+     * Method to get all jobs possible to matched with candidate
+     * 
+     * @Route("/jobs/possible-match-candidate/{id}", name="jobs_possible_matched_with_candidate", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function jobsGetPossibleMatchedCandidate(
+        Candidate $candidate = null,
+        JobRepository $jobRepository
+        ): JsonResponse
+    {
+        
+        // 404 ?
+        if ($candidate === null) {
+            // Returns an error if the candidate is unknown
+            return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+        
+        // find all jobs that match with the candidate
+        $jobsList= $jobRepository->findAllJobsPossibleMatchedWithCandidate($candidate);
+
+               
+        return $this->json([
+            'jobs' => $jobsList,
+        ],
+        Response::HTTP_OK,
+        [],
+        ['groups' => 'jobs_get_collection']
+        );
     }
 
 }

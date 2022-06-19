@@ -71,6 +71,36 @@ class CandidateRepository extends ServiceEntityRepository
         // return $query->getScalarResult();
     }
 
+    public function findAllCandidatesPossibleMatchedWithJob(Job $job)
+    {
+        $parameters = array(
+            'contract' => $job->getContract(),
+            'experience' => $job->getExperience(),
+            'jobtitle' => $job->getJobtitle(),
+            'salary' => $job->getSalary(),
+            'job_id' => $job->getId(),
+        );
+        
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT c
+            FROM App\Entity\Candidate c
+            WHERE (IDENTITY(c.contract) = :contract)
+            AND (IDENTITY(c.experience) = :experience)
+            AND (IDENTITY(c.jobtitle) = :jobtitle)
+            AND (IDENTITY(c.salary) = :salary)
+            -- the recruiter must not already be interested by this candidate
+            AND c.id NOT IN (
+                 SELECT IDENTITY(m.candidate)
+                 FROM App\Entity\Matchup m
+                 WHERE(IDENTITY(m.job) = :job_id)
+                 AND (m.recruiterStatus = 1))'
+        )->setParameters($parameters);
+        
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Candidate[] Returns an array of Candidate objects
 //     */

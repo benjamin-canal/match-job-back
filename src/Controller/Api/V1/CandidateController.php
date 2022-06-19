@@ -2,10 +2,11 @@
 
 namespace App\Controller\Api\V1;
 
+use App\Entity\Job;
 use App\Entity\Candidate;
-use App\Repository\CandidateRepository;
 use App\Repository\JobRepository;
 use App\Repository\MatchupRepository;
+use App\Repository\CandidateRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -246,5 +247,23 @@ class CandidateController extends AbstractController
         $jobsList = $jobRepository->findAllJobsForCandidateInterested($candidate);
 
         return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+    }
+
+    /**
+     * Method to get all candidates possible to matched with job
+     * 
+     * @Route("/candidates/possible-match-job/{id}", name="candidates_possible_matched_with_job", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function CandidatesGetPossibleMatchedJob(Job $job = null, CandidateRepository $candidateRepository)
+    {
+        // 404 ?
+        if ($job === null) {
+            // Returns an error if the job is unknown
+            return $this->json(['error' => 'PAs d\'offre d\'emploi trouvée.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $candidatesList = $candidateRepository->findAllCandidatesPossibleMatchedWithJob($job);
+
+        return $this->json($candidatesList, Response::HTTP_OK, [], ['groups' => 'candidates_get_collection']);
     }
 }

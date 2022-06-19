@@ -112,3 +112,5 @@
 | `/api/v1/jobs/candidate-interrested`           | `POST`       | add an interest for a job by a candidate           | 201 + created object |
 | `/api/v1/jobs/recruiter-interrested`           | `PUT`       | add an interest for a job by a recruiter           | 200, 204 or 404 |
 | `/api/v1/recruiters/jobs/{id}/candidates-interested`           | `GET`       | get all candidates interested by a job           | 200 or 404 |
+| `/api/v1/jobs/possible-match-candidate/{id}`           | `GET`       | get all jobs possible to matched with candidate           | 200 or 404 |
+| `/api/v1/candidates/possible-match-job/{id}`           | `GET`       | get all candidates possible to matched with job           | 200 or 404 |

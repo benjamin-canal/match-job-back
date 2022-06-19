@@ -114,6 +114,38 @@ class JobRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findAllJobsPossibleMatchedWithCandidate(Candidate $candidate)
+    {
+        $parameters = array(
+            'contract' => $candidate->getContract(),
+            'experience' => $candidate->getExperience(),
+            'jobtitle' => $candidate->getJobtitle(),
+            'salary' => $candidate->getSalary(),
+            'candidate_id' => $candidate->getId(),
+        );
+        
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT j
+            FROM App\Entity\Job j
+            WHERE (IDENTITY(j.contract) = :contract)
+            AND (IDENTITY(j.experience) = :experience)
+            AND (IDENTITY(j.jobtitle) = :jobtitle)
+            AND (IDENTITY(j.salary) = :salary)
+            -- the job must be active
+            AND j.status = 1
+            -- the candidate must not already be interested by this job
+            AND j.id NOT IN (
+                 SELECT IDENTITY(m.job)
+                 FROM App\Entity\Matchup m
+                 WHERE(IDENTITY(m.candidate) = :candidate_id)
+                 AND (m.candidateStatus = 1))'
+        )->setParameters($parameters);
+        
+        return $query->getResult();
+    }
+
 
 //    /**
 //     * @return Job[] Returns an array of Job objects
