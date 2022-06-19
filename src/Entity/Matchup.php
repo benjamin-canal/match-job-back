@@ -22,7 +22,7 @@ class Matchup
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"matchups_get_item"})
+     * @Groups({"matchups_get_item", "candidates_get_item"})
      */
     private $id;
 
@@ -64,7 +64,7 @@ class Matchup
 
     /**
      * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="matchups")
-     * @Groups({"matchups_get_item"})
+     * @Groups({"matchups_get_item", "candidates_get_item"})
      */
     private $job;
 

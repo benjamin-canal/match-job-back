@@ -122,60 +122,38 @@ class MatchupController extends AbstractController
     }
 
     /**
-     * Method to update a matchup whose {id} is given
+     * method to validate the matchup
      * 
-     * @Route("/jobs/recruiter-interrested", name="matchups_update", methods={"PUT"}, requirements={"id"="\d+"})
+     * @Route("/jobs/recruiter-interrested", name="matchups_matched", methods={"PUT"})
      */
-    public function matchupsUpdate(
-        Matchup $matchup = null,
+    public function matchupsMatched(
         MatchupRepository $matchupRepository,
         Request $request,
-        SerializerInterface $serializer,
-        ManagerRegistry $doctrine,
-        ValidatorInterface $validator
+        ManagerRegistry $doctrine
     ) {
-        
-        // 404 ?
-        if ($matchupRepository === null) {
-            // Returns an error if the matchup is unknown
-            return $this->json(['error' => 'Match non trouvé.'], Response::HTTP_NOT_FOUND);
-        }
-        
+                
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
 
-        dd($matchupRepository ,$jsonContent);
+        // Decode the JSON content
+        $matchupReceived = json_decode($jsonContent, true);
+        $jobId = $matchupReceived['job']['id'];
+        $candidateId = $matchupReceived['candidate']['id'];
 
-        // Deserialize the JSON content into a Matchup entity
-        $userReceived = $serializer->deserialize($jsonContent, Matchup::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $matchup]);
 
-        // Validation of the entity
-        // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
-
-        if (count($errors) > 0) {
-
-            $cleanErrors = [];
-
-            /** @var ConstraintViolation $error */
-            foreach ($errors as $error) {
-
-                // retrieving information
-                $property = $error->getPropertyPath();
-                $message = $error->getMessage();
-
-                // We add the message in an array to the key $property
-                // PHP itself manages the existence of the second array
-                $cleanErrors[$property][] = $message;
-            }
-
-            return $this->json($cleanErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+        // find matchup by job_id and candidate_id
+        $matchup = $matchupRepository->findOneMatchupBySomeFields($jobId, $candidateId);
 
         // backup in database
         $em = $doctrine->getManager();
 
-        // update of information between the current entity and the received entity
+        // modification of the matchup because there is a match
+        $matchup->setRecruiterStatus(true);
+        
+        if($matchup->getCandidateStatus() === true && $matchup->getRecruiterStatus() === true){
+            $matchup->setMatchStatus(true);
+        };
+
         $em->flush();
 
         // We return a response that contains (REST !)

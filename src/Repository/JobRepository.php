@@ -107,7 +107,8 @@ class JobRepository extends ServiceEntityRepository
              AND j.id IN (
                  SELECT IDENTITY(m.job)
                  FROM App\Entity\Matchup m
-                 WHERE(m.candidateStatus = 1))'
+                 WHERE(m.candidateStatus = 1)
+                 AND (m.matchStatus = 0))'
         )->setParameter('recruiter', $recruiter);
         
         return $query->getResult();

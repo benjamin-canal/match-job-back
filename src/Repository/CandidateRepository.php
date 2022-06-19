@@ -45,16 +45,30 @@ class CandidateRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
 
+        // $query = $entityManager->createQuery(
+        //     'SELECT c
+        //     FROM App\Entity\Candidate c
+        //     WHERE c.id IN (
+        //          SELECT IDENTITY(m.candidate)
+        //          FROM App\Entity\Matchup m
+        //          WHERE(IDENTITY(m.job) = :job))'
+        // )->setParameter('job', $job);
+
+        // select * from candidate
+        // inner join matchup on candidate.id = matchup.candidate_id
+        // where matchup.job_id = 1
+
         $query = $entityManager->createQuery(
-            'SELECT c
+            'SELECT c, m as matchup
             FROM App\Entity\Candidate c
-            WHERE c.id IN (
-                 SELECT IDENTITY(m.candidate)
-                 FROM App\Entity\Matchup m
-                 WHERE(IDENTITY(m.job) = :job))'
+            JOIN App\Entity\Matchup m
+            WHERE (IDENTITY(m.job) = :job)
+            AND c.id = IDENTITY(m.candidate)'
         )->setParameter('job', $job);
         
         return $query->getResult();
+        // toutes les données sont dans la même array
+        // return $query->getScalarResult();
     }
 
 //    /**
