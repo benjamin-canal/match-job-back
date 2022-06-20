@@ -124,7 +124,10 @@ class JobRepository extends ServiceEntityRepository
             'jobtitle' => $candidate->getJobtitle(),
             'salary' => $candidate->getSalary(),
             'candidate_id' => $candidate->getId(),
-            // 'contract_option' => $options['contract'],
+            'contract_option' => $options['contract'],
+            'experience_option' => $options['experience'],
+            'jobtitle_option' => $options['jobtitle'],
+            'salary_option' => $options['salary'],
         );
         
         $entityManager = $this->getEntityManager();
@@ -132,12 +135,28 @@ class JobRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT j
             FROM App\Entity\Job j
-            WHERE 
-            -- CASE WHEN :contract_option = true THEN IDENTITY(j.contract) = :contract END
-            (IDENTITY(j.contract) = :contract)
-            AND (IDENTITY(j.experience) = :experience)
-            AND (IDENTITY(j.jobtitle) = :jobtitle)
-            AND (IDENTITY(j.salary) = :salary)
+            WHERE
+            (
+                (:contract_option = true AND IDENTITY(j.contract) = :contract)
+                OR (:contract_option = false
+                 AND IDENTITY(j.contract) IN (SELECT DISTINCT IDENTITY(jc.contract) FROM App\Entity\Job jc)
+                 )
+            )
+            AND ((:experience_option = true AND IDENTITY(j.experience) = :experience)
+                OR (:experience_option = false
+                 AND IDENTITY(j.experience) IN (SELECT DISTINCT IDENTITY(je.experience) FROM App\Entity\Job je)
+                )
+            )
+            AND ((:jobtitle_option = true AND IDENTITY(j.jobtitle) = :jobtitle)
+                OR (:jobtitle_option = false
+                 AND IDENTITY(j.jobtitle) IN (SELECT DISTINCT IDENTITY(jt.jobtitle) FROM App\Entity\Job jt)
+                )
+            )
+            AND ((:salary_option = true AND IDENTITY(j.salary) = :salary)
+                OR (:salary_option = false
+                 AND IDENTITY(j.salary) IN (SELECT DISTINCT IDENTITY(js.salary) FROM App\Entity\Job js)
+                )
+            )    
             -- the job must be active
             AND j.status = 1
             -- the candidate must not already be interested by this job
