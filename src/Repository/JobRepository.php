@@ -114,14 +114,17 @@ class JobRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findAllJobsPossibleMatchedWithCandidate(Candidate $candidate)
+    public function findAllJobsPossibleMatchedWithCandidate(Candidate $candidate, $options)
     {
+        
+        
         $parameters = array(
             'contract' => $candidate->getContract(),
             'experience' => $candidate->getExperience(),
             'jobtitle' => $candidate->getJobtitle(),
             'salary' => $candidate->getSalary(),
             'candidate_id' => $candidate->getId(),
+            // 'contract_option' => $options['contract'],
         );
         
         $entityManager = $this->getEntityManager();
@@ -129,7 +132,9 @@ class JobRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT j
             FROM App\Entity\Job j
-            WHERE (IDENTITY(j.contract) = :contract)
+            WHERE 
+            -- CASE WHEN :contract_option = true THEN IDENTITY(j.contract) = :contract END
+            (IDENTITY(j.contract) = :contract)
             AND (IDENTITY(j.experience) = :experience)
             AND (IDENTITY(j.jobtitle) = :jobtitle)
             AND (IDENTITY(j.salary) = :salary)
