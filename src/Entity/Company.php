@@ -24,7 +24,7 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "compagnies_get_item", "recruiters_get_collection", "recruiters_get_item"})
+     * @Groups({"users_get_item", "compagnies_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $companyName;
 
@@ -49,6 +49,7 @@ class Company
     /**
      * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="companies")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("jobs_get_collection", "jobs_get_item")
      */
     private $adress;
 
