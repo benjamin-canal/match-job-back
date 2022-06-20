@@ -5,7 +5,7 @@ namespace App\DataFixtures\Provider;
 class ProviderMatchJob
 {
 
-  // 23 technology
+  // technology
   private $technologies = [
     'PHP',
     'C#',
@@ -33,12 +33,14 @@ class ProviderMatchJob
     'Stack Overflow',
   ];
 
+  // sector  
   private $sectors = [
       'Dev web',
       'Agence',
       'Remote',
   ];
 
+  // contract
   private $contracts = [
       'CDI',
       'CDD',
@@ -49,6 +51,7 @@ class ProviderMatchJob
       'Alternance',
   ];
 
+  // salary
   private $salaries = [
       'Selon expérience',
       '19 237 - 22 000',
@@ -74,40 +77,27 @@ class ProviderMatchJob
       'plus de 62 000',
   ];
 
+  // jobTitle
   private $jobTitles = [
       'Développeur web Fullstack',
       'Développeur web Frontend',
       'Développeur web Backend',
   ];
 
+  // experience
   private $experiences = [
       'inférieur à 1 ',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '10',
-      '11',
-      '12',
-      '13',
-      '14',
-      '15',
-      '16',
-      '17',
-      '18',
-      '19',
-      '20',
+      'de 1 à 2',
+      'de 2 à 5',
+      'de 5 à 10',
+      'plus de 10 ',
+      'plus de 15',
       'supérieur à 20 ',
   ];
 
 
   /**
-   * Retourne une technology au hasard
+   * Return a random technology
    */
   public function technologyType()
   {
@@ -115,7 +105,7 @@ class ProviderMatchJob
   }
 
   /**
-   * Retourne un sector au hasard
+   * Return a random sector
    */
   public function sectorType()
   {
@@ -123,7 +113,7 @@ class ProviderMatchJob
   }
 
   /**
-   * Retourne un sector au hasard
+   * Return a random contract
    */
   public function contractType()
   {
@@ -131,7 +121,7 @@ class ProviderMatchJob
   }
 
   /**
-   * Retourne un salary au hasard
+   * Return a random salary
    */
   public function salaryType()
   {
@@ -139,7 +129,7 @@ class ProviderMatchJob
   }
 
   /**
-   * Retourne un jobTitle au hasard
+   * Return a random jobTitle
    */
   public function jobTitleType()
   {
@@ -147,7 +137,7 @@ class ProviderMatchJob
   }
 
   /**
-   * Retourne un jobTitle au hasard
+   * Return a random experience
    */
   public function experienceType()
   {

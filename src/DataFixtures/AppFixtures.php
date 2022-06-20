@@ -19,7 +19,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Provider\ProviderMatchJob;
-
+use App\Entity\Matchup;
 
 class AppFixtures extends Fixture
 {   
@@ -60,6 +60,7 @@ class AppFixtures extends Fixture
         $this->connection->executeQuery('TRUNCATE TABLE technology');
         $this->connection->executeQuery('TRUNCATE TABLE user');
         $this->connection->executeQuery('TRUNCATE TABLE job');
+        $this->connection->executeQuery('TRUNCATE TABLE matchup');
         
     }
 
@@ -100,7 +101,7 @@ class AppFixtures extends Fixture
         // Technology
         $technologyList = [];
 
-        for ($t = 0; $t <= 22 ; $t++) {
+        for ($t = 1; $t <= 23 ; $t++) {
             $technology = new Technology();
             $technology->setTechnologyName($faker->unique()->technologyType());
             // $technology->setTechnologyName($this->technologies[$t]);
@@ -128,7 +129,7 @@ class AppFixtures extends Fixture
         // Experience
         $experienceList = [];
         
-        for ($e = 0; $e <= 21 ; $e++) {
+        for ($e = 1; $e <= 7; $e++) {
             $experience = new Experience();
             $experience->setYearsNumber($faker->unique()->experienceType());
             // $experience->setYearsNumber($this->experiences[$e]);
@@ -178,7 +179,7 @@ class AppFixtures extends Fixture
         $manager->persist($user);
       
         // Candidate
-        for ($c = 1; $c <= 5; $c++) {
+        for ($c = 1; $c <= 10; $c++) {
             // New candidate
            
             $salary = $salaryList[mt_rand(0, count($salaryList) -1)];
@@ -222,13 +223,15 @@ class AppFixtures extends Fixture
             $candidate->setAdress($adress);
             $candidate->setContract($contract);
             $candidate->setJobtitle($jobTitle);
+
+            $candidateList[] = $candidate;
             
             $manager->persist($candidate);
         }
 
         // Recruiter
 
-        for ($r = 1; $r <= 5; $r++) {
+        for ($r = 1; $r <= 10; $r++) {
             // New recruiter
 
             $sector = $sectorList[mt_rand(0, count($sectorList) -1)];
@@ -267,6 +270,7 @@ class AppFixtures extends Fixture
             $recruiter->setPhoneNumber($faker->numberBetween($min = 10, $max = 2000));
             $recruiter->setCompany($company);
             $recruiter->setPhoneNumber($faker->unique()->e164PhoneNumber());
+
             $recruiterList[] = $recruiter;
 
             $manager->persist($recruiter);
@@ -275,7 +279,7 @@ class AppFixtures extends Fixture
 
         // Job
 
-        for ($j = 1; $j <= 10; $j++) {
+        for ($j = 1; $j <= 20; $j++) {
             // New job
 
             $job = new Job();
@@ -287,8 +291,25 @@ class AppFixtures extends Fixture
             $job->setExperience($faker->randomElement($experienceList));
             $job->setSalary($faker->randomElement($salaryList));
             $job->setStatus($faker->numberBetween($min = 1, $max = 2));
+
+            $jobList[] = $job;
             
             $manager->persist($job);
+        }
+
+        // Matchup
+
+        for ($m = 1; $m <= 20; $m++) {
+            // New Matchup
+
+            $matchup = new Matchup();
+            $matchup->setCandidate($faker->randomElement($candidateList));
+            $matchup->setJob($faker->randomElement($jobList));
+            $matchup->setCandidateStatus($faker->boolean());
+            $matchup->setRecruiterStatus($faker->boolean());
+            $matchup->setMatchStatus($faker->boolean());
+
+            $manager->persist($matchup);
         }
 
 
