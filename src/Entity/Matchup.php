@@ -22,7 +22,7 @@ class Matchup
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"matchups_get_item", "candidates_get_item", "jobs_get_collection", "jobs_get_item"})
+     * @Groups({"matchups_get_item", "candidates_get_item", "candidates_get_collection", "jobs_get_collection", "jobs_get_item"})
      */
     private $id;
 

@@ -19,13 +19,13 @@ class Technology
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"technologies_get_item", "users_get_item", "jobs_get_collection"})
+     * @Groups({"technologies_get_item", "users_get_item", "jobs_get_item", "candidates_get_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "candidates_get_item", "technologies_get_item", "jobs_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "technologies_get_item", "jobs_get_item", "jobs_get_collection"})
      */
     private $technologyName;
 
@@ -57,6 +57,7 @@ class Technology
      *     formats = Assert\CssColor::HEX_LONG,
      *     message = "The accent color must be a 6-character hexadecimal color."
      * )
+     * @Groups({"candidates_get_item", "candidates_get_collection", "jobs_get_collection", "jobs_get_item"})
      */
     private $backgroundColor;
 
@@ -66,6 +67,7 @@ class Technology
      *     formats = Assert\CssColor::HEX_LONG,
      *     message = "The accent color must be a 6-character hexadecimal color."
      * )
+     * @Groups({"candidates_get_item", "candidates_get_collection", "jobs_get_collection", "jobs_get_item"})
      */
     private $textColor;
 

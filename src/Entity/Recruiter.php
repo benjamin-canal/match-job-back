@@ -24,13 +24,13 @@ class Recruiter
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "candidates_get_collection", "candidates_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "candidates_get_collection", "candidates_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $firstname;
 
@@ -55,7 +55,7 @@ class Recruiter
     /**
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="recruiters")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_collection", "jobs_get_item", "candidates_get_collection"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_collection", "jobs_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $company;
 

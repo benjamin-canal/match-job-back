@@ -24,7 +24,7 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "compagnies_get_item", "recruiters_get_collection", "recruiters_get_item"})
+     * @Groups({"users_get_item", "compagnies_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_collection", "jobs_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $companyName;
 

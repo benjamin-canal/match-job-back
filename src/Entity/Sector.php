@@ -24,7 +24,7 @@ class Sector
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "sectors_get_item"})
+     * @Groups({"users_get_item", "sectors_get_item", "candidates_get_item", "candidates_get_collection", "jobs_get_collection", "jobs_get_item"})
      */
     private $sectorName;
 

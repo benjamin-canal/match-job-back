@@ -25,13 +25,13 @@ class Candidate
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item"})
+     * @Groups({"users_get_item", "candidates_get_collection", "candidates_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $firstName;
 
@@ -130,35 +130,35 @@ class Candidate
      *  max=5,
      *  minMessage="Vous devez sélectionner au moins une technologie.",
      *  maxMessage="Vous devez avoir au maximum {{ limit }} technologies")
-     * @Groups({"users_get_item", "candidates_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $technologies;
 
     /**
      * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item", "candidates_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $contract;
 
     /**
      * @ORM\ManyToOne(targetEntity=Experience::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item", "candidates_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $experience;
 
     /**
      * @ORM\ManyToOne(targetEntity=Jobtitle::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item", "candidates_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $jobtitle;
 
     /**
      * @ORM\ManyToOne(targetEntity=Salary::class, inversedBy="candidate")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item", "candidates_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $salary;
 
