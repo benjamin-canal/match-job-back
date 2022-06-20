@@ -25,36 +25,37 @@ class Adress
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
-     * @Groups({"users_get_item", "candidates_get_item", "adresses_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item"})
      */
     private $streetNumber;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups({"users_get_item", "candidates_get_item", "adresses_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item"})
      */
     private $streetName;
 
     /**
      * @ORM\Column(type="string", length=5)
-     * @Groups({"users_get_item", "candidates_get_item", "adresses_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $zip;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups({"users_get_item", "candidates_get_item", "adresses_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
-     * @Groups({"users_get_item", "candidates_get_item", "adresses_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item"})
      */
     private $department;
 
     /**
      * @ORM\OneToMany(targetEntity=Company::class, mappedBy="adress")
+     * 
      */
     private $companies;
 
