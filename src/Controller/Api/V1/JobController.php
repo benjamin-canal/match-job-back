@@ -229,12 +229,18 @@ class JobController extends AbstractController
 
         // We need to retrieve the JSON content from the Request
         $jsonContent = $request->getContent();
-
+        
         // Decode the JSON content
-        $options = json_decode($jsonContent, true)['options'][0];
-        // dd($options);
-        // $jobId = $matchupReceived['job']['id'];
-        // $candidateId = $matchupReceived['candidate']['id'];
+        if ($jsonContent != ""){
+            $options = json_decode($jsonContent, true)['options'][0];
+        } else {
+            $options = [
+                'contract' => true,
+                'experience' => true,
+                'jobtitle' => true,
+                'salary' => true
+            ];
+        }        
         
         // find all jobs that match with the candidate
         $jobsList= $jobRepository->findAllJobsPossibleMatchedWithCandidate($candidate, $options);

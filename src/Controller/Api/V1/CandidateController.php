@@ -254,15 +254,33 @@ class CandidateController extends AbstractController
      * 
      * @Route("/candidates/possible-match-job/{id}", name="candidates_possible_matched_with_job", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function CandidatesGetPossibleMatchedJob(Job $job = null, CandidateRepository $candidateRepository)
-    {
+    public function CandidatesGetPossibleMatchedJob(
+        Job $job = null,
+        CandidateRepository $candidateRepository, 
+        Request $request
+    ) {
         // 404 ?
         if ($job === null) {
             // Returns an error if the job is unknown
             return $this->json(['error' => 'PAs d\'offre d\'emploi trouvée.'], Response::HTTP_NOT_FOUND);
         }
 
-        $candidatesList = $candidateRepository->findAllCandidatesPossibleMatchedWithJob($job);
+        // We need to retrieve the JSON content from the Request
+        $jsonContent = $request->getContent();
+        
+        // Decode the JSON content
+        if ($jsonContent != ""){
+            $options = json_decode($jsonContent, true)['options'][0];
+        } else {
+            $options = [
+                'contract' => true,
+                'experience' => true,
+                'jobtitle' => true,
+                'salary' => true
+            ];
+        }
+
+        $candidatesList = $candidateRepository->findAllCandidatesPossibleMatchedWithJob($job, $options);
 
         return $this->json($candidatesList, Response::HTTP_OK, [], ['groups' => 'candidates_get_collection']);
     }

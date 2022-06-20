@@ -71,7 +71,7 @@ class CandidateRepository extends ServiceEntityRepository
         // return $query->getScalarResult();
     }
 
-    public function findAllCandidatesPossibleMatchedWithJob(Job $job)
+    public function findAllCandidatesPossibleMatchedWithJob(Job $job, $options)
     {
         $parameters = array(
             'contract' => $job->getContract(),
@@ -79,6 +79,10 @@ class CandidateRepository extends ServiceEntityRepository
             'jobtitle' => $job->getJobtitle(),
             'salary' => $job->getSalary(),
             'job_id' => $job->getId(),
+            'contract_option' => $options['contract'],
+            'experience_option' => $options['experience'],
+            'jobtitle_option' => $options['jobtitle'],
+            'salary_option' => $options['salary'],
         );
         
         $entityManager = $this->getEntityManager();
@@ -86,10 +90,28 @@ class CandidateRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT c
             FROM App\Entity\Candidate c
-            WHERE (IDENTITY(c.contract) = :contract)
-            AND (IDENTITY(c.experience) = :experience)
-            AND (IDENTITY(c.jobtitle) = :jobtitle)
-            AND (IDENTITY(c.salary) = :salary)
+            WHERE
+            (
+                (:contract_option = true AND IDENTITY(c.contract) = :contract)
+                OR (:contract_option = false
+                 AND IDENTITY(c.contract) IN (SELECT DISTINCT IDENTITY(cc.contract) FROM App\Entity\Candidate cc)
+                 )
+            )
+            AND ((:experience_option = true AND IDENTITY(c.experience) = :experience)
+                OR (:experience_option = false
+                 AND IDENTITY(c.experience) IN (SELECT DISTINCT IDENTITY(ce.experience) FROM App\Entity\Candidate ce)
+                )
+            )
+            AND ((:jobtitle_option = true AND IDENTITY(c.jobtitle) = :jobtitle)
+                OR (:jobtitle_option = false
+                 AND IDENTITY(c.jobtitle) IN (SELECT DISTINCT IDENTITY(ct.jobtitle) FROM App\Entity\Candidate ct)
+                )
+            )
+            AND ((:salary_option = true AND IDENTITY(c.salary) = :salary)
+                OR (:salary_option = false
+                 AND IDENTITY(c.salary) IN (SELECT DISTINCT IDENTITY(cs.salary) FROM App\Entity\Candidate cs)
+                )
+            )
             -- the recruiter must not already be interested by this candidate
             AND c.id NOT IN (
                  SELECT IDENTITY(m.candidate)
