@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>Role</th>
-                <td>{{ user.role }}</td>
+                <td>{{ user.roles|join(', ') }}</td>
             </tr>
             <tr>
                 <th>CreatedAt</th>
