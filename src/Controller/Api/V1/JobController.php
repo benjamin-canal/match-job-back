@@ -2,10 +2,9 @@
 
 namespace App\Controller\Api\V1;
 
+use App\Entity\Candidate;
 use App\Entity\Job;
-use App\Entity\Jobtitle;
 use App\Repository\JobRepository;
-use App\Repository\JobtitleRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class JobController extends AbstractController
 {   
     /**
-     * Method to have all jobtitles
+     * Method to have all jobs
      * 
      * @Route("/jobs", name="jobs", methods={"GET"} )
      */
@@ -42,7 +41,7 @@ class JobController extends AbstractController
     }
 
     /**
-     * Method to have a jobtitle whose {id} is given
+     * Method to have a job whose {id} is given
      * 
      * @Route("/jobs/{id}", name="job_get_details", methods={"GET"}, requirements={"id"="\d+"})
      */
@@ -50,8 +49,8 @@ class JobController extends AbstractController
     {
         // 404 ?
         if ($job === null) {
-            // Returns an error if the jobtitle is unknown
-            return $this->json(['error' => 'Job souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
+            // Returns an error if the job is unknown
+            return $this->json(['error' => 'Offre d\'emploi souhaitée : non trouvée.'], Response::HTTP_NOT_FOUND);
         }
 
         return $this->json($job, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
@@ -105,7 +104,7 @@ class JobController extends AbstractController
 
         // We return a response that contains (REST !)
         return $this->json(
-            // jobtitle added
+            // job added
             $job,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
@@ -124,8 +123,8 @@ class JobController extends AbstractController
      * @Route("/jobs/{id}", name="jobs_update", methods={"PUT"}, requirements={"id"="\d+"})
      */
     public function jobsUpdate(
-        Jobtitle $job = null,
-        JobtitleRepository $jobtitleRepository,
+        Job $job = null,
+        JobRepository $jobRepository,
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
@@ -133,9 +132,9 @@ class JobController extends AbstractController
     ) {
         
         // 404 ?
-        if ($jobtitleRepository === null) {
-            // Returns an error if the jobtitle is unknown
-            return $this->json(['error' => 'Job souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
+        if ($jobRepository === null) {
+            // Returns an error if the job is unknown
+            return $this->json(['error' => 'Offre d\'emploi souhaitée : non trouvée.'], Response::HTTP_NOT_FOUND);
         }
         
         // We need to retrieve the JSON content from the Request
@@ -176,7 +175,7 @@ class JobController extends AbstractController
         // We return a response that contains (REST !)
         
         return $this->json(
-            // jobtitle updated
+            // job updated
             $job,
             // status code : 201 CREATED
             Response::HTTP_OK,
@@ -206,6 +205,52 @@ class JobController extends AbstractController
         $em->flush();
 
         return $this->json($job, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+    }
+
+    /**
+     * Method to get all jobs possible to matched with candidate
+     * 
+     * @Route("/jobs/possible-match-candidate/{id}", name="jobs_possible_matched_with_candidate", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function jobsGetPossibleMatchedCandidate(
+        Candidate $candidate = null,
+        JobRepository $jobRepository,
+        Request $request
+        ): JsonResponse
+    {
+        
+        // 404 ?
+        if ($candidate === null) {
+            // Returns an error if the candidate is unknown
+            return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        // We need to retrieve the JSON content from the Request
+        $jsonContent = $request->getContent();
+        
+        // Decode the JSON content
+        if ($jsonContent != ""){
+            $options = json_decode($jsonContent, true)['options'][0];
+        } else {
+            $options = [
+                'contract' => true,
+                'experience' => true,
+                'jobtitle' => true,
+                'salary' => true
+            ];
+        }        
+        
+        // find all jobs that match with the candidate
+        $jobsList= $jobRepository->findAllJobsPossibleMatchedWithCandidate($candidate, $options);
+
+               
+        return $this->json([
+            'jobs' => $jobsList,
+        ],
+        Response::HTTP_OK,
+        [],
+        ['groups' => 'jobs_get_collection']
+        );
     }
 
 }

@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Candidate;
+use App\Entity\Job;
 use App\Entity\Matchup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,6 +41,40 @@ class MatchupRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllMatchedJobs(Candidate $candidate)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT j, m
+            FROM App\Entity\Matchup m
+            INNER JOIN m.job j
+            WHERE (m.candidate = :candidate)
+            AND (m.matchStatus = 1)'
+        )->setParameter('candidate', $candidate);
+
+        return $query->getResult();
+    }
+
+    public function findOneMatchupBySomeFields($jobId, $candidateId)
+    {
+       $parameters = array(
+           'job_id' => $jobId,
+           'candidate_id' => $candidateId
+       );
+    
+       $entityManager = $this->getEntityManager();
+
+       $query = $entityManager->createQuery(
+           'SELECT m
+           FROM App\Entity\Matchup m
+           WHERE (IDENTITY(m.job) = :job_id)
+           AND (IDENTITY(m.candidate) = :candidate_id)'
+       )->setParameters($parameters);
+
+       return $query->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Matchup[] Returns an array of Matchup objects
 //     */
@@ -54,13 +90,5 @@ class MatchupRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Matchup
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   
 }

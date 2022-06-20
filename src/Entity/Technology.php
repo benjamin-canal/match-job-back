@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TechnologyRepository::class)
@@ -18,7 +19,7 @@ class Technology
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"technologies_get_item", "users_get_item"})
+     * @Groups({"technologies_get_item", "users_get_item", "jobs_get_collection"})
      */
     private $id;
 
@@ -49,6 +50,24 @@ class Technology
      * @ORM\ManyToMany(targetEntity=Job::class, inversedBy="technologies")
      */
     private $job;
+
+    /**
+     * @ORM\Column(type="string", length=7, nullable=true)
+     * @Assert\CssColor(
+     *     formats = Assert\CssColor::HEX_LONG,
+     *     message = "The accent color must be a 6-character hexadecimal color."
+     * )
+     */
+    private $backgroundColor;
+
+    /**
+     * @ORM\Column(type="string", length=7, nullable=true)
+     * @Assert\CssColor(
+     *     formats = Assert\CssColor::HEX_LONG,
+     *     message = "The accent color must be a 6-character hexadecimal color."
+     * )
+     */
+    private $textColor;
 
     public function __construct()
     {
@@ -127,6 +146,30 @@ class Technology
     public function removeJob(Job $job): self
     {
         $this->job->removeElement($job);
+
+        return $this;
+    }
+
+    public function getBackgroundColor(): ?string
+    {
+        return $this->backgroundColor;
+    }
+
+    public function setBackgroundColor(?string $backgroundColor): self
+    {
+        $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
+    public function getTextColor(): ?string
+    {
+        return $this->textColor;
+    }
+
+    public function setTextColor(?string $textColor): self
+    {
+        $this->textColor = $textColor;
 
         return $this;
     }

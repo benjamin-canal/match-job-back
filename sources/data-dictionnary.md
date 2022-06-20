@@ -7,8 +7,8 @@
 |id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|L'identifiant du candidat|
 |lasttname|VARCHAR(64)|NOT NULL|Le nom du candidat|
 |firstname|VARCHAR(64)|NULL|Le prénom du candidat|
-|birthday|TEXT|NULL|La description du personnage|
-|genre|TINYINT|NOT NULL|Le sexe du candidat (0 pour inconnu, 1 pour masculin, 2 pour féminin)|
+|birthday|DATE|NULL|La date de naissance du candidat|
+|genre|TINYINT|NOT NULL|Le sexe du candidat (0 pour inconnu, 1 pour féminin, 2 pour masculin)|
 |phone_number|VARCHAR(10)|NULL|Le numéro de téléphone du candidat|
 |picture|VARCHAR(255)|NULL|L'URL de la photo du candidat|
 |resume|VARCHAR(255)|NULL|L'URL du CV du candidat|
@@ -94,6 +94,8 @@
 |-|-|-|-|
 |id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|L'identifiant de la technologie|
 |technology_name|VARCHAR(64)|NOT NULL|Le nom de la technologie|
+|background_color|VARCHAR(7)|NULL|La couleur de fond de la technologie|
+|text_color|VARCHAR(7)|NULL|La couleur du texte de la technologie|
 |created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|La date de création de la technologie|
 |updated_at|DATETIME|NULL|La date de la dernière mise à jour de la technologie|
 

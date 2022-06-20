@@ -2,7 +2,10 @@
 
 namespace App\Controller\Api\V1;
 
+use App\Entity\Job;
 use App\Entity\Candidate;
+use App\Repository\JobRepository;
+use App\Repository\MatchupRepository;
 use App\Repository\CandidateRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -204,5 +207,81 @@ class CandidateController extends AbstractController
         $em->flush();
 
         return $this->json($candidate, Response::HTTP_OK, [], ['groups' => 'candidates_get_item']);
+    }
+
+    /**
+     * Method to find all jobs that have matched for a candidate whose {id} is given
+     * 
+     * @Route("/candidates/{id}/jobs/match", name="candidate_get_jobs_matched", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function candidatesGetAllJobsMatched(Candidate $candidate = null, MatchupRepository $matchupRepository, JobRepository $jobRepository)
+    {
+        // 404 ?
+        if ($candidate === null) {
+            // Returns an error if the candidate is unknown
+            return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        // dd($matchupRepository->findAllMatchedJobs($candidate));
+        // dd($jobRepository->findAllJobsMatched($candidate));
+
+        $matchups = $matchupRepository->findAllMatchedJobs($candidate);
+        $jobsList = $jobRepository->findAllJobsForCandidateMatched($candidate);
+
+        return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+    }
+
+    /**
+     * Method to retrieve all jobs interested
+     * 
+     * @Route("/candidates/{id}/jobs/interested", name="candidate_get_jobs!interested", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function candidatesGetAllJobsInterested(Candidate $candidate = null, JobRepository $jobRepository)
+    {
+        // 404 ?
+        if ($candidate === null) {
+            // Returns an error if the candidate is unknown
+            return $this->json(['error' => 'Pas de candidat trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $jobsList = $jobRepository->findAllJobsForCandidateInterested($candidate);
+
+        return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+    }
+
+    /**
+     * Method to get all candidates possible to matched with job
+     * 
+     * @Route("/candidates/possible-match-job/{id}", name="candidates_possible_matched_with_job", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function CandidatesGetPossibleMatchedJob(
+        Job $job = null,
+        CandidateRepository $candidateRepository, 
+        Request $request
+    ) {
+        // 404 ?
+        if ($job === null) {
+            // Returns an error if the job is unknown
+            return $this->json(['error' => 'PAs d\'offre d\'emploi trouvée.'], Response::HTTP_NOT_FOUND);
+        }
+
+        // We need to retrieve the JSON content from the Request
+        $jsonContent = $request->getContent();
+        
+        // Decode the JSON content
+        if ($jsonContent != ""){
+            $options = json_decode($jsonContent, true)['options'][0];
+        } else {
+            $options = [
+                'contract' => true,
+                'experience' => true,
+                'jobtitle' => true,
+                'salary' => true
+            ];
+        }
+
+        $candidatesList = $candidateRepository->findAllCandidatesPossibleMatchedWithJob($job, $options);
+
+        return $this->json($candidatesList, Response::HTTP_OK, [], ['groups' => 'candidates_get_collection']);
     }
 }

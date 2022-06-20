@@ -36,9 +36,7 @@ class Adress
     private $streetName;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\LessThan(100000)
-     * @Assert\GreaterThan(0)
+     * @ORM\Column(type="string", length=5)
      * @Groups({"users_get_item", "candidates_get_item", "adresses_get_item"})
      */
     private $zip;
@@ -112,12 +110,12 @@ class Adress
         return $this;
     }
 
-    public function getZip(): ?int
+    public function getZip(): ?string
     {
         return $this->zip;
     }
 
-    public function setZip(int $zip): self
+    public function setZip(string $zip): self
     {
         $this->zip = $zip;
 

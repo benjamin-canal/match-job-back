@@ -2,7 +2,10 @@
 
 namespace App\Controller\Api\V1;
 
+use App\Entity\Job;
 use App\Entity\Recruiter;
+use App\Repository\CandidateRepository;
+use App\Repository\JobRepository;
 use App\Repository\RecruiterRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,7 +52,7 @@ class RecruiterController extends AbstractController
         // 404 ?
         if ($recruiter === null) {
             // Returns an error if the Recruiter is unknown
-            return $this->json(['error' => 'Recruiter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Recruter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
         return $this->json($recruiter, Response::HTTP_OK, [], ['groups' => 'recruiters_get_item']);
@@ -133,7 +136,7 @@ class RecruiterController extends AbstractController
         // 404 ?
         if ($recruiterRepository === null) {
             // Returns an error if the Recruiter is unknown
-            return $this->json(['error' => 'Recruiter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Recruter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
         
         // We need to retrieve the JSON content from the Request
@@ -204,5 +207,59 @@ class RecruiterController extends AbstractController
         $em->flush();
 
         return $this->json($recruiter, Response::HTTP_OK, [], ['groups' => 'recruiters_get_item']);
+    }
+
+    /**
+     * Method to find all jobs that have matched for a candidate whose {id} is given
+     * 
+     * @Route("/recruiters/{id}/jobs/match", name="recruiter_get_jobs_matched", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function recruitersGetAllJobsMatched(Recruiter $recruiter = null, JobRepository $jobRepository)
+    {
+        // 404 ?
+        if ($recruiter === null) {
+            // Returns an error if the recruiter is unknown
+            return $this->json(['error' => 'Recruteur non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $jobsList = $jobRepository->findAllJobsForRecruiterMatched($recruiter);
+
+        return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+    }
+
+    /**
+     * Method to retrieve all jobs interested
+     * 
+     * @Route("/recruiters/{id}/jobs/interested", name="recruiter_get_jobs_interested", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function recruitersGetAllJobsInterested(Recruiter $recruiter = null, JobRepository $jobRepository)
+    {
+        // 404 ?
+        if ($recruiter === null) {
+            // Returns an error if the recruiter is unknown
+            return $this->json(['error' => 'Pas de recruteur trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $jobsList = $jobRepository->findAllJobsForRecruiterInterrested($recruiter);
+
+        return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+    }
+
+    /**
+     * Method to retrieve all jobs interested
+     * 
+     * @Route("/recruiters/jobs/{id}/candidates-interested", name="get_candidates_interested_by_job", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function recruitersGetAllCandidatesInterestedByJob(Job $job = null, CandidateRepository $candidateRepository)
+    {
+        // 404 ?
+        if ($job === null) {
+            // Returns an error if the job is unknown
+            return $this->json(['error' => 'Pas d\'offre d\'emploi trouvée.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $candidatesList = $candidateRepository->findAllCandidatesInterrestedByJob($job);
+
+        return $this->json($candidatesList, Response::HTTP_OK, [], ['groups' => 'candidates_get_item']);
     }
 }

@@ -18,7 +18,7 @@ class Experience
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"experiences_get_item"})
+     * @Groups({"experiences_get_item", "jobs_get_collection"})
      */
     private $id;
 

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220613211641 extends AbstractMigration
+final class Version20220617131946 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,12 @@ final class Version20220613211641 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user CHANGE role roles ENUM(\'candidate\', \'recruiter\', \'admin\') NOT NULL COMMENT \'(DC2Type:enumuserrole)\'');
+        $this->addSql('ALTER TABLE technology ADD background_color VARCHAR(7) DEFAULT NULL, ADD text_color VARCHAR(7) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user CHANGE roles role ENUM(\'candidate\', \'recruiter\', \'admin\') NOT NULL COMMENT \'(DC2Type:enumuserrole)\'');
+        $this->addSql('ALTER TABLE technology DROP background_color, DROP text_color');
     }
 }
