@@ -209,7 +209,7 @@ class AppFixtures extends Fixture
             // $candidate->setCreatedAt(new DateTime);
             $candidate->setFirstname($faker->firstName());
             $candidate->setLastname($faker->lastName());
-            $candidate->setGenre($faker->numberBetween($min = 1, $max = 2));
+            $candidate->setGenre($faker->numberBetween($min = 0, $max = 2));
             $candidate->setPhoneNumber($faker->unique()->e164PhoneNumber());
             $candidate->setPicture('https://picsum.photos/id/' . $faker->numberBetween(1, 100) . '/100/100');
             $candidate->setPortfolio($faker->unique()->url());
@@ -248,7 +248,7 @@ class AppFixtures extends Fixture
             $adress->setStreetNumber($faker->numberBetween($min = 1, $max = 200));
             $adress->setStreetName($faker->unique()->streetName());
             $adress->setCity($faker->unique()->city());
-            $adress->setZip($faker->unique()->numberBetween($min = 1, $max = 32700));
+            $adress->setZip($faker->unique()->numberBetween($min = 1, $max = 100000));
             $adress->setDepartment($faker->unique()->countryCode());
         
             $manager->persist($adress);
@@ -291,6 +291,7 @@ class AppFixtures extends Fixture
             $job->setExperience($faker->randomElement($experienceList));
             $job->setSalary($faker->randomElement($salaryList));
             $job->setStatus($faker->numberBetween($min = 1, $max = 2));
+            $job->addTechnology($faker->randomElement($technologyList));
 
             $jobList[] = $job;
             
@@ -307,7 +308,10 @@ class AppFixtures extends Fixture
             $matchup->setJob($faker->randomElement($jobList));
             $matchup->setCandidateStatus($faker->boolean());
             $matchup->setRecruiterStatus($faker->boolean());
-            $matchup->setMatchStatus($faker->boolean());
+            if ($matchup->getCandidateStatus() === true && $matchup->getRecruiterStatus() === true) {
+                $matchup->setMatchStatus(true);
+            } else
+            $matchup->setMatchStatus(false);
 
             $manager->persist($matchup);
         }

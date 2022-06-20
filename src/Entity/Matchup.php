@@ -22,25 +22,25 @@ class Matchup
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"matchups_get_item", "candidates_get_item"})
+     * @Groups({"matchups_get_item", "candidates_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="boolean", options={"default":false})
-     * @Groups({"matchups_get_item"})
+     * @Groups({"matchups_get_item", "jobs_get_collection", "jobs_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $candidateStatus;
 
     /**
      * @ORM\Column(type="boolean", options={"default":false})
-     * @Groups({"matchups_get_item"})
+     * @Groups({"matchups_get_item", "jobs_get_collection", "jobs_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $recruiterStatus;
 
     /**
      * @ORM\Column(type="boolean", options={"default":false})
-     * @Groups({"matchups_get_item"})
+     * @Groups({"matchups_get_item", "jobs_get_collection", "jobs_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $matchStatus;
 
@@ -58,13 +58,13 @@ class Matchup
 
     /**
      * @ORM\ManyToOne(targetEntity=Candidate::class, inversedBy="matchups")
-     * @Groups({"matchups_get_item"})
+     * @Groups({"matchups_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $candidate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="matchups")
-     * @Groups({"matchups_get_item", "candidates_get_item"})
+     * @Groups({"matchups_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $job;
 
