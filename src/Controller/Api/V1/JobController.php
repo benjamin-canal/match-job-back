@@ -216,7 +216,8 @@ class JobController extends AbstractController
      */
     public function jobsGetPossibleMatchedCandidate(
         Candidate $candidate = null,
-        JobRepository $jobRepository
+        JobRepository $jobRepository,
+        Request $request
         ): JsonResponse
     {
         
@@ -225,9 +226,24 @@ class JobController extends AbstractController
             // Returns an error if the candidate is unknown
             return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
         }
+
+        // We need to retrieve the JSON content from the Request
+        $jsonContent = $request->getContent();
+        
+        // Decode the JSON content
+        if ($jsonContent != ""){
+            $options = json_decode($jsonContent, true)['options'][0];
+        } else {
+            $options = [
+                'contract' => true,
+                'experience' => true,
+                'jobtitle' => true,
+                'salary' => true
+            ];
+        }        
         
         // find all jobs that match with the candidate
-        $jobsList= $jobRepository->findAllJobsPossibleMatchedWithCandidate($candidate);
+        $jobsList= $jobRepository->findAllJobsPossibleMatchedWithCandidate($candidate, $options);
 
                
         return $this->json([

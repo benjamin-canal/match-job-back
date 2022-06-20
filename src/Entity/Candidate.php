@@ -113,6 +113,7 @@ class Candidate
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="candidates")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"candidates_get_item"})
      */
     private $user;
 
