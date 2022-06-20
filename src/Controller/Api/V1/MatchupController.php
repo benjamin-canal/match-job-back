@@ -2,7 +2,6 @@
 
 namespace App\Controller\Api\V1;
 
-use App\Entity\Job;
 use App\Entity\Matchup;
 use App\Repository\MatchupRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -12,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -74,8 +72,6 @@ class MatchupController extends AbstractController
         // Deserialize the JSON content into a Matchup entity
         $matchup = $serializer->deserialize($jsonContent, Matchup::class, 'json');
 
-        // dd($matchup);
-
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
         $errors = $validator->validate($matchup);
@@ -102,8 +98,13 @@ class MatchupController extends AbstractController
         // backup in database
         $em = $doctrine->getManager();
         $matchup->setCandidateStatus(true);
+        $matchup->setRecruiterStatus(false);
+        if($matchup->getCandidateStatus() === true && $matchup->getRecruiterStatus() === true){
+            $matchup->setMatchStatus(true);
+        }else{
+            $matchup->setMatchStatus(false);
+        };
 
-        dd($matchup);
         $em->persist($matchup);
         $em->flush();
 
