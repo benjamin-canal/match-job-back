@@ -52,7 +52,7 @@ class RecruiterController extends AbstractController
         // 404 ?
         if ($recruiter === null) {
             // Returns an error if the Recruiter is unknown
-            return $this->json(['error' => 'Recruiter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Recruter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
         return $this->json($recruiter, Response::HTTP_OK, [], ['groups' => 'recruiters_get_item']);
@@ -136,7 +136,7 @@ class RecruiterController extends AbstractController
         // 404 ?
         if ($recruiterRepository === null) {
             // Returns an error if the Recruiter is unknown
-            return $this->json(['error' => 'Recruiter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Recruter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
         
         // We need to retrieve the JSON content from the Request
