@@ -106,7 +106,7 @@ class Candidate
     /**
      * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="candidates", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"users_get_item", "candidates_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $adress;
 

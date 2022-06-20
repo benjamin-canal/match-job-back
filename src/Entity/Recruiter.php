@@ -24,13 +24,13 @@ class Recruiter
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_collection", "jobs_get_item"})
      */
     private $firstname;
 
