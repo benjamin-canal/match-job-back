@@ -19,7 +19,7 @@ class Job
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"jobs_get_collection", "jobs_get_item", "matchups_get_item", "candidates_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item", "matchups_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $id;
 
@@ -63,46 +63,47 @@ class Job
     /**
      * @ORM\ManyToOne(targetEntity=Recruiter::class, inversedBy="jobs")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"jobs_get_collection", "jobs_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item", "candidates_get_collection", "candidates_get_item"})
      */
     private $recruiter;
 
     /**
      * @ORM\OneToMany(targetEntity=Matchup::class, mappedBy="job")
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $matchups;
 
     /**
      * @ORM\ManyToMany(targetEntity=Technology::class, mappedBy="job")
-     * @Groups({"jobs_get_item", "matchups_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item", "matchups_get_item"})
      */
     private $technologies;
 
     /**
      * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"jobs_get_item", "matchups_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item", "matchups_get_item"})
      */
     private $contract;
 
     /**
      * @ORM\ManyToOne(targetEntity=Experience::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"jobs_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $experience;
 
     /**
      * @ORM\ManyToOne(targetEntity=Jobtitle::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"jobs_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $jobtitle;
 
     /**
      * @ORM\ManyToOne(targetEntity=Salary::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"jobs_get_item"})
+     * @Groups({"jobs_get_collection", "jobs_get_item"})
      */
     private $salary;
 
