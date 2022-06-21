@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Technology{% endblock %}
+
+{% block body %}
+    <h1>Technology</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ technology.id }}</td>
+            </tr>
+            <tr>
+                <th>TechnologyName</th>
+                <td>{{ technology.technologyName }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ technology.createdAt ? technology.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ technology.updatedAt ? technology.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>BackgroundColor</th>
+                <td>{{ technology.backgroundColor }}</td>
+            </tr>
+            <tr>
+                <th>TextColor</th>
+                <td>{{ technology.textColor }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('back_technology_index') }}">back to list</a>
+
+    <a href="{{ path('back_technology_edit', {'id': technology.id}) }}">edit</a>
+
+    {{ include('technology/_delete_form.html.twig') }}
+{% endblock %}
