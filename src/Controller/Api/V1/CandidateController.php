@@ -232,7 +232,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * Method to retrieve all jobs interested
+     * Method to retrieve all jobs interested by the candidate
      * 
      * @Route("/candidates/{id}/jobs/interested", name="candidate_get_jobs!interested", methods={"GET"}, requirements={"id"="\d+"})
      */
@@ -245,6 +245,24 @@ class CandidateController extends AbstractController
         }
 
         $jobsList = $jobRepository->findAllJobsForCandidateInterested($candidate);
+
+        return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
+    }
+
+    /**
+     * Method to retrieve all jobs for which the recruiter is interested in the candidate's profile
+     * 
+     * @Route("/candidates/{id}/jobs/interested_recruiter", name="candidate_get_jobs_interested", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function candidatesGetAllJobsInterestedByTheRecruiter(Candidate $candidate = null, JobRepository $jobRepository)
+    {
+        // 404 ?
+        if ($candidate === null) {
+            // Returns an error if the candidate is unknown
+            return $this->json(['error' => 'Pas de candidat trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $jobsList = $jobRepository->findAllJobsForCandidateInterestedByRecruiter($candidate);
 
         return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);
     }
