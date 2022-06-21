@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>Role</th>
-                <td>{{ user.role }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : ''}}</td>
             </tr>
             <tr>
                 <th>CreatedAt</th>

@@ -30,7 +30,7 @@ class Matchup
      * @ORM\Column(type="boolean", options={"default":false})
      * @Groups({"matchups_get_item", "jobs_get_collection", "jobs_get_item", "candidates_get_item", "candidates_get_collection"})
      */
-    private $candidateStatus;
+    protected $candidateStatus;
 
     /**
      * @ORM\Column(type="boolean", options={"default":false})
@@ -67,6 +67,13 @@ class Matchup
      * @Groups({"matchups_get_item", "candidates_get_item", "candidates_get_collection"})
      */
     private $job;
+
+    public function __construct()
+    {
+        $this->candidateStatus = false;
+        $this->recruiterStatus = false;
+        $this->matchStatus = false;
+    }
 
     public function getId(): ?int
     {
