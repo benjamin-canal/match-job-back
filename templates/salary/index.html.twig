@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salary index{% endblock %}
+
+{% block body %}
+    <h1>Salary index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for salary in salaries %}
+            <tr>
+                <td>{{ salary.id }}</td>
+                <td>{{ salary.name }}</td>
+                <td>{{ salary.createdAt ? salary.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ salary.updatedAt ? salary.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('back_salary_show', {'id': salary.id}) }}">show</a>
+                    <a href="{{ path('back_salary_edit', {'id': salary.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('back_salary_new') }}">Create new</a>
+{% endblock %}

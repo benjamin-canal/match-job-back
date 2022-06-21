@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("back/jobtitle")
+ * @Route("/back/jobtitle")
  */
 class JobtitleController extends AbstractController
 {
     /**
-     * @Route("/", name="back_jobtitle_index", methods={"GET"})
+     * @Route("", name="back_jobtitle_index", methods={"GET"})
      */
     public function index(JobtitleRepository $jobtitleRepository): Response
     {
