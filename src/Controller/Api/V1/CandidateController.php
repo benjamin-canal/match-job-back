@@ -232,7 +232,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * Method to retrieve all jobs interested
+     * Method to retrieve all jobs interested by the candidate
      * 
      * @Route("/candidates/{id}/jobs/interested", name="candidate_get_jobs!interested", methods={"GET"}, requirements={"id"="\d+"})
      */

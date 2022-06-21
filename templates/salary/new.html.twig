@@ -3,9 +3,11 @@
 {% block title %}New Salary{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1>Create new Salary</h1>
 
     {{ include('salary/_form.html.twig') }}
 
     <a href="{{ path('back_salary_index') }}">back to list</a>
+</div>
 {% endblock %}
