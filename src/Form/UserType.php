@@ -38,12 +38,10 @@ class UserType extends AbstractType
                     'Admin' => 'ROLE_ADMIN',
                 ],
                 // Choix multiple
-                'multiple' => false,
+                'multiple' => true,
                 // Des boutons radios
                 'expanded' => true,
             ]) 
-            ->add('createdAt')
-            ->add('updatedAt')
             
         ;
     }

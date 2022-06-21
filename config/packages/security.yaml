@@ -4,6 +4,8 @@ security:
      # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        App\Entity\User:
+            algorithm: auto
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -45,6 +47,10 @@ security:
                 check_path: login
                 default_target_path: back_user_index
                 enable_csrf: true
+
+            json_login:
+                # api_login is a route we will create below
+                check_path: api_v1_login
 
             logout:
                 # "logout" is the name of the logoute route
