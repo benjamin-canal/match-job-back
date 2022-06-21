@@ -41,9 +41,7 @@ class UserType extends AbstractType
                 'multiple' => true,
                 // Des boutons radios
                 'expanded' => true,
-            ]) 
-            
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
