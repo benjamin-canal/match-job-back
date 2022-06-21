@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jobtitle{% endblock %}
+
+{% block body %}
+    <h1>Jobtitle</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ jobtitle.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ jobtitle.title }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ jobtitle.createdAt ? jobtitle.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ jobtitle.updatedAt ? jobtitle.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('back_jobtitle_index') }}">back to list</a>
+
+    <a href="{{ path('back_jobtitle_edit', {'id': jobtitle.id}) }}">edit</a>
+
+    {{ include('jobtitle/_delete_form.html.twig') }}
+{% endblock %}
