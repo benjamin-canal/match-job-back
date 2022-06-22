@@ -41,6 +41,20 @@ class JobRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllJobsOfRecruiter(Recruiter $recruiter)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT j
+            FROM App\Entity\Job j
+            WHERE j.recruiter = :recruiter'
+        )->setParameter('recruiter', $recruiter);
+        
+
+        return $query->getResult();
+    }
+
     public function findAllJobsForCandidateMatched(Candidate $candidate)
     {
         $entityManager = $this->getEntityManager();

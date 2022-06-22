@@ -4,6 +4,7 @@ namespace App\Controller\Api\V1;
 
 use App\Entity\Candidate;
 use App\Entity\Job;
+use App\Entity\Recruiter;
 use App\Repository\JobRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -244,6 +245,30 @@ class JobController extends AbstractController
         $jobsList= $jobRepository->findAllJobsPossibleMatchedWithCandidate($candidate, $options);
 
                
+        return $this->json([
+            'jobs' => $jobsList,
+        ],
+        Response::HTTP_OK,
+        [],
+        ['groups' => 'jobs_get_collection']
+        );
+    }
+
+    /**
+     * Method to have all jobs of a recruiter
+     * 
+     * @Route("/jobs/recruiters/{id}", name="jobs_recruiter", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function getAllJobsForRecruiter(Recruiter $recruiter = null, JobRepository $jobRepository): JsonResponse
+    {
+        // 404 ?
+        if ($recruiter === null) {
+            // Returns an error if the recruiter is unknown
+            return $this->json(['error' => 'Recruteur non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+        
+        $jobsList = $jobRepository->findAllJobsOfRecruiter($recruiter);
+
         return $this->json([
             'jobs' => $jobsList,
         ],
