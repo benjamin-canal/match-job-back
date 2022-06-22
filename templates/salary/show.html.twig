@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tranche salaire{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Tranche de salaire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ salary.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ salary.name }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ salary.createdAt ? salary.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ salary.updatedAt ? salary.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('back_salary_index') }}" class="btn btn-primary btn-sm">Retour à la liste</a>
+
+    <a href="{{ path('back_salary_edit', {'id': salary.id}) }}" class="btn btn-success btn-sm float-end">Modifier</a>
+
+    {{ include('salary/_delete_form.html.twig') }}
+</div>
+{% endblock %}

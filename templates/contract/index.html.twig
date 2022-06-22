@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des types de contrat{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des types de contrats</h1>
+
+    <a href="{{ path('back_contract_new') }}" class="btn btn-info mb-2">Ajouter un type de contrat</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contract in contracts %}
+            <tr>
+                <td>{{ contract.id }}</td>
+                <td>{{ contract.name }}</td>
+                <td>{{ contract.createdAt ? contract.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ contract.updatedAt ? contract.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('back_contract_edit', {'id': contract.id}) }}" class="btn btn-success btn-sm">Modifier</a>
+                    <a href="{{ path('back_contract_delete', {'id': contract.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

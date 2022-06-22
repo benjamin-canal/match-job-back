@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste titre emplois{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des titres d'emplois</h1>
+
+    <a href="{{ path('back_jobtitle_new') }}" class="btn btn-info mb-2">Ajouter un titre d'emploi</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jobtitle in jobtitles %}
+            <tr>
+                <td>{{ jobtitle.id }}</td>
+                <td>{{ jobtitle.title }}</td>
+                <td>{{ jobtitle.createdAt ? jobtitle.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ jobtitle.updatedAt ? jobtitle.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('back_jobtitle_edit', {'id': jobtitle.id}) }}" class="btn btn-success btn-sm">Modifier</a>
+                    <a href="{{ path('back_jobtitle_delete', {'id': jobtitle.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

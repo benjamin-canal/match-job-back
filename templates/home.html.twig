@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="categories">
+    <div class="card category ">
+        <i class="bi bi-person-fill category-picture"></i>
+        <div class="card-body">
+          <h5 class="card-title">Utilisateurs</h5> 
+          <a href="{{ path('back_user_index') }}" class="btn stretched-link"><span class="badge">{{ usersNumber }}</span></a>
+        </div>    
+    </div>
+
+    <div class="card category ">
+        <i class="bi bi-pen-fill category-picture"></i>
+        <div class="card-body">
+          <h5 class="card-title">Contrats</h5> 
+          <a href="{{ path('back_contract_index') }}" class="btn stretched-link"><span class="badge">{{ contractsNumber }}</span></a>
+        </div>    
+    </div>
+
+    <div class="card category ">
+        <i class="bi bi-award-fill category-picture"></i>
+        <div class="card-body">
+          <h5 class="card-title">Expériences</h5> 
+          <a href="{{ path('back_experience_index') }}" class="btn stretched-link"><span class="badge">{{ experiencesNumber }}</span></a>
+        </div>    
+    </div>
+
+    <div class="card category ">
+        <i class="bi bi-chat-left-text-fill category-picture"></i>
+        <div class="card-body">
+          <h5 class="card-title">Titres d'emploi</h5> 
+          <a href="{{ path('back_jobtitle_index') }}" class="btn stretched-link"><span class="badge">{{ jobtitlesNumber }}</span></a>
+        </div>    
+    </div>
+
+    <div class="card category ">
+        <i class="bi bi-currency-dollar category-picture"></i>
+        <div class="card-body">
+          <h5 class="card-title">Tranches de salaires</h5> 
+          <a href="{{ path('back_salary_index') }}" class="btn stretched-link"><span class="badge">{{ salariesNumber }}</span></a>
+        </div>    
+    </div>
+
+    <div class="card category ">
+        <i class="bi bi-building category-picture"></i>
+        <div class="card-body">
+          <h5 class="card-title">Secteurs d'activités</h5> 
+          <a href="{{ path('back_sector_index') }}" class="btn stretched-link"><span class="badge">{{ sectorsNumber }}</span></a>
+        </div>    
+    </div>
+
+    <div class="card category ">
+        <i class="bi bi-diagram-2-fill category-picture"></i>
+        <div class="card-body">
+          <h5 class="card-title">Technologies</h5> 
+          <a href="{{ path('back_technology_index') }}" class="btn stretched-link"><span class="badge">{{ technologiesNumber }}</span></a>
+        </div>    
+    </div>
+    </div>
+
+  </div>
+{% endblock %}

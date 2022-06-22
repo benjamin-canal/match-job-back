@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des expériences{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des niveaux d'expériences</h1>
+
+    <a href="{{ path('back_experience_new') }}" class="btn btn-info mb-2">Ajouter un niveau d'expérience</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>YearsNumber</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for experience in experiences %}
+            <tr>
+                <td>{{ experience.id }}</td>
+                <td>{{ experience.yearsNumber }}</td>
+                <td>{{ experience.createdAt ? experience.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ experience.updatedAt ? experience.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('back_experience_edit', {'id': experience.id}) }}" class="btn btn-success btn-sm">Modifier</a>
+                    <a href="{{ path('back_experience_delete', {'id': experience.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

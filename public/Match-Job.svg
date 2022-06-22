@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+[
+<!ATTLIST g
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:layerName CDATA #IMPLIED >
+<!ATTLIST g
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:mask CDATA #IMPLIED >
+<!ATTLIST text
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:width CDATA #IMPLIED >
+
+<!ATTLIST path
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:blendMode CDATA #IMPLIED >
+<!ATTLIST path
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowColor CDATA #IMPLIED >
+<!ATTLIST path
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowOpacity CDATA #IMPLIED >
+<!ATTLIST path
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowRadius CDATA #IMPLIED >
+<!ATTLIST path
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowOffset CDATA #IMPLIED >
+<!ATTLIST path
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowAngle CDATA #IMPLIED >
+
+<!ATTLIST image
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:blendMode CDATA #IMPLIED >
+<!ATTLIST image
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowColor CDATA #IMPLIED >
+<!ATTLIST image
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowOpacity CDATA #IMPLIED >
+<!ATTLIST image
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowRadius CDATA #IMPLIED >
+<!ATTLIST image
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowOffset CDATA #IMPLIED >
+<!ATTLIST image
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowAngle CDATA #IMPLIED >
+
+<!ATTLIST g
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:blendMode CDATA #IMPLIED >
+<!ATTLIST g
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowColor CDATA #IMPLIED >
+<!ATTLIST g
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowOpacity CDATA #IMPLIED >
+<!ATTLIST g
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowRadius CDATA #IMPLIED >
+<!ATTLIST g
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowOffset CDATA #IMPLIED >
+<!ATTLIST g
+  xmlns:vectornator CDATA #FIXED "http://vectornator.io"
+  vectornator:shadowAngle CDATA #IMPLIED >
+
+<!ENTITY % SVG.filter.extra.content  "| feDropShadow" >
+<!ELEMENT feDropShadow EMPTY>
+<!ATTLIST feDropShadow
+  xmlns:svg CDATA #FIXED "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+  dx CDATA #IMPLIED>
+<!ATTLIST feDropShadow
+  xmlns:svg CDATA #FIXED "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+  dy CDATA #IMPLIED>
+<!ATTLIST feDropShadow
+  xmlns:svg CDATA #FIXED "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+  stdDeviation CDATA #IMPLIED>
+<!ATTLIST feDropShadow
+  xmlns:svg CDATA #FIXED "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+  flood-opacity CDATA #IMPLIED>
+<!ATTLIST feDropShadow
+  xmlns:svg CDATA #FIXED "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+  in CDATA #IMPLIED>
+<!ATTLIST feDropShadow
+  xmlns:svg CDATA #FIXED "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+  result CDATA #IMPLIED>
+<!ATTLIST feDropShadow
+  xmlns:svg CDATA #FIXED "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+  flood-color CDATA #IMPLIED>
+]
+>
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 113.4 255.15" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="105.465" id="Filter" width="105.115" x="170.403" y="219.482">
+<feComponentTransfer in="SourceGraphic" result="Alpha">
+<feFuncA slope="0" type="linear"/>
+</feComponentTransfer>
+<feDropShadow dx="-1.57597" dy="-2.55271" flood-color="#000000" flood-opacity="0.141964" in="Alpha" result="Shadow" stdDeviation="1"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="108.913" id="Filter_2" width="102.838" x="284.181" y="85.4018">
+<feComponentTransfer in="SourceGraphic" result="Alpha">
+<feFuncA slope="0" type="linear"/>
+</feComponentTransfer>
+<feDropShadow dx="-1.57597" dy="-2.55271" flood-color="#000000" flood-opacity="0.141964" in="Alpha" result="Shadow" stdDeviation="1"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="108.913" id="Filter_3" width="88.5361" x="376.86" y="85.4018">
+<feComponentTransfer in="SourceGraphic" result="Alpha">
+<feFuncA slope="0" type="linear"/>
+</feComponentTransfer>
+<feDropShadow dx="-1.57597" dy="-2.55271" flood-color="#000000" flood-opacity="0.141964" in="Alpha" result="Shadow" stdDeviation="1"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="113.798" id="Filter_4" width="96.8198" x="469.609" y="83.4193">
+<feComponentTransfer in="SourceGraphic" result="Alpha">
+<feFuncA slope="0" type="linear"/>
+</feComponentTransfer>
+<feDropShadow dx="-1.57597" dy="-2.55271" flood-color="#000000" flood-opacity="0.141964" in="Alpha" result="Shadow" stdDeviation="1"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="108.913" id="Filter_5" width="88.0405" x="578.713" y="85.4018">
+<feComponentTransfer in="SourceGraphic" result="Alpha">
+<feFuncA slope="0" type="linear"/>
+</feComponentTransfer>
+<feDropShadow dx="-1.57597" dy="-2.55271" flood-color="#000000" flood-opacity="0.141964" in="Alpha" result="Shadow" stdDeviation="1"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="115.002" id="Filter_6" width="104.042" x="284.291" y="209.436">
+<feComponentTransfer in="SourceGraphic" result="Alpha">
+<feFuncA slope="0" type="linear"/>
+</feComponentTransfer>
+<feDropShadow dx="-1.57597" dy="-2.55271" flood-color="#000000" flood-opacity="0.141964" in="Alpha" result="Shadow" stdDeviation="1"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="108.913" id="Filter_7" width="90.0938" x="401.325" y="212.622">
+<feComponentTransfer in="SourceGraphic" result="Alpha">
+<feFuncA slope="0" type="linear"/>
+</feComponentTransfer>
+<feDropShadow dx="-1.57597" dy="-2.55271" flood-color="#000000" flood-opacity="0.141964" in="Alpha" result="Shadow" stdDeviation="1"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="239.555" id="Filter_8" width="105.067" x="3.37318" y="3.21453">
+<feDropShadow dx="-1.57597" dy="-2.55271" flood-color="#000000" flood-opacity="0.141964" in="SourceGraphic" result="Shadow" stdDeviation="1"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="108.913" id="Filter_9" width="81.9461" x="3.38495" y="3.20024">
+<feDropShadow dx="-1.57597" dy="-2.55271" flood-color="#000000" flood-opacity="0.141964" in="SourceGraphic" result="Shadow" stdDeviation="1"/>
+</filter>
+</defs>
+<clipPath id="ArtboardFrame">
+<rect height="255.15" width="113.4" x="0" y="0"/>
+</clipPath>
+<g clip-path="url(#ArtboardFrame)" id="Calque-1" vectornator:layerName="Calque 1">
+<path d="M224.537 224.035L224.537 224.035C252.459 224.035 275.094 246.625 275.094 274.491L275.094 274.491C275.094 302.357 252.459 324.947 224.537 324.947L224.537 324.947C196.615 324.947 173.979 302.357 173.979 274.491L173.979 274.491C173.979 246.625 196.615 224.035 224.537 224.035Z" fill="#7779ca" fill-rule="evenodd" filter="url(#Filter)" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0" stroke-width="3.89753" vectornator:shadowAngle="45" vectornator:shadowColor="#000000" vectornator:shadowOffset="-3" vectornator:shadowOpacity="0.141964" vectornator:shadowRadius="2"/>
+<path d="M323.653 154.879L350.133 154.879L337.106 113.814L323.653 154.879ZM324.999 89.9545L349.637 89.9545L386.595 194.315L362.948 194.315L356.222 172.862L317.777 172.862L310.555 194.315L287.757 194.315L324.999 89.9545Z" fill="#000000" fill-rule="evenodd" filter="url(#Filter_2)" stroke="none" vectornator:shadowAngle="45" vectornator:shadowColor="#000000" vectornator:shadowOffset="-3" vectornator:shadowOpacity="0.141964" vectornator:shadowRadius="2"/>
+<path d="M464.972 89.9545L464.972 108.433L433.749 108.433L433.749 194.315L411.8 194.315L411.8 108.433L380.436 108.433L380.436 89.9545L464.972 89.9545Z" fill="#000000" fill-rule="evenodd" filter="url(#Filter_3)" stroke="none" vectornator:shadowAngle="45" vectornator:shadowColor="#000000" vectornator:shadowOffset="-3" vectornator:shadowOpacity="0.141964" vectornator:shadowRadius="2"/>
+<path d="M487.84 100.858C496.336 92.2673 507.145 87.972 520.267 87.972C537.826 87.972 550.664 93.7305 558.783 105.247C563.267 111.714 565.674 118.204 566.004 124.718L544.198 124.718C542.782 119.714 540.965 115.938 538.746 113.39C534.781 108.858 528.905 106.593 521.117 106.593C513.187 106.593 506.933 109.79 502.355 116.186C497.776 122.582 495.487 131.633 495.487 143.338C495.487 155.044 497.906 163.811 502.744 169.641C507.582 175.47 513.73 178.385 521.188 178.385C528.834 178.385 534.663 175.883 538.675 170.88C540.894 168.189 542.735 164.154 544.198 158.773L565.792 158.773C563.904 170.148 559.078 179.399 551.313 186.527C543.549 193.654 533.601 197.218 521.471 197.218C506.461 197.218 494.661 192.403 486.07 182.774C477.48 173.098 473.185 159.835 473.185 142.984C473.185 124.765 478.07 110.723 487.84 100.858Z" fill="#000000" fill-rule="evenodd" filter="url(#Filter_4)" stroke="none" vectornator:shadowAngle="45" vectornator:shadowColor="#000000" vectornator:shadowOffset="-3" vectornator:shadowOpacity="0.141964" vectornator:shadowRadius="2"/>
+<path d="M582.289 194.315L582.289 89.9545L603.883 89.9545L603.883 129.745L644.664 129.745L644.664 89.9545L666.329 89.9545L666.329 194.315L644.664 194.315L644.664 147.728L603.883 147.728L603.883 194.315L582.289 194.315Z" fill="#000000" fill-rule="evenodd" filter="url(#Filter_5)" stroke="none" vectornator:shadowAngle="45" vectornator:shadowColor="#000000" vectornator:shadowOffset="-3" vectornator:shadowOpacity="0.141964" vectornator:shadowRadius="2"/>
+<path d="M366.102 269.213C366.102 257.507 363.565 248.457 358.491 242.061C353.417 235.665 346.561 232.467 337.923 232.467C329.286 232.467 322.395 235.653 317.25 242.025C312.105 248.398 309.532 257.46 309.532 269.213C309.532 280.966 312.105 290.028 317.25 296.4C322.395 302.773 329.286 305.959 337.923 305.959C346.561 305.959 353.417 302.773 358.491 296.4C363.565 290.028 366.102 280.966 366.102 269.213ZM372.12 312.26C364.238 320.378 352.839 324.438 337.923 324.438C323.008 324.438 311.609 320.378 303.727 312.26C293.154 302.301 287.867 287.952 287.867 269.213C287.867 250.097 293.154 235.748 303.727 226.166C311.609 218.048 323.008 213.988 337.923 213.988C352.839 213.988 364.238 218.048 372.12 226.166C382.646 235.748 387.909 250.097 387.909 269.213C387.909 287.952 382.646 302.301 372.12 312.26Z" fill="#000000" fill-rule="evenodd" filter="url(#Filter_6)" stroke="none" vectornator:shadowAngle="45" vectornator:shadowColor="#000000" vectornator:shadowOffset="-3" vectornator:shadowOpacity="0.141964" vectornator:shadowRadius="2"/>
+<path d="M425.716 235.299L425.716 258.31L451.346 258.31C455.925 258.31 459.642 257.448 462.497 255.725C465.353 254.003 466.781 250.946 466.781 246.557C466.781 241.695 464.893 238.485 461.117 236.928C457.86 235.842 453.706 235.299 448.656 235.299L425.716 235.299ZM425.716 275.585L425.716 303.41L451.346 303.41C455.925 303.41 459.488 302.796 462.037 301.569C466.663 299.303 468.976 294.961 468.976 288.542C468.976 283.114 466.734 279.385 462.25 277.355C459.748 276.222 456.232 275.632 451.7 275.585L425.716 275.585ZM482.782 228.29C485.992 232.727 487.596 238.037 487.596 244.22C487.596 250.592 485.992 255.714 482.782 259.584C480.988 261.755 478.345 263.738 474.852 265.531C480.186 267.467 484.21 270.535 486.924 274.735C489.638 278.936 490.995 284.034 490.995 290.028C490.995 296.212 489.437 301.758 486.322 306.667C484.339 309.923 481.861 312.661 478.888 314.879C475.537 317.428 471.584 319.175 467.029 320.119C462.474 321.063 457.53 321.535 452.196 321.535L404.901 321.535L404.901 217.174L455.594 217.174C468.386 217.363 477.448 221.068 482.782 228.29Z" fill="#000000" fill-rule="evenodd" filter="url(#Filter_7)" stroke="none" vectornator:shadowAngle="45" vectornator:shadowColor="#000000" vectornator:shadowOffset="-3" vectornator:shadowOpacity="0.141964" vectornator:shadowRadius="2"/>
+<path d="M87.7304 7.76724L87.6679 23.4235C87.6679 25.2745 87.6526 27.9141 87.6054 31.3297C87.5582 34.7454 87.5429 37.4034 87.5429 39.2985L87.6991 192.83C87.6991 192.83 88.0834 223.346 58.3241 223.517C25.5306 223.546 27.4804 191.861 27.4804 191.861L27.1679 115.58L6.94915 115.642L7.1054 192.33C7.1054 192.33 6.26552 242.399 56.4804 242.767C109.255 243.155 108.028 193.983 108.012 193.392C108.012 193.389 108.012 193.205 108.012 193.205L107.855 7.76724L87.7304 7.76724Z" fill="#000000" fill-rule="evenodd" filter="url(#Filter_8)" stroke="none" vectornator:shadowAngle="45" vectornator:shadowColor="#000000" vectornator:shadowOffset="-3" vectornator:shadowOpacity="0.141964" vectornator:shadowRadius="2"/>
+<path d="M84.8388 24.5327L67.9204 112.113L46.751 112.113L27.1391 24.5327C27.1391 26.5152 27.1627 29.3354 27.2099 32.9934C27.2571 36.6515 27.2807 39.4953 27.2807 41.5249L27.2807 112.113L6.96092 112.113L6.96092 7.75295L38.6797 7.75295L57.6543 89.8111L76.4873 7.75295L84.907 7.75295" fill="#000000" fill-rule="evenodd" filter="url(#Filter_9)" stroke="none" vectornator:shadowAngle="45" vectornator:shadowColor="#000000" vectornator:shadowOffset="-3" vectornator:shadowOpacity="0.141964" vectornator:shadowRadius="2"/>
+</g>
+</svg>
