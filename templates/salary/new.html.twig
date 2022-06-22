@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Salary{% endblock %}
+{% block title %}Ajout tranche salaire{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Create new Salary</h1>
+    <h1>Ajout d'une tranche de salaire</h1>
 
     {{ include('salary/_form.html.twig') }}
 
-    <a href="{{ path('back_salary_index') }}">back to list</a>
+    <a href="{{ path('back_salary_index') }}" class="btn btn-primary btn-sm">Retour à la liste</a>
 </div>
 {% endblock %}

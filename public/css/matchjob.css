@@ -1,0 +1,54 @@
+.btn-info {
+    background-color: #026e47;
+    color: white;
+    border-color: #026e47;    
+}
+
+.btn-info:hover{
+    background-color: #0d2a2c;
+    color: white;
+    border-color: #0d2a2c; 
+}
+
+.main-title{
+    color:#026e47;
+    font-size: xx-large;
+}
+  
+body {
+   color: #026e47;
+   background-color: #EDDCC4;
+}
+
+.navbar{
+    width: 200px;
+    height: 1200px;
+}
+
+.nav-item{
+    padding-top: 2em;
+    
+}
+
+.nav-link{
+    color: #026e47;
+    font-size: large;
+    font-weight: bold;
+}
+
+.nav-link:hover{
+    color: #0d2a2c
+}
+
+.btn-primary{
+    margin-bottom: 0.4em;
+}
+
+.table{
+    background-color: white;
+}
+
+.bi{
+    padding-right: 0.5em;
+    font-size: x-large;
+}

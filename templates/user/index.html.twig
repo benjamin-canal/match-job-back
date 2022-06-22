@@ -16,7 +16,7 @@
                 <th>Role</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,8 +28,8 @@
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('back_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('back_user_update', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('back_user_update', {'id': user.id}) }}" class="btn btn-success btn-sm">Modifier</a>
+                    <a href="{{ path('back_user_delete', {'id': user.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
                 </td>
             </tr>
         {% else %}

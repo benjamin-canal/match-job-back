@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Experience{% endblock %}
+{% block title %}Niveau expérience{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Experience</h1>
+    <h1>Niveau d'expérience</h1>
 
     <table class="table">
         <tbody>
@@ -27,9 +27,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('back_experience_index') }}">back to list</a>
+    <a href="{{ path('back_experience_index') }}" class="btn btn-primary btn-sm">Retour à la liste</a>
 
-    <a href="{{ path('back_experience_edit', {'id': experience.id}) }}">edit</a>
+    <a href="{{ path('back_experience_edit', {'id': experience.id}) }}" class="btn btn-success btn-sm float-end">Modifier</a>
 
     {{ include('experience/_delete_form.html.twig') }}
 </div>

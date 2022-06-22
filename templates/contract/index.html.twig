@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contract index{% endblock %}
+{% block title %}Liste des types de contrat{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Contract index</h1>
+    <h1>Liste des types de contrats</h1>
+
+    <a href="{{ path('back_contract_new') }}" class="btn btn-info mb-2">Ajouter un type de contrat</a>
 
     <table class="table">
         <thead>
@@ -13,7 +15,7 @@
                 <th>Name</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,8 +26,8 @@
                 <td>{{ contract.createdAt ? contract.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ contract.updatedAt ? contract.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('back_contract_show', {'id': contract.id}) }}">show</a>
-                    <a href="{{ path('back_contract_edit', {'id': contract.id}) }}">edit</a>
+                    <a href="{{ path('back_contract_edit', {'id': contract.id}) }}" class="btn btn-success btn-sm">Modifier</a>
+                    <a href="{{ path('back_contract_delete', {'id': contract.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
                 </td>
             </tr>
         {% else %}
@@ -36,6 +38,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('back_contract_new') }}">Create new</a>
 </div>
 {% endblock %}

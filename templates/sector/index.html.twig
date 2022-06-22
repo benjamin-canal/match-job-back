@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sector index{% endblock %}
+{% block title %}Liste secteurs activités{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Sector index</h1>
+    <h1>Liste des secteurs d'activités</h1>
+
+    <a href="{{ path('back_experience_new') }}" class="btn btn-info mb-2">Ajouter un secteur d'activité</a>
 
     <table class="table">
         <thead>
@@ -13,7 +15,7 @@
                 <th>SectorName</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,8 +26,8 @@
                 <td>{{ sector.createdAt ? sector.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ sector.updatedAt ? sector.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('back_sector_show', {'id': sector.id}) }}">show</a>
-                    <a href="{{ path('back_sector_edit', {'id': sector.id}) }}">edit</a>
+                    <a href="{{ path('back_sector_edit', {'id': sector.id}) }}" class="btn btn-success btn-sm">Modifier</a>
+                    <a href="{{ path('back_sector_delete', {'id': sector.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
                 </td>
             </tr>
         {% else %}
@@ -36,6 +38,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('back_sector_new') }}">Create new</a>
 </div>
 {% endblock %}

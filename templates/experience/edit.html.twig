@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Experience{% endblock %}
+{% block title %}Modifier expérience{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Edit Experience</h1>
+    <h1>Modifier expérience</h1>
 
-    {{ include('experience/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('experience/_form.html.twig', {'button_label': 'Valider'}) }}
 
-    <a href="{{ path('back_experience_index') }}">back to list</a>
+    <a href="{{ path('back_experience_index') }}" class="btn btn-primary btn-sm">Retour à la liste</a>
 
     {{ include('experience/_delete_form.html.twig') }}
 </div>

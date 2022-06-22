@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Technology index{% endblock %}
+{% block title %}Liste des technologies{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Technology index</h1>
+    <h1>Liste des technologies</h1>
+
+    <a href="{{ path('back_technology_new') }}" class="btn btn-info mb-2">Ajouter une technologie</a>
 
     <table class="table">
         <thead>
@@ -15,7 +17,7 @@
                 <th>UpdatedAt</th>
                 <th>BackgroundColor</th>
                 <th>TextColor</th>
-                <th>actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,8 +30,8 @@
                 <td>{% if technology.backgroundColor %}<div style="background: {{ technology.backgroundColor }}; border: 2px solid {{ technology.backgroundColor }}; height: 20px; width: 20px;"></div> {% endif %} </td>
                 <td>{% if technology.textColor %}<div style="background: {{ technology.textColor }}; border: 2px solid {{ technology.textColor }}; height: 20px; width: 20px"></div>{% endif %}</td>
                 <td>
-                    <a href="{{ path('back_technology_show', {'id': technology.id}) }}">show</a>
-                    <a href="{{ path('back_technology_edit', {'id': technology.id}) }}">edit</a>
+                    <a href="{{ path('back_technology_edit', {'id': technology.id}) }}" class="btn btn-success btn-sm">Modifier</a>
+                    <a href="{{ path('back_technology_delete', {'id': technology.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
                 </td>
             </tr>
         {% else %}
@@ -40,6 +42,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('back_technology_new') }}">Create new</a>
 </div>
 {% endblock %}

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Contract{% endblock %}
+{% block title %}Ajout type contrat{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Create new Contract</h1>
+    <h1>Ajout d'un type de contrat</h1>
 
     {{ include('contract/_form.html.twig') }}
 
-    <a href="{{ path('back_contract_index') }}">back to list</a>
+    <a href="{{ path('back_contract_index') }}" class="btn btn-primary btn-sm">Retour à la liste</a>
 </div>
 {% endblock %}
