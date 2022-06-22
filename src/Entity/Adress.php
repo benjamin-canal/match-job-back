@@ -19,7 +19,7 @@ class Adress
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"adresses_get_item", "jobs_get_item", "candidates_get_item", "recruiters_get_item"})
+     * @Groups({"adresses_get_item", "jobs_get_item", "candidates_get_item", "recruiters_get_item", "compagnies_get_item"})
      */
     private $id;
 

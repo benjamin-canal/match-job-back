@@ -55,7 +55,7 @@ class RecruiterController extends AbstractController
             return $this->json(['error' => 'Recruter souhaité : non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($recruiter, Response::HTTP_OK, [], ['groups' => 'recruiters_get_item']);
+        return $this->json($recruiter, Response::HTTP_OK, [], ['groups' => ['recruiters_get_item','jobs_get_collection']]);
     }
 
 
