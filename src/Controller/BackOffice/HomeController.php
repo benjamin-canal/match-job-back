@@ -4,7 +4,6 @@ namespace App\Controller\BackOffice;
 
 use App\Repository\ContractRepository;
 use App\Repository\ExperienceRepository;
-use App\Repository\JobRepository;
 use App\Repository\JobtitleRepository;
 use App\Repository\SalaryRepository;
 use App\Repository\SectorRepository;
@@ -45,7 +44,7 @@ class HomeController extends AbstractController
           'usersNumber' => $usersNumber,
           'contractsNumber' => $contractsNumber,
           'experiencesNumber' => $experiencesNumber,
-          'jobtitlessNumber' => $jobtitlesNumber,
+          'jobtitlesNumber' => $jobtitlesNumber,
           'salariesNumber' => $salariesNumber,
           'sectorsNumber' => $sectorsNumber,
           'technologiesNumber' => $technologiesNumber,

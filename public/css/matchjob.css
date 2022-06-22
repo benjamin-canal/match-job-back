@@ -48,7 +48,40 @@ body {
     background-color: white;
 }
 
-.bi{
+.icon-menu{
     padding-right: 0.5em;
     font-size: x-large;
+}
+
+.badge{
+    color: black;
+    background-color: #026e47;
+    font-size: 20px;
+}
+
+.category{
+    border: #EDDCC4 solid 2px;
+    margin: 20px;
+    width: 220px;
+    height: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.category-picture{
+    color: #026e47;
+    font-size: 100px;
+}
+
+.card-title{
+    color: #026e47;
+    font-size: 25px;
+}
+
+.categories{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
