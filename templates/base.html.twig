@@ -16,7 +16,7 @@
     </head>
     <body>
         <header>
-        {# <img class="logo" src="{{ asset('Match-Job.svg') }}" alt="logo"> #}
+        <img class="logo" src="{{ asset('Match-Job.svg') }}" alt="logo">
         <div class="main-title">MATCH-JOB</div>
         </header>
         <div class="container-fluid d-flex">
@@ -32,7 +32,7 @@
                 <li class="nav-item"><a class="nav-link active" href="{{ path('back_technology_index') }}"><i class="bi bi-diagram-2-fill icon-menu"></i><span>Technologies</span></a></li>
             </ul>
         </nav>
-        <div class="container-fluid table">
+        <div class="container-fluid table-content">
         {% block body %}{% endblock %}
         </div>
         </div>
