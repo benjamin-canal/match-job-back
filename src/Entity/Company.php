@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
+use App\Repository\SectorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -47,7 +48,7 @@ class Company
     private $sector;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity=Adress::class, inversedBy="companies", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("jobs_get_collection", "recruiters_get_item", "jobs_get_item", "compagnies_get_item")
      */
@@ -59,7 +60,7 @@ class Company
     private $recruiters;
 
     public function __construct()
-    {
+    {       
         $this->recruiters = new ArrayCollection();
     }
 

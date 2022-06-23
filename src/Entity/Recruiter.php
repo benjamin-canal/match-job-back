@@ -53,7 +53,7 @@ class Recruiter
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="recruiters")
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="recruiters", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_collection", "jobs_get_item", "candidates_get_collection", "candidates_get_item"})
      */

@@ -10,6 +10,10 @@
     border-color: #0d2a2c; 
 }
 
+.btn-danger button{
+    background-color: #dc3545;
+}
+
 .main-title{
     color:#026e47;
     font-size: xx-large;
