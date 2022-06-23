@@ -14,13 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-/**
- * @Route("/back/")
- */
 class HomeController extends AbstractController
 {
     /**
-     * @Route("", name="back_home", methods={"GET"})
+     * @Route("/", name="back_home", methods={"GET"})
      */
     public function home(
       UserRepository $userRepository,
