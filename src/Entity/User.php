@@ -76,10 +76,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $candidates;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":true})
+     * @Groups({"users_get_item", "users_get_collection", "recruiters_get_collection", "recruiters_get_item"})})
+     */
+    private $isHelped;
+
     public function __construct()
     {
         $this->recruiters = new ArrayCollection();
         $this->candidates = new ArrayCollection();
+        $this->isHelped = true;
     }
 
     public function getId(): ?int
@@ -237,6 +244,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $candidate->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsHelped(): ?bool
+    {
+        return $this->isHelped;
+    }
+
+    public function setIsHelped(bool $isHelped): self
+    {
+        $this->isHelped = $isHelped;
 
         return $this;
     }
