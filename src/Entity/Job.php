@@ -111,6 +111,7 @@ class Job
     {
         $this->matchups = new ArrayCollection();
         $this->technologies = new ArrayCollection();
+        $this->status = 1;
     }
 
     public function getId(): ?int
