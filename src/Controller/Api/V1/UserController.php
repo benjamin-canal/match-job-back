@@ -114,7 +114,7 @@ class UserController extends AbstractController
             $user,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header + the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_user_get_profil', ['id' => $user->getId()])
             ],
@@ -212,5 +212,77 @@ class UserController extends AbstractController
 
         return $this->json($user, Response::HTTP_OK, [], []);
     }
-   
+
+    /**
+     * Method to update a password of a user whose {id} is given
+     * 
+     * @Route("/users/{id}/passwords", name="users_password_update", methods={"PUT"}, requirements={"id"="\d+"})
+     */
+    public function usersPasswordUpdate(
+        User $user = null,
+        UserRepository $userRepository,
+        Request $request,
+        SerializerInterface $serializer,
+        ManagerRegistry $doctrine,
+        ValidatorInterface $validator,
+        UserPasswordHasherInterface $passwordHasher
+    ) {
+        
+        // 404 ?
+        if ($userRepository === null) {
+            // Returns an error if the user is unknown
+            return $this->json(['error' => 'Utilisateur non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+        
+        // We need to retrieve the JSON content from the Request
+        $jsonContent = $request->getContent();
+
+        // Deserialize the JSON content into a User entity
+        $userReceived = $serializer->deserialize($jsonContent, User::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $user]);
+
+        // Validation of the entity
+        // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
+        $errors = $validator->validate($userReceived);
+
+        if (count($errors) > 0) {
+
+            $cleanErrors = [];
+
+            /** @var ConstraintViolation $error */
+            foreach ($errors as $error) {
+
+                // retrieving information
+                $property = $error->getPropertyPath();
+                $message = $error->getMessage();
+
+                // We add the message in an array to the key $property
+                // PHP itself manages the existence of the second array
+                $cleanErrors[$property][] = $message;
+            }
+
+            return $this->json($cleanErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        // Hash user password
+        $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());     
+        $user->setPassword($hashedPassword);
+        // backup in database
+        $em = $doctrine->getManager();
+        $em->flush();
+
+        // We return a response that contains (REST !)
+        
+        return $this->json(
+            // user updated
+            $user,
+            // status code : 201 CREATED
+            Response::HTTP_OK,
+            // REST require location header + the URL of the created resource
+            [
+                'Location' => $this->generateUrl('api_v1_user_get_profil', ['id' => $user->getId()])
+            ],
+            ['groups' => 'users_get_item']
+        );
+    }
+    
 }
