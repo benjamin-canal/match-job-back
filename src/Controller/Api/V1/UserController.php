@@ -114,7 +114,7 @@ class UserController extends AbstractController
             $user,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header + the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_user_get_profil', ['id' => $user->getId()])
             ],
@@ -172,11 +172,6 @@ class UserController extends AbstractController
 
         // backup in database
         $em = $doctrine->getManager();
-
-        // update of information between the current entity and the received entity
-        // $user->setEmail($userReceived->getEmail());
-        // $user->setRoles($userReceived->getRoles());
-        // $user->setPassword($userReceived->getPassword());
         $em->flush();
 
         // We return a response that contains (REST !)
@@ -186,7 +181,7 @@ class UserController extends AbstractController
             $user,
             // status code : 201 CREATED
             Response::HTTP_OK,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header + the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_user_get_profil', ['id' => $user->getId()])
             ],
