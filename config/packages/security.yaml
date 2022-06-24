@@ -34,7 +34,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        # Toutes les autres du projet (l'appli HTML O'flix front/back)
+        # All others of the project
         main:
             lazy: true
             provider: app_user_provider

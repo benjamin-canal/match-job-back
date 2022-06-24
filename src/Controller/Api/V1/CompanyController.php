@@ -36,8 +36,7 @@ class CompanyController extends AbstractController
         ],
         Response::HTTP_OK,
         [],
-        ['groups' => 'compagnies_get_item']
-        );
+        ['groups' => ['compagnies_get_item', 'jobs_get_collection']]);
     }
 
     /**
@@ -53,7 +52,7 @@ class CompanyController extends AbstractController
             return $this->json(['error' => 'Entreprise non trouvée.'], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($company, Response::HTTP_OK, [], ['groups' => 'compagnies_get_item']);
+        return $this->json($company, Response::HTTP_OK, [], ['groups' => ['compagnies_get_item', 'jobs_get_collection']]);
     }
 
     /**
@@ -107,11 +106,11 @@ class CompanyController extends AbstractController
             $company,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_company_get_details', ['id' => $company->getId()])
             ],
-            ['groups' => 'compagnies_get_item']
+            ['groups' => ['compagnies_get_item', 'jobs_get_collection']]
         );
     }
 
@@ -177,11 +176,11 @@ class CompanyController extends AbstractController
             $company,
             // status code : 201 CREATED
             Response::HTTP_OK,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_company_get_details', ['id' => $company->getId()])
             ],
-            ['groups' => 'compagnies_get_item']
+            ['groups' => ['compagnies_get_item', 'jobs_get_collection']]
         );
     }
 
@@ -201,7 +200,7 @@ class CompanyController extends AbstractController
         $em->remove($company);
         $em->flush();
 
-        return $this->json($company, Response::HTTP_OK, [], ['groups' => 'compagnies_get_item']);
+        return $this->json($company, Response::HTTP_OK, [], ['groups' => ['compagnies_get_item', 'jobs_get_collection']]);
     }
 }
 
