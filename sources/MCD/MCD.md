@@ -1,32 +1,43 @@
 # MCD (via Mocodo)
 
 ```txt
-BELONGS TO, 11 RECRUITER, 1N COMPANY
-COMPANY: name
-IS DOMICILED, 11 CANDIDATE, 1N ADRESS, 11 COMPANY
-ADRESS: street number, street name, zip, city, department
-POSSESSES, 11 CANDIDATE, 0N EXPERIENCE, 11 JOB
-EXPERIENCE: years number
-
-RECRUITER: last name, first name, phone number
-HAS, 11 COMPANY, 0N SECTOR
 SECTOR: name
-CANDIDATE: last name, first name, birth date, phone number, picture, resume, description, position held, portfolio, experience
-NEED, 1N CANDIDATE, ON CONTRACT, 11 JOB
-JOB: name, description, experience, status
+HAS, 11 COMPANY, 0N SECTOR
+COMPANY: name
+::
 
-MAY BE, 0N USER, 11 RECRUITER, 11 CANDIDATE
-USER: email, password, role
-WANT, 11 CANDIDATE, 0N SALARY, 11 JOB
-CONTRACT:type
-SALARY:slice
-HAVE, 1N CANDIDATE, 0N TECHNOLOGY, 1N JOB
-
-TECHNOLOGY: name
-JOBTITLE: name
-IS TITLED, 11 CANDIDATE, 0N JOBTITLE, 11 JOB
-INTERESTED BY, 0N CANDIDATE, 0N JOB
-OFFERS, 0N RECRUITER, 11 JOB
+ADRESS: street number, street name, zip, city, department
+IS DOMICILED, 11 CANDIDATE, 1N ADRESS, 11 COMPANY
 :
-MATCHED, 01 CANDIDATE, 0N JOB: statut, recruteur
+USER: email, password, role, is helped
+BELONGS TO, 11 RECRUITER, 1N COMPANY
+:
+RECRUITER: last name, first name, phone number
+
+:
+
+::
+CAN BE, 0N USER, 11 RECRUITER, 11 CANDIDATE
+:::
+OFFERS, 0N RECRUITER, 11 JOB
+
+MATCHUP, 0N CANDIDATE, 0N JOB: candidate status, recruiter status, match status
+
+TECHNOLOGY: name, background color, text color
+
+SPECIALISED, 1N CANDIDATE, 0N TECHNOLOGY, 1N JOB
+
+CANDIDATE: last name, first name, birth day, phone number, picture, resume, description, position held, portfolio
+:::::
+JOB: name, description, status
+
+WANT, 11 CANDIDATE, 1N SALARY, 1N JOBTITLE, 1N CONTRACT, 1N EXPERIENCE, 11 JOB
+
+CONTRACT:name
+:
+EXPERIENCE: years number
+:
+JOBTITLE: title
+:
+SALARY:name
 ```
