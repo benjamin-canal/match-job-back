@@ -216,7 +216,7 @@ class UserController extends AbstractController
     /**
      * Method to update a password of a user whose {id} is given
      * 
-     * @Route("/users/{id}/passwords", name="users_password_update", methods={"PUT"}, requirements={"id"="\d+"})
+     * @Route("/users/{id}/password", name="users_password_update", methods={"PUT"}, requirements={"id"="\d+"})
      */
     public function usersPasswordUpdate(
         User $user = null,
@@ -284,5 +284,5 @@ class UserController extends AbstractController
             ['groups' => 'users_get_item']
         );
     }
-    
+
 }

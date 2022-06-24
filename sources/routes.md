@@ -53,6 +53,7 @@
 | `/api/v1/users`                                      | `POST`       | add a user                                                                    | 201 + created object |
 | `/api/v1/users/{id}`                                 | `PUT`        | update a user                                                                 | 200, 204 or 404      |
 | `/api/v1/users/{id}`                                 | `DELETE`     | delete a user                                                                 | 200, 204 or 404      |
+| `/api/v1/users/{id}/password`                        | `PUT`        | update a user password                                                        | 200, 204 or 404      |
 | `/api/v1/companies`                                  | `GET`        | get all companies                                                             | 200                  |
 | `/api/v1/companies`                                  | `POST`       | add a company                                                                 | 201 + created object |
 | `/api/v1/companies/{id}`                             | `GET`        | get informations of a companies                                               | 200 or 404           |
@@ -114,4 +115,4 @@
 | `/api/v1/recruiters/jobs/{id}/candidates-interested` | `GET`        | get all candidates interested by a job                                        | 200 or 404           |
 | `/api/v1/jobs/possible-match-candidate/{id}`         | `GET`        | get all jobs possible to matched with candidate                               | 200 or 404           |
 | `/api/v1/candidates/possible-match-job/{id}`         | `GET`        | get all candidates possible to matched with job                               | 200 or 404           |
-| `/candidates/{id}/jobs/interested_recruiter`         | `GET`        | get all jobs for which the recruiter is interested in the candidate's profile | 200 or 404           |
+| `/api/v1/candidates/{id}/jobs/interested_recruiter`  | `GET`        | get all jobs for which the recruiter is interested in the candidate's profile | 200 or 404           |
