@@ -33,6 +33,44 @@ class ProviderMatchJob
     'Stack Overflow',
   ];
 
+    // textColor  
+    private $textColors = [
+        '#323230',
+        '#ffffff',
+        '#000000',
+        '#003444',
+        '#00748f',
+        '#ffce3b',
+        '#2cbdaf',
+        '#61dafb',
+        '#35495e',
+        '#666861',  
+        '#ffce3b',
+        '#2cbdaf',
+        '#35495e',
+        '#666861',
+    ];
+
+    // backgroudColors  
+    private $backgroundColors = [
+    '#f0db4d',
+    '#e54c26',
+    '#264de5',
+    '#767ab3',
+    '#ffffff',
+    '#3670a2',
+    '#649bd3',
+    '#390092',
+    '#2cbdaf',
+    '#e83623',
+    '#000000',
+    '#41b883',
+    '#000000',
+    '#8bc500',
+    '#d91404',
+    '#ff2c1f',
+    ];
+
   // sector  
   private $sectors = [
       'Dev web',
@@ -142,6 +180,22 @@ class ProviderMatchJob
   public function experienceType()
   {
       return $this->experiences[array_rand($this->experiences)];
+  }
+
+  /**
+   * Return a random textColor
+   */
+  public function textColorType()
+  {
+      return $this->textColors[array_rand($this->textColors)];
+  }
+
+  /**
+   * Return a random experience
+   */
+  public function backgroundColorType()
+  {
+      return $this->backgroundColors[array_rand($this->backgroundColors)];
   }
   
 }
