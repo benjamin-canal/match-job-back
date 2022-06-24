@@ -51,6 +51,16 @@ header{
     color: #0d2a2c
 }
 
+.logout{
+    color: #b80404;
+    font-size: large;
+    font-weight: bold;
+}
+
+.logout:hover{
+    color: #340000;
+}
+
 .btn-primary{
     margin-bottom: 0.4em;
 }
