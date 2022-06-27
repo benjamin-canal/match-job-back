@@ -107,7 +107,7 @@ class SalaryController extends AbstractController
             $salarie,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
-            // REST require location header+ the URL of the created resource
+            // REST require location header + the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_salarie_get_details', ['id' => $salarie->getId()])
             ],
@@ -177,7 +177,7 @@ class SalaryController extends AbstractController
             $salarie,
             // status code : 201 CREATED
             Response::HTTP_OK,
-            // REST require location header+ the URL of the created resource
+            // REST require location header + the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_salarie_get_details', ['id' => $salarie->getId()])
             ],

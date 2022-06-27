@@ -1,8 +1,16 @@
 # Match Job
 
+> "Trouvez le Job ou le Candidat de vos rêves !!!"
+
 ## Table of Contents
 
+1. [About](#about)
+2. [Getting Started](#getting-started)
+3. [Installing](#installing)
+
 ## About
+
+The MatchJob-Back project manages the backend of the MatchJob-Front project <https://github.com/O-clock-Boson/projet-match-job-front>
 
 ## Getting Started
 
@@ -13,17 +21,29 @@ These instructions will get you a copy of the project up and running on your loc
 * PHP 7.4.3+
 * composer
 
-### Installing
+### Technologies
 
-#### Cloning project
+* Symfony 5.4
+* Bootstrap 5.0.2
 
-#### Setting up dependencies
+## Installing
+
+### Cloning project
+
+* Navigate to the directory that you would like to clone the repository
+* Clone the remote repository and create a local copy on your machine using this command:
+  
+```cmd
+git clone https://github.com/O-clock-Boson/projet-match-job-back.git
+```
+
+### Setting up dependencies
 
 ```php
 composer install
 ```
 
-#### Setting Database
+### Setting Database
 
 * Create `.env.local` file for the first time at the root of the project.
   
@@ -43,7 +63,7 @@ nano .env.local
 DATABASE_URL="mysql://[*Username*]:[*password*]@127.0.0.1:3306/matchjob?serverVersion=mariadb-10.3.25"
 ```
 
-#### Install database
+### Install database
 
 ```php
 php bin/console doctrine:database:create
