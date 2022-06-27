@@ -15,9 +15,6 @@ class JobtitleType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
                 'label' => 'Nom :',
                 'help' => 'Indiquez le type de contrat ex : Développeur Frontend',
             ])

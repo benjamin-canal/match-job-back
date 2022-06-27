@@ -15,9 +15,6 @@ class SalaryType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
                 'label' => 'Tranche de salaire :',
                 'help' => 'Indiquez une tranche de salaire ex : 20 000 - 22 000 €'
             ])

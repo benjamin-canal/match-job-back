@@ -37,6 +37,7 @@ class ExperienceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $experienceRepository->add($experience, true);
 
+            $this->addFlash('success', 'Expérience : '. $experience->getYearsNumber() .' ajoutée.');
             return $this->redirectToRoute('back_experience_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,6 +68,7 @@ class ExperienceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $experienceRepository->add($experience, true);
 
+            $this->addFlash('warning', 'Expérience : '. $experience->getYearsNumber() .' modifiée.');
             return $this->redirectToRoute('back_experience_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -82,6 +84,8 @@ class ExperienceController extends AbstractController
     public function delete(Request $request, Experience $experience, ExperienceRepository $experienceRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$experience->getId(), $request->request->get('_token'))) {
+            
+            $this->addFlash('danger', 'Expérience : '. $experience->getYearsNumber() .' supprimée.');
             $experienceRepository->remove($experience, true);
         }
 

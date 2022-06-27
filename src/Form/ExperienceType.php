@@ -17,9 +17,6 @@ class ExperienceType extends AbstractType
     {
         $builder
             ->add('yearsNumber', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
                 'label' => 'Nombre d\'années :',
                 'help' => 'Indiquez une expérience en nombre d\'années ex : de 1 à 2 ans',
             ])

@@ -15,9 +15,6 @@ class SectorType extends AbstractType
     {
         $builder
             ->add('sectorName', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
                 'label' => 'Nom :',
                 'help' => 'Indiquez le nom du secteur d\'activité',
             ])

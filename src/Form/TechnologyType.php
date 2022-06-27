@@ -17,9 +17,6 @@ class TechnologyType extends AbstractType
     {
         $builder
             ->add('technologyName', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
                 'label' => 'Nom :',
                 'help' => 'Indiquez un nom de technologie'
             ])
