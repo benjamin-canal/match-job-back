@@ -109,7 +109,7 @@ class JobController extends AbstractController
             $job,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_job_get_details', ['id' => $job->getId()])
             ],
@@ -180,7 +180,7 @@ class JobController extends AbstractController
             $job,
             // status code : 201 CREATED
             Response::HTTP_OK,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_job_get_details', ['id' => $job->getId()])
             ],
@@ -243,7 +243,6 @@ class JobController extends AbstractController
         
         // find all jobs that match with the candidate
         $jobsList= $jobRepository->findAllJobsPossibleMatchedWithCandidate($candidate, $options);
-
                
         return $this->json([
             'jobs' => $jobsList,

@@ -25,13 +25,13 @@ class Adress
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
-     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item", "recruiters_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item", "recruiters_get_item", "jobs_get_collection"})
      */
     private $streetNumber;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item", "recruiters_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item", "recruiters_get_item", "jobs_get_collection"})
      */
     private $streetName;
 
@@ -49,7 +49,7 @@ class Adress
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
-     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item", "recruiters_get_item"})
+     * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "adresses_get_item", "recruiters_get_item", "jobs_get_collection"})
      */
     private $department;
 

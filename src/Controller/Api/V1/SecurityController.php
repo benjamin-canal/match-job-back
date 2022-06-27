@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * Class that manages resources of type User
+ * Class that manages the security of the application
  * 
- * @Route("/api/v1", name="api_")
+ * @Route("/api/v1", name="api_v1_")
  */
 class SecurityController extends AbstractController
 {
@@ -24,7 +24,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("login", name="api_v1_login", methods={"POST"})
+     * @Route("login", name="login", methods={"POST"})
      * @return JsonResponse
      */
     public function apiLoginCheck(): JsonResponse
@@ -38,7 +38,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="app_logout", methods={"GET"})
+     * @Route("/logout", name="logout", methods={"GET"})
      */
     public function logout()
     {
@@ -46,12 +46,12 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/getuser", name="app_getuser", methods={"GET"})
+     * @Route("/getuser", name="getuser", methods={"GET"})
      */
     public function getUser()
     {         
         $user = $this->security->getUser();
-    
+        
         return $this->json($user, Response::HTTP_OK, [], ['groups' => 'users_get_item']);
     }
 }

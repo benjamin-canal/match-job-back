@@ -112,7 +112,7 @@ class CandidateController extends AbstractController
             $candidate,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_candidate_get_profil', ['id' => $candidate->getId()])
             ],
@@ -182,7 +182,7 @@ class CandidateController extends AbstractController
             $candidate,
             // status code : 201 CREATED
             Response::HTTP_OK,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_candidate_get_profil', ['id' => $candidate->getId()])
             ],
@@ -214,7 +214,7 @@ class CandidateController extends AbstractController
      * 
      * @Route("/candidates/{id}/jobs/match", name="candidate_get_jobs_matched", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function candidatesGetAllJobsMatched(Candidate $candidate = null, MatchupRepository $matchupRepository, JobRepository $jobRepository)
+    public function candidatesGetAllJobsMatched(Candidate $candidate = null, JobRepository $jobRepository)
     {
         // 404 ?
         if ($candidate === null) {
@@ -222,10 +222,6 @@ class CandidateController extends AbstractController
             return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
         }
 
-        // dd($matchupRepository->findAllMatchedJobs($candidate));
-        // dd($jobRepository->findAllJobsMatched($candidate));
-
-        $matchups = $matchupRepository->findAllMatchedJobs($candidate);
         $jobsList = $jobRepository->findAllJobsForCandidateMatched($candidate);
 
         return $this->json($jobsList, Response::HTTP_OK, [], ['groups' => 'jobs_get_item']);

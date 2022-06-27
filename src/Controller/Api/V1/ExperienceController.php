@@ -107,7 +107,7 @@ class ExperienceController extends AbstractController
             $experience,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_experience_get_details', ['id' => $experience->getId()])
             ],
@@ -177,7 +177,7 @@ class ExperienceController extends AbstractController
             $experience,
             // status code : 201 CREATED
             Response::HTTP_OK,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header+ the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_experience_get_details', ['id' => $experience->getId()])
             ],
