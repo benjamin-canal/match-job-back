@@ -30,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      * @Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email."
+     *     message = "L'adresse email {{ value }} n'est pas une adresse email valide."
      * )
      * @Groups({"users_get_item", "users_get_collection", "recruiters_get_collection", "recruiters_get_item"})})
      */
@@ -47,6 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * {"ROLE_RECRUITER", "ROLE_CANDIDATE", "ROLE_ADMIN"},
      * multiple=true,
      * message = "The role {{ value }} is not valid")
+     * @Assert\NotBlank
      * @Groups({"users_get_item", "users_get_collection"})
      * @ORM\Column(type="json")
      */

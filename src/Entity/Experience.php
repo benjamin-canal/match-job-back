@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ExperienceRepository::class)
@@ -24,6 +25,7 @@ class Experience
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\Length(max = 20, maxMessage="Merci de ne pas dépasser {{ limit }} caractères.")
      * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "experiences_get_item", "jobs_get_item", "jobs_get_collection"})
      */
     private $yearsNumber;
