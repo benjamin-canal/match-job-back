@@ -110,7 +110,7 @@ class RecruiterController extends AbstractController
             $recruiter,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header + the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_recruiter_get_details', ['id' => $recruiter->getId()])
             ],
@@ -181,7 +181,7 @@ class RecruiterController extends AbstractController
             $recruiter,
             // status code : 201 CREATED
             Response::HTTP_OK,
-            // REST require locatiion header+ the URL of the created resource
+            // REST require location header + the URL of the created resource
             [
                 'Location' => $this->generateUrl('api_v1_recruiter_get_details', ['id' => $recruiter->getId()])
             ],
