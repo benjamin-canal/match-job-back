@@ -41,6 +41,7 @@ class UserController extends AbstractController
             $user->setPassword($hashedPassword);
             $userRepository->add($user, true);
 
+            $this->addFlash('success', 'Utilisateur : '. $user->getEmail() .' ajouté.');
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -73,6 +74,7 @@ class UserController extends AbstractController
             $user->setPassword($hashedPassword);
             $userRepository->add($user, true);
 
+            $this->addFlash('warning', 'Utilisateur : '. $user->getEmail() .' modifié.');
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -88,6 +90,8 @@ class UserController extends AbstractController
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            
+            $this->addFlash('danger', 'Utilisateur : '. $user->getEmail() .' supprimé.');
             $userRepository->remove($user, true);
         }
 
