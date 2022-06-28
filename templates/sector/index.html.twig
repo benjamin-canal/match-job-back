@@ -6,7 +6,9 @@
 <div class="container">
     <h1>Liste des secteurs d'activités</h1>
 
-    <a href="{{ path('back_experience_new') }}" class="btn btn-info mb-2">Ajouter un secteur d'activité</a>
+    {{ include('flash_messages.html.twig') }}
+
+    <a href="{{ path('back_sector_new') }}" class="btn btn-info mb-2">Ajouter un secteur d'activité</a>
 
     <table class="table">
         <thead>

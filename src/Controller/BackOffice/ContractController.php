@@ -37,6 +37,7 @@ class ContractController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $contractRepository->add($contract, true);
 
+            $this->addFlash('success', 'Contrat : '. $contract->getName() .' ajouté.');
             return $this->redirectToRoute('back_contract_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,6 +68,7 @@ class ContractController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $contractRepository->add($contract, true);
 
+            $this->addFlash('warning', 'Contrat : '. $contract->getName() .' modifié.');
             return $this->redirectToRoute('back_contract_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -82,6 +84,8 @@ class ContractController extends AbstractController
     public function delete(Request $request, Contract $contract, ContractRepository $contractRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$contract->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('danger', 'Contrat : '. $contract->getName() .' supprimé.');
             $contractRepository->remove($contract, true);
         }
 

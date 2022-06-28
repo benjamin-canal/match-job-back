@@ -6,6 +6,8 @@
 <div class="container">
     <h1>Liste des utilisateurs</h1>
 
+    {{ include('flash_messages.html.twig') }}
+
     <a href="{{ path('back_user_add') }}" class="btn btn-info mb-2">Ajouter un utilisateur</a>
 
     <table class="table">

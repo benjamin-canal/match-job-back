@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\SectorRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SectorRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=SectorRepository::class)
+ * @UniqueEntity(fields={"sectorName"}, message="Secteur d'activité déjà utilisé !")
  */
 class Sector
 {
@@ -23,7 +27,8 @@ class Sector
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, unique=true)
+     * @Assert\NotBlank
      * @Groups({"users_get_item", "sectors_get_item", "candidates_get_item", "candidates_get_collection", "jobs_get_collection", "jobs_get_item"})
      */
     private $sectorName;
@@ -60,7 +65,7 @@ class Sector
         return $this->sectorName;
     }
 
-    public function setSectorName(string $sectorName): self
+    public function setSectorName(?string $sectorName): self
     {
         $this->sectorName = $sectorName;
 

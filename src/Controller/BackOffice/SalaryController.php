@@ -37,6 +37,7 @@ class SalaryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $salaryRepository->add($salary, true);
 
+            $this->addFlash('success', 'Tranche de salaire : '. $salary->getName() .' ajoutée.');
             return $this->redirectToRoute('back_salary_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,6 +68,7 @@ class SalaryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $salaryRepository->add($salary, true);
 
+            $this->addFlash('warning', 'Tranche de salaire : '. $salary->getName() .' modifiée.');
             return $this->redirectToRoute('back_salary_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -82,6 +84,8 @@ class SalaryController extends AbstractController
     public function delete(Request $request, Salary $salary, SalaryRepository $salaryRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$salary->getId(), $request->request->get('_token'))) {
+            
+            $this->addFlash('danger', 'Tranche de salaire : '. $salary->getName() .' supprimée.');
             $salaryRepository->remove($salary, true);
         }
 

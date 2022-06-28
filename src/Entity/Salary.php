@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\SalaryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SalaryRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=SalaryRepository::class)
+ * @UniqueEntity(fields={"name"}, message="Tranche de salaire déjà utilisée !")
  */
 class Salary
 {
@@ -23,7 +27,8 @@ class Salary
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, unique=true)
+     * @Assert\NotBlank
      * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "salaries_get_item", "jobs_get_item", "jobs_get_collection"})
      */
     private $name;
@@ -66,7 +71,7 @@ class Salary
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 

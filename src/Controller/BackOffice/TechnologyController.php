@@ -37,6 +37,7 @@ class TechnologyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $technologyRepository->add($technology, true);
 
+            $this->addFlash('success', 'Technologie : '. $technology->getTechnologyName() .' ajoutée.');
             return $this->redirectToRoute('back_technology_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,6 +68,7 @@ class TechnologyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $technologyRepository->add($technology, true);
 
+            $this->addFlash('warning', 'Technologie : '. $technology->getTechnologyName() .' modifiée.');
             return $this->redirectToRoute('back_technology_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -82,6 +84,8 @@ class TechnologyController extends AbstractController
     public function delete(Request $request, Technology $technology, TechnologyRepository $technologyRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$technology->getId(), $request->request->get('_token'))) {
+            
+            $this->addFlash('danger', 'Technologie : '. $technology->getTechnologyName() .' supprimée.');
             $technologyRepository->remove($technology, true);
         }
 

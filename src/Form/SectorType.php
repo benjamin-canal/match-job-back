@@ -4,15 +4,20 @@ namespace App\Form;
 
 use App\Entity\Sector;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SectorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('sectorName')
+            ->add('sectorName', TextType::class, [
+                'label' => 'Nom :',
+                'help' => 'Indiquez le nom du secteur d\'activité',
+            ])
         ;
     }
 
@@ -20,6 +25,9 @@ class SectorType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Sector::class,
+            'attr' => [
+                'novalidate' => 'novalidate',
+            ],
         ]);
     }
 }

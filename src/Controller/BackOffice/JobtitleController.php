@@ -37,6 +37,7 @@ class JobtitleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $jobtitleRepository->add($jobtitle, true);
 
+            $this->addFlash('success', 'Titre d\'emplois : '. "$jobtitle->getTitle()" .' ajouté.');
             return $this->redirectToRoute('back_jobtitle_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,6 +68,7 @@ class JobtitleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $jobtitleRepository->add($jobtitle, true);
 
+            $this->addFlash('warning', 'Titre d\'emplois '. $jobtitle->getTitle() .' modifié.');
             return $this->redirectToRoute('back_jobtitle_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -82,6 +84,8 @@ class JobtitleController extends AbstractController
     public function delete(Request $request, Jobtitle $jobtitle, JobtitleRepository $jobtitleRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$jobtitle->getId(), $request->request->get('_token'))) {
+            
+            $this->addFlash('danger', 'Titre d\'emplois '. $jobtitle->getTitle() .' supprimé.');
             $jobtitleRepository->remove($jobtitle, true);
         }
 

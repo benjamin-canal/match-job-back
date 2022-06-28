@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\ExperienceRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\Repository\ExperienceRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ExperienceRepository::class)
+ * @UniqueEntity(fields={"yearsNumber"}, message="Expérience déjà utilisée !")
  */
 class Experience
 {
@@ -23,7 +27,9 @@ class Experience
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Length(max = 20, maxMessage="Merci de ne pas dépasser {{ limit }} caractères.")
      * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "experiences_get_item", "jobs_get_item", "jobs_get_collection"})
      */
     private $yearsNumber;
@@ -66,7 +72,7 @@ class Experience
         return $this->yearsNumber;
     }
 
-    public function setYearsNumber(string $yearsNumber): self
+    public function setYearsNumber(?string $yearsNumber): self
     {
         $this->yearsNumber = $yearsNumber;
 

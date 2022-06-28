@@ -6,6 +6,8 @@
 <div class="container">
     <h1>Liste des types de contrats</h1>
 
+    {{ include('flash_messages.html.twig') }}
+
     <a href="{{ path('back_contract_new') }}" class="btn btn-info mb-2">Ajouter un type de contrat</a>
 
     <table class="table">

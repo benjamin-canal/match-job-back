@@ -6,6 +6,8 @@
 <div class="container">
     <h1>Liste des technologies</h1>
 
+    {{ include('flash_messages.html.twig') }}
+
     <a href="{{ path('back_technology_new') }}" class="btn btn-info mb-2">Ajouter une technologie</a>
 
     <table class="table">

@@ -6,6 +6,8 @@
 <div class="container">
     <h1>Liste des niveaux d'expériences</h1>
 
+    {{ include('flash_messages.html.twig') }}
+
     <a href="{{ path('back_experience_new') }}" class="btn btn-info mb-2">Ajouter un niveau d'expérience</a>
 
     <table class="table">

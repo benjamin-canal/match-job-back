@@ -37,6 +37,7 @@ class SectorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $sectorRepository->add($sector, true);
 
+            $this->addFlash('success', 'Secteur d\'activité : '. $sector->getSectorName() .' ajouté.');
             return $this->redirectToRoute('back_sector_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,6 +68,7 @@ class SectorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $sectorRepository->add($sector, true);
 
+            $this->addFlash('warning', 'Secteur d\'activité : '. $sector->getSectorName() .' modifié.');
             return $this->redirectToRoute('back_sector_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -82,6 +84,8 @@ class SectorController extends AbstractController
     public function delete(Request $request, Sector $sector, SectorRepository $sectorRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$sector->getId(), $request->request->get('_token'))) {
+            
+            $this->addFlash('danger', 'Secteur d\'activité : '. $sector->getSectorName() .' supprimé.');
             $sectorRepository->remove($sector, true);
         }
 
