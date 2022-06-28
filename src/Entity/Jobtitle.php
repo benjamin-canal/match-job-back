@@ -2,19 +2,15 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\JobtitleRepository;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=JobtitleRepository::class)
- * @UniqueEntity(fields={"title"}, message="Nom de contrat déjà utilisé !")
  */
 class Jobtitle
 {
@@ -27,8 +23,7 @@ class Jobtitle
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64, unique=true)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=64)
      * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "jobtitles_get_item", "jobs_get_item", "jobs_get_collection"})
      */
     private $title;
@@ -71,7 +66,7 @@ class Jobtitle
         return $this->title;
     }
 
-    public function setTitle(?string $title): self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 

@@ -9,11 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=TechnologyRepository::class)
- * @UniqueEntity(fields={"technologyName"}, message="Technologie déjà utilisée !")
  */
 class Technology
 {
@@ -26,8 +24,7 @@ class Technology
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64, unique=true)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=64)
      * @Groups({"users_get_item", "candidates_get_item", "candidates_get_collection", "technologies_get_item", "jobs_get_item", "jobs_get_collection"})
      */
     private $technologyName;
@@ -90,7 +87,7 @@ class Technology
         return $this->technologyName;
     }
 
-    public function setTechnologyName(?string $technologyName): self
+    public function setTechnologyName(string $technologyName): self
     {
         $this->technologyName = $technologyName;
 

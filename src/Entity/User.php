@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"users_get_item", "users_get_collection"})
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles;
 
     /** 
      * @ORM\Column(type="datetime")
@@ -148,7 +148,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_CANDIDATE
-        //$roles[] = '';
+        $roles[] = '';
 
         return array_unique($roles);
     }
