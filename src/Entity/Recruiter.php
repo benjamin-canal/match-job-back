@@ -38,7 +38,7 @@ class Recruiter
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
-     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_item"})
+     * @Groups({"users_get_item", "recruiters_get_collection", "recruiters_get_item", "jobs_get_item", "jobs_get_collection"})
      */
     private $phoneNumber;
 
@@ -64,7 +64,7 @@ class Recruiter
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recruiters"))
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"recruiters_get_collection", "recruiters_get_item", "jobs_get_item"})
+     * @Groups({"recruiters_get_collection", "recruiters_get_item", "jobs_get_item", "jobs_get_collection"})
      */
     private $user;
 
