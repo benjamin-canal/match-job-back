@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout technologie{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Ajout d'une technologie</h1>
+
+    {{ include('technology/_form.html.twig') }}
+
+    <a href="{{ path('back_technology_index') }}" class="btn btn-primary btn-sm">Retour à la liste</a>
+</div>
+{% endblock %}

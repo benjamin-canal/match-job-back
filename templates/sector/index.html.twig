@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste secteurs activités{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des secteurs d'activités</h1>
+
+    {{ include('flash_messages.html.twig') }}
+
+    <a href="{{ path('back_sector_new') }}" class="btn btn-info mb-2">Ajouter un secteur d'activité</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>SectorName</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sector in sectors %}
+            <tr>
+                <td>{{ sector.id }}</td>
+                <td>{{ sector.sectorName }}</td>
+                <td>{{ sector.createdAt ? sector.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sector.updatedAt ? sector.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('back_sector_edit', {'id': sector.id}) }}" class="btn btn-success btn-sm">Modifier</a>
+                    <a href="{{ path('back_sector_delete', {'id': sector.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

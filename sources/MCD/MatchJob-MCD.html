@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+</style>
+</head>
+<body>
+<div id='mld'>
+<!--
+<div>
+  <span class='relation'>SECTOR</span> (
+    <span class='primary'>name</span>
+  )
+</div>
+-->
+<div>
+  <span class='relation'>COMPANY</span> (
+    <span class='primary'>name</span>,
+    <span class='foreign'>name.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>ADRESS</span> (
+    <span class='primary'>street number</span>,
+    <span class='normal'>street name</span>,
+    <span class='normal'>zip</span>,
+    <span class='normal'>city</span>,
+    <span class='normal'>department</span>
+  )
+</div>
+<div>
+  <span class='relation'>USER</span> (
+    <span class='primary'>email</span>,
+    <span class='normal'>password</span>,
+    <span class='normal'>role</span>,
+    <span class='normal'>is helped</span>
+  )
+</div>
+<div>
+  <span class='relation'>RECRUITER</span> (
+    <span class='primary'>last name</span>,
+    <span class='normal'>first name</span>,
+    <span class='normal'>phone number</span>,
+    <span class='foreign'>name</span>,
+    <span class='foreign'>email</span>,
+    <span class='foreign'>last name.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>MATCHUP</span> (
+    <span class='foreign primary'>last name</span>,
+    <span class='foreign primary'>name</span>,
+    <span class='normal'>candidate status</span>,
+    <span class='normal'>recruiter status</span>,
+    <span class='normal'>match status</span>
+  )
+</div>
+<div>
+  <span class='relation'>TECHNOLOGY</span> (
+    <span class='primary'>name</span>,
+    <span class='normal'>background color</span>,
+    <span class='normal'>text color</span>
+  )
+</div>
+<div>
+  <span class='relation'>SPECIALISED</span> (
+    <span class='foreign primary'>last name</span>,
+    <span class='foreign primary'>name</span>,
+    <span class='foreign primary'>name.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>CANDIDATE</span> (
+    <span class='primary'>last name</span>,
+    <span class='normal'>first name</span>,
+    <span class='normal'>birth day</span>,
+    <span class='normal'>phone number</span>,
+    <span class='normal'>picture</span>,
+    <span class='normal'>resume</span>,
+    <span class='normal'>description</span>,
+    <span class='normal'>position held</span>,
+    <span class='normal'>portfolio</span>,
+    <span class='foreign'>street number</span>,
+    <span class='foreign'>name</span>,
+    <span class='foreign'>name.1</span>,
+    <span class='foreign'>title</span>,
+    <span class='foreign'>name.2</span>,
+    <span class='foreign'>years number</span>,
+    <span class='foreign'>name.3</span>
+  )
+</div>
+<div>
+  <span class='relation'>JOB</span> (
+    <span class='primary'>name</span>,
+    <span class='normal'>description</span>,
+    <span class='normal'>status</span>,
+    <span class='foreign'>last name</span>
+  )
+</div>
+<!--
+<div>
+  <span class='relation'>CONTRACT</span> (
+    <span class='primary'>name</span>
+  )
+</div>
+-->
+<!--
+<div>
+  <span class='relation'>EXPERIENCE</span> (
+    <span class='primary'>years number</span>
+  )
+</div>
+-->
+<!--
+<div>
+  <span class='relation'>JOBTITLE</span> (
+    <span class='primary'>title</span>
+  )
+</div>
+-->
+<!--
+<div>
+  <span class='relation'>SALARY</span> (
+    <span class='primary'>name</span>
+  )
+</div>
+-->
+</div>
+</body>
+</html>

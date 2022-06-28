@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des technologies{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des technologies</h1>
+
+    {{ include('flash_messages.html.twig') }}
+
+    <a href="{{ path('back_technology_new') }}" class="btn btn-info mb-2">Ajouter une technologie</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TechnologyName</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>BackgroundColor</th>
+                <th>TextColor</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for technology in technologies %}
+            <tr>
+                <td>{{ technology.id }}</td>
+                <td>{{ technology.technologyName }}</td>
+                <td>{{ technology.createdAt ? technology.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ technology.updatedAt ? technology.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{% if technology.backgroundColor %}<div style="background: {{ technology.backgroundColor }}; border: 2px solid {{ technology.backgroundColor }}; height: 20px; width: 20px;"></div> {% endif %} </td>
+                <td>{% if technology.textColor %}<div style="background: {{ technology.textColor }}; border: 2px solid {{ technology.textColor }}; height: 20px; width: 20px"></div>{% endif %}</td>
+                <td>
+                    <a href="{{ path('back_technology_edit', {'id': technology.id}) }}" class="btn btn-success btn-sm">Modifier</a>
+                    <a href="{{ path('back_technology_delete', {'id': technology.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('back_contract_delete', {'id': contract.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cet élément?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contract.id) }}">
+    <button class="btn btn-danger btn-sm">Supprimer</button>
+</form>
