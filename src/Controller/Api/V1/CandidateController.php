@@ -4,6 +4,7 @@ namespace App\Controller\Api\V1;
 
 use App\Entity\Job;
 use App\Entity\Candidate;
+use App\Service\FileUploader;
 use App\Repository\JobRepository;
 use App\Repository\MatchupRepository;
 use App\Repository\CandidateRepository;
@@ -12,10 +13,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Bridge\Doctrine\ManagerRegistry as DoctrineManagerRegistry;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Class that manages ressources of type Candidate
@@ -276,7 +284,7 @@ class CandidateController extends AbstractController
         // 404 ?
         if ($job === null) {
             // Returns an error if the job is unknown
-            return $this->json(['error' => 'PAs d\'offre d\'emploi trouvée.'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Pas d\'offre d\'emploi trouvée.'], Response::HTTP_NOT_FOUND);
         }
 
         // We need to retrieve the JSON content from the Request
@@ -298,4 +306,98 @@ class CandidateController extends AbstractController
 
         return $this->json($candidatesList, Response::HTTP_OK, [], ['groups' => 'candidates_get_collection']);
     }
+
+        
+    /**
+     * Method to add and update a picture for a given candidate
+     * 
+    * @Route("/candidates/{id}/pictures", methods={"POST"}, name="candidates_add_picture", requirements={"id"="\d+"})
+    */
+    public function addCandidatesPicture(Request $request, 
+    ValidatorInterface $validator, 
+    FileUploader $fileUploader, 
+    Candidate $candidate = null, 
+    ManagerRegistry $doctrine) 
+    {   
+        // We get the picture file name of the $candidate in the BDD
+        $picture = $candidate->getPicture();
+        $pictureToRemove = $fileUploader->getTargetDirectory() . '/' . $picture;
+
+        //If there is an existing picture we remove it
+        if (file_exists($pictureToRemove)) {
+            $fileSysteme = new Filesystem();
+        $fileSysteme->remove($pictureToRemove);
+        }
+
+        // We use the request object to get the picture
+        $uploadedFile = $request->files->get('picture');
+
+        // Exception error 400 if picture is missing
+        if (!$uploadedFile) {
+            throw new BadRequestHttpException('Fichier image requis.');
+        }
+
+        // File validator
+        $errors = $validator->validate($uploadedFile, [
+            // Image constraint
+            new Image([
+            'maxSize' => '1024k',
+            ]),
+        ]);
+
+        if (count($errors) > 0) {
+            return $this->json($errors, Response::HTTP_BAD_REQUEST);
+        }
+
+        if ($uploadedFile) {
+            $uploadedFileName = $fileUploader->upload($uploadedFile);
+            // 404 ?
+        if ($candidate === null) {
+            return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+        
+        // add or update image
+        $candidate->setPicture($uploadedFileName);
+        $em = $doctrine->getManager();
+        $em->persist($candidate);
+        $em->flush();
+            
+        }
+
+        return $this->json($uploadedFileName, Response::HTTP_CREATED);
+
+    }
+
+    /**
+     * Method to get a picture for a given candidate
+     * 
+    * @Route("/candidates/{id}/pictures", methods={"GET"}, name="candidates_get_picture", requirements={"id"="\d+"})
+    */
+    public function getCandidatesPicture(Candidate $candidate = null) : Response
+    {
+        // 404 ?
+        if ($candidate === null) {
+            // Return an error if the $candidate is unknown
+            return $this->json(['error' => 'Candidat non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        // We get the $candidate picture name in the BDD
+        $pictureName = $candidate->getPicture();
+        
+        // We get the path to te directory where the $candidate picture was uploaded with the same name stored in BDD
+        $pictureFile = $this->getParameter('kernel.project_dir') . '/pictures/' . $pictureName;
+
+        // This variable is create to compare the name in the uploade directory and in the BDD
+        $pictureFileName = '/var/www/html/Match-Job/projet-match-job-back/pictures/' . $pictureName;
+
+        // New BinaryFileResponse returned if there is no errors
+        if(file_exists($pictureFile) && ($pictureFile = $pictureFileName)) {
+            return new BinaryFileResponse($pictureFile);
+        } 
+
+        // Else json error is returned
+        return $this->json(['error' => 'Image non trouvée.'], Response::HTTP_NOT_FOUND); 
+        
+    }
+
 }
