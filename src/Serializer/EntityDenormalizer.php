@@ -7,6 +7,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
  * Entity denormalizer
+ * Automatically deserialize doctrine entities when using Symfony Serializer
  */
 class EntityDenormalizer implements DenormalizerInterface
 {
@@ -15,35 +16,35 @@ class EntityDenormalizer implements DenormalizerInterface
 
     public function __construct(EntityManagerInterface $em)
     {
-        // On aura besoin de l'EM pour récupérer notre entité en base
+        // We will need the EntityManager to recover our entity in base
         $this->em = $em;
     }
 
     /**
-     * Ce denormalizer doit-il s'appliquer sur la donnée courante ?
-     * Si oui, on appelle $this->denormalize()
+     * Should this denormalizer be applied to the current data ?
+     * if so, we call $this->denormalize()
      * 
-     * $data => l'id du Genre si le JSON contient "genres": [1384, 1402]
-     * => des ids qui sont dans votre BDD
-     * $type => le type de la classe vers laquelle on souhaite dénormaliser $data
+     * $data => the id of Entity, if the JSON contains (e.g. "technologies": [2, 9])
+     * => ids that are in your database
+     * $type => the type of the class to which we want to denormalize $data
      * 
      * @inheritDoc
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        // Est-ce que la classe est de type Entité doctrine ?
-        // Est-ce que la donnée fournie est numérique ?
+        // Is the class of type doctrine Entity ?
+        // Is the data provided numeric ?
         return strpos($type, 'App\\Entity\\') === 0 && (is_numeric($data));
     }
 
     /**
-     * Cette méthode sera appelée si la condition du dessus est valide
+     * This method will be called if the condition above is valid
      * 
      * @inheritDoc
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        // EntityManager->find() = raccourci vers le Repository->find()
+        // EntityManager->find() = shortcut to the Repository->find()
         return $this->em->find($class, $data);
     }
 }
