@@ -388,7 +388,7 @@ class CandidateController extends AbstractController
         $pictureFile = $this->getParameter('kernel.project_dir') . '/pictures/' . $pictureName;
 
         // This variable is create to compare the name in the uploade directory and in the BDD
-        $pictureFileName = '/var/www/html/Match-Job/projet-match-job-back/pictures/' . $pictureName;
+        $pictureFileName = $this->getParameter('kernel.project_dir') . '/pictures/' . $pictureName;
 
         // New BinaryFileResponse returned if there is no errors
         if(file_exists($pictureFile) && ($pictureFile = $pictureFileName)) {
