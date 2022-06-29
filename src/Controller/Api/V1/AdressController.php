@@ -139,11 +139,11 @@ class AdressController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Adress entity
-        $userReceived = $serializer->deserialize($jsonContent, Adress::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $adress]);
+        $adressReceived = $serializer->deserialize($jsonContent, Adress::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $adress]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
+        $errors = $validator->validate($adressReceived);
 
         if (count($errors) > 0) {
 

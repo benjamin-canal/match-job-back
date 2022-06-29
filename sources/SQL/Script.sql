@@ -59,10 +59,10 @@ INSERT INTO `experience` (`years_number`, `created_at`) VALUES
 
 -- Table SECTOR
 
-INSERT INTO `sector` (`sector name`, `created_at`) VALUES
+INSERT INTO `sector` (`sector_name`, `created_at`) VALUES
 ('Agence',	NOW()),
 ('ESN',	NOW()),
-('Remote',	NOW());
+('Remote',	NOW())
 
 -- Table USER
 

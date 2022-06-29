@@ -139,11 +139,11 @@ class SectorController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Sector entity
-        $userReceived = $serializer->deserialize($jsonContent, Sector::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $sector]);
+        $sectorReceived = $serializer->deserialize($jsonContent, Sector::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $sector]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
+        $errors = $validator->validate($sectorReceived);
 
         if (count($errors) > 0) {
 

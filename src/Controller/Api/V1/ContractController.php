@@ -139,11 +139,11 @@ class ContractController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Contract entity
-        $userReceived = $serializer->deserialize($jsonContent, Contract::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $contract]);
+        $contractReceived = $serializer->deserialize($jsonContent, Contract::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $contract]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
+        $errors = $validator->validate($contractReceived);
 
         if (count($errors) > 0) {
 

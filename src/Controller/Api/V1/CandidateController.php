@@ -144,11 +144,11 @@ class CandidateController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Candidate entity
-        $userReceived = $serializer->deserialize($jsonContent, Candidate::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $candidate]);
-
+        $candidateReceived = $serializer->deserialize($jsonContent, Candidate::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $candidate]);
+        
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
+        $errors = $validator->validate($candidateReceived);
 
         if (count($errors) > 0) {
 
@@ -230,7 +230,7 @@ class CandidateController extends AbstractController
     /**
      * Method to retrieve all jobs interested by the candidate
      * 
-     * @Route("/candidates/{id}/jobs/interested", name="candidate_get_jobs!interested", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/candidates/{id}/jobs/interested", name="candidate_get_jobs_interested", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function candidatesGetAllJobsInterested(Candidate $candidate = null, JobRepository $jobRepository)
     {

@@ -139,11 +139,11 @@ class TechnologyController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Technology entity
-        $userReceived = $serializer->deserialize($jsonContent, Technology::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $technology]);
+        $technologyReceived = $serializer->deserialize($jsonContent, Technology::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $technology]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
+        $errors = $validator->validate($technologyReceived);
 
         if (count($errors) > 0) {
 

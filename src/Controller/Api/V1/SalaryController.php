@@ -26,10 +26,10 @@ class SalaryController extends AbstractController
      * 
      * @Route("/salaries", name="salaries", methods={"GET"})
      */
-    public function salariesGetCollection(SalaryRepository $salarieRepository): JsonResponse
+    public function salariesGetCollection(SalaryRepository $salaryRepository): JsonResponse
     {
         
-        $salariesList = $salarieRepository->findAll();
+        $salariesList = $salaryRepository->findAll();
 
         return $this->json([
             'salaries' => $salariesList,
@@ -41,23 +41,23 @@ class SalaryController extends AbstractController
     }
 
     /**
-     * Method to have a salarie whose {id} is given
+     * Method to have a salary whose {id} is given
      * 
-     * @Route("/salaries/{id}", name="salarie_get_details", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/salaries/{id}", name="salary_get_details", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function salariesGetProfil(Salary $salarie = null)
+    public function salariesGetProfil(Salary $salary = null)
     {
         // 404 ?
-        if ($salarie === null) {
+        if ($salary === null) {
             // Returns an error if the salarie is unknown
             return $this->json(['error' => 'Tranche de salaire souhaitée : non trouvée.'], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($salarie, Response::HTTP_OK, [], ['groups' => 'salaries_get_item']);
+        return $this->json($salary, Response::HTTP_OK, [], ['groups' => 'salaries_get_item']);
     }
 
     /**
-     * Method to add a salarie
+     * Method to add a salary
      * 
      * @Route("/salaries", name="salaries_add", methods={"POST"})
      */
@@ -71,11 +71,11 @@ class SalaryController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Salary entity
-        $salarie = $serializer->deserialize($jsonContent, Salary::class, 'json');
+        $salary = $serializer->deserialize($jsonContent, Salary::class, 'json');
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($salarie);
+        $errors = $validator->validate($salary);
 
         if (count($errors) > 0) {
 
@@ -98,18 +98,18 @@ class SalaryController extends AbstractController
 
         // backup in database
         $em = $doctrine->getManager();
-        $em->persist($salarie);
+        $em->persist($salary);
         $em->flush();
 
         // We return a response that contains (REST !)
         return $this->json(
             // salarie added
-            $salarie,
+            $salary,
             // status code : 201 CREATED
             Response::HTTP_CREATED,
             // REST require location header + the URL of the created resource
             [
-                'Location' => $this->generateUrl('api_v1_salarie_get_details', ['id' => $salarie->getId()])
+                'Location' => $this->generateUrl('api_v1_salarie_get_details', ['id' => $salary->getId()])
             ],
             ['groups' => 'salaries_get_item']
         );
@@ -121,8 +121,8 @@ class SalaryController extends AbstractController
      * @Route("/salaries/{id}", name="salaries_update", methods={"PUT"}, requirements={"id"="\d+"})
      */
     public function salariesUpdate(
-        Salary $salarie = null,
-        SalaryRepository $salarieRepository,
+        Salary $salary = null,
+        SalaryRepository $salaryRepository,
         Request $request,
         SerializerInterface $serializer,
         ManagerRegistry $doctrine,
@@ -130,7 +130,7 @@ class SalaryController extends AbstractController
     ) {
         
         // 404 ?
-        if ($salarieRepository === null) {
+        if ($salaryRepository === null) {
             // Returns an error if the salarie is unknown
             return $this->json(['error' => 'Tranche de salaire souhaitée : non trouvée.'], Response::HTTP_NOT_FOUND);
         }
@@ -139,11 +139,11 @@ class SalaryController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Salary entity
-        $userReceived = $serializer->deserialize($jsonContent, Salary::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $salarie]);
+        $salaryReceived = $serializer->deserialize($jsonContent, Salary::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $salary]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
+        $errors = $validator->validate($salaryReceived);
 
         if (count($errors) > 0) {
 
@@ -174,12 +174,12 @@ class SalaryController extends AbstractController
         
         return $this->json(
             // salarie updated
-            $salarie,
+            $salary,
             // status code : 201 CREATED
             Response::HTTP_OK,
             // REST require location header + the URL of the created resource
             [
-                'Location' => $this->generateUrl('api_v1_salarie_get_details', ['id' => $salarie->getId()])
+                'Location' => $this->generateUrl('api_v1_salarie_get_details', ['id' => $salary->getId()])
             ],
             ['groups' => 'salaries_get_item']
         );
@@ -190,18 +190,18 @@ class SalaryController extends AbstractController
      * 
      * @Route("/salaries/{id}", name="salarie_delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function salariesDelete(Salary $salarie = null, ManagerRegistry $doctrine)
+    public function salariesDelete(Salary $salary = null, ManagerRegistry $doctrine)
     {
         // 404 ?
-        if ($salarie === null) {
+        if ($salary === null) {
             return $this->json(['error' => 'Tranche de salaire souhaitée : non trouvée.'], Response::HTTP_NOT_FOUND);
         }
 
         $em = $doctrine->getManager();
-        $em->remove($salarie);
+        $em->remove($salary);
         $em->flush();
 
-        return $this->json($salarie, Response::HTTP_OK, [], ['groups' => 'salaries_get_item']);
+        return $this->json($salary, Response::HTTP_OK, [], ['groups' => 'salaries_get_item']);
     }
 }
 
