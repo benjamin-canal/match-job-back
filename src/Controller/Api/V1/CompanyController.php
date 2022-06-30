@@ -138,11 +138,11 @@ class CompanyController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Company entity
-        $userReceived = $serializer->deserialize($jsonContent, Company::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $company]);
+        $companyReceived = $serializer->deserialize($jsonContent, Company::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $company]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
+        $errors = $validator->validate($companyReceived);
 
         if (count($errors) > 0) {
 

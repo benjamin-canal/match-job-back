@@ -23,7 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"users_get_item", "users_get_collection", "candidates_get_item"})
+     * @Groups({"users_get_item", "users_get_collection", "candidates_get_item", "jobs_get_item", "jobs_get_collection", "candidates_get_collection"})
      */
     private $id;
 
@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\Email(
      *     message = "L'adresse email {{ value }} n'est pas une adresse email valide."
      * )
-     * @Groups({"users_get_item", "users_get_collection", "recruiters_get_collection", "recruiters_get_item"})})
+     * @Groups({"users_get_item", "users_get_collection", "recruiters_get_collection", "recruiters_get_item", "candidates_get_item", "jobs_get_item", "jobs_get_collection", "candidates_get_collection"})})
      */
     private $email;
 

@@ -139,11 +139,11 @@ class ExperienceController extends AbstractController
         $jsonContent = $request->getContent();
 
         // Deserialize the JSON content into a Experience entity
-        $userReceived = $serializer->deserialize($jsonContent, Experience::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $experience]);
+        $experienceReceived = $serializer->deserialize($jsonContent, Experience::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $experience]);
 
         // Validation of the entity
         // @link https://symfony.com/doc/current/validation.html#using-the-validator-service
-        $errors = $validator->validate($userReceived);
+        $errors = $validator->validate($experienceReceived);
 
         if (count($errors) > 0) {
 
